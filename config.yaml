@@ -60,7 +60,7 @@ vars:
       # Base URL with application of the print server
       #base_url: http://{PRINT_SERVICE_HOST}:{PRINT_SERVICE_PORT}/print/oereb
       base_url: http://oereb-print:8080/print/oereb
-      # Name of the print tempate to use
+      # Name of the print template to use
       template_name: A4 portrait
       # The headers sent to the print
       headers:
@@ -143,7 +143,6 @@ vars:
       # The name of your Office. For instance: Amt für Geoinformation Basel-Landschaft
       name:
           fr: Section du cadastre et de la géoinformation
-
       # An online link to web presentation of your office. For instance: https://www.geo.bl.ch/
       office_at_web: http://www.jura.ch/scg
       # The street name of the address of your office. For instance: Mühlemattstrasse
@@ -505,7 +504,7 @@ vars:
 
     - code: ch.Nutzungsplanung
       geometry_type: GEOMETRYCOLLECTION
-      # Define the minmal area and length for public law restrictions that should be considered as 'true' restrictions
+      # Define the minimal area and length for public law restrictions that should be considered as 'true' restrictions
       # and not as calculation errors (false trues) due to topological imperfections
       thresholds:
         length:
@@ -518,7 +517,7 @@ vars:
           precision: 2
         percentage:
           precision: 1
-      language: de
+      language: fr
       federal: false
       standard: true
       view_service:
@@ -530,6 +529,54 @@ vars:
           db_connection: *main_db_connection
           model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
           # schema_name: land_use_plans
+      hooks:
+        get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
+        get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
+      law_status_lookup:
+        - data_code: inKraft
+          extract_code: inForce
+          transfer_code: inKraft
+        - data_code: AenderungMitVorwirkung
+          extract_code: changeWithPreEffect
+          transfer_code: AenderungMitVorwirkung
+        - data_code: AenderungOhneVorwirkung
+          extract_code: changeWithoutPreEffect
+          transfer_code: AenderungOhneVorwirkung
+      document_types_lookup:
+        - data_code: Rechtsvorschrift
+          extract_code: LegalProvision
+          transfer_code: Rechtsvorschrift
+        - data_code: GesetzlicheGrundlage
+          extract_code: Law
+          transfer_code: GesetzlicheGrundlage
+        - data_code: Hinweis
+          extract_code: Hint
+          transfer_code: Hinweis
+
+    - code: ch.JU.ReservedAreas
+      geometry_type: POLYGON
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm²'
+          precision: 2
+        percentage:
+          precision: 1
+      language: fr
+      federal: false
+      standard: true
+      view_service:
+        layer_index: 1
+        layer_opacity: 0.75
+      source:
+        class: pyramid_oereb.standard.sources.plr.DatabaseSource
+        params:
+          db_connection: *main_db_connection
+          model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
@@ -567,7 +614,7 @@ vars:
           precision: 2
         percentage:
           precision: 1
-      language: de
+      language: fr
       federal: true
       standard: true
       view_service:
@@ -616,7 +663,7 @@ vars:
           precision: 2
         percentage:
           precision: 1
-      language: de
+      language: fr
       federal: true
       standard: true
       view_service:
@@ -665,7 +712,7 @@ vars:
           precision: 2
         percentage:
           precision: 1
-      language: de
+      language: fr
       federal: true
       standard: true
       view_service:
@@ -714,7 +761,7 @@ vars:
           precision: 2
         percentage:
           precision: 1
-      language: de
+      language: fr
       federal: true
       standard: true
       view_service:
@@ -763,7 +810,7 @@ vars:
           precision: 2
         percentage:
           precision: 1
-      language: de
+      language: fr
       federal: true
       standard: true
       view_service:
@@ -812,7 +859,7 @@ vars:
           precision: 2
         percentage:
           precision: 1
-      language: de
+      language: fr
       federal: true
       standard: true
       view_service:
@@ -861,7 +908,7 @@ vars:
           precision: 2
         percentage:
           precision: 1
-      language: de
+      language: fr
       federal: true
       standard: true
       view_service:
@@ -911,7 +958,7 @@ vars:
           precision: 2
         percentage:
           precision: 1
-      language: de
+      language: fr
       federal: false
       standard: true
       view_service:
@@ -960,7 +1007,7 @@ vars:
           precision: 2
         percentage:
           precision: 1
-      language: de
+      language: fr
       federal: true
       standard: true
       view_service:
@@ -1009,7 +1056,7 @@ vars:
           precision: 2
         percentage:
           precision: 1
-      language: de
+      language: fr
       federal: true
       standard: true
       view_service:
@@ -1058,7 +1105,7 @@ vars:
           precision: 2
         percentage:
           precision: 1
-      language: de
+      language: fr
       federal: true
       standard: true
       view_service:
@@ -1107,7 +1154,7 @@ vars:
           precision: 2
         percentage:
           precision: 1
-      language: de
+      language: fr
       federal: false
       standard: true
       view_service:
@@ -1156,7 +1203,7 @@ vars:
           precision: 2
         percentage:
           precision: 1
-      language: de
+      language: fr
       federal: false
       standard: true
       view_service:
@@ -1205,7 +1252,7 @@ vars:
           precision: 2
         percentage:
           precision: 1
-      language: de
+      language: fr
       federal: false
       standard: true
       view_service:
@@ -1254,7 +1301,7 @@ vars:
           precision: 2
         percentage:
           precision: 1
-      language: de
+      language: fr
       federal: false
       standard: true
       view_service:
@@ -1303,7 +1350,7 @@ vars:
           precision: 2
         percentage:
           precision: 1
-      language: de
+      language: fr
       federal: false
       standard: true
       view_service:
@@ -1315,6 +1362,103 @@ vars:
           db_connection: *main_db_connection
           model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
           # schema_name: forest_distance_lines
+      hooks:
+        get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
+        get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
+      law_status_lookup:
+        - data_code: inKraft
+          extract_code: inForce
+          transfer_code: inKraft
+        - data_code: AenderungMitVorwirkung
+          extract_code: changeWithPreEffect
+          transfer_code: AenderungMitVorwirkung
+        - data_code: AenderungOhneVorwirkung
+          extract_code: changeWithoutPreEffect
+          transfer_code: AenderungOhneVorwirkung
+      document_types_lookup:
+        - data_code: Rechtsvorschrift
+          extract_code: LegalProvision
+          transfer_code: Rechtsvorschrift
+        - data_code: GesetzlicheGrundlage
+          extract_code: Law
+          transfer_code: GesetzlicheGrundlage
+        - data_code: Hinweis
+          extract_code: Hint
+          transfer_code: Hinweis
+
+    - code: ch.StatischeWaldgrenzen
+      geometry_type: LINESTRING
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm²'
+          precision: 2
+        percentage:
+          precision: 1
+      language: fr
+      federal: false
+      standard: true
+      view_service:
+        layer_index: 1
+        layer_opacity: 1.0
+      source:
+        class: pyramid_oereb.standard.sources.plr.DatabaseSource
+        params:
+          db_connection: *main_db_connection
+          model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+          # schema_name: forest_perimeters
+      hooks:
+        get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
+        get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
+      law_status_lookup:
+        - data_code: inKraft
+          extract_code: inForce
+          transfer_code: inKraft
+        - data_code: AenderungMitVorwirkung
+          extract_code: changeWithPreEffect
+          transfer_code: AenderungMitVorwirkung
+        - data_code: AenderungOhneVorwirkung
+          extract_code: changeWithoutPreEffect
+          transfer_code: AenderungOhneVorwirkung
+      document_types_lookup:
+        - data_code: Rechtsvorschrift
+          extract_code: LegalProvision
+          transfer_code: Rechtsvorschrift
+        - data_code: GesetzlicheGrundlage
+          extract_code: Law
+          transfer_code: GesetzlicheGrundlage
+        - data_code: Hinweis
+          extract_code: Hint
+          transfer_code: Hinweis
+
+    - code: ch.JU.InventoriesArchaeologicalPaleontologicalSites
+      geometry_type: POLYGON
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm²'
+          precision: 2
+        percentage:
+          precision: 1
+      language: fr
+      federal: false
+      standard: true
+      view_service:
+        layer_index: 1
+        layer_opacity: 0.75
+      source:
+        class: pyramid_oereb.standard.sources.plr.DatabaseSource
+        params:
+          db_connection: *main_db_connection
+          model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
