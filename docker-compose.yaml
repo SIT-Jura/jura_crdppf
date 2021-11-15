@@ -1,0 +1,39 @@
+version: '2'
+
+volumes: {}
+
+services:
+
+  oereb-server:
+    networks:
+    - default
+    build: .
+    image: camptocamp/jura-crdppf-v2
+    environment:
+    - PRINT_SERVICE_HOST=print
+    - PRINT_SERVICE_PORT=8080
+    - POSTGRES_SERVICE_USER=www-data
+    - POSTGRES_SERVICE_PASS=www-data
+    - POSTGRES_SERVICE_HOST=172.17.0.1
+    - POSTGRES_SERVICE_PORT=5432
+    - POSTGRES_SERVICE_DATABASE=crdppf_v2
+    - OEREB_ROUTE_PREFIX
+    ports:
+    - ${EXTERNAL_PORT}:8080
+    volumes:
+    - /archive:/archive:rw
+    - /var/www/vhosts/sitj/logs:/var/log/host_apache_logs
+    - /etc/localtime:/etc/localtime:ro
+
+  oereb-print:
+    mem_limit: 2G
+    image: camptocamp/mapfish_print:3.28.1
+    networks:
+     - default
+    environment:
+      PRINT_YAML_MAX_ALIASES: 200
+      LOG_LEVEL: INFO
+      CATALINA_OPTS: >-
+        -Xmx512M
+    volumes:
+      - ./CONST_print-apps:/usr/local/tomcat/webapps/ROOT/print-apps:ro

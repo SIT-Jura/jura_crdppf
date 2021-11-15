@@ -1,0 +1,2 @@
+# Copied from pyramid_oereb docker/requirements For docker with c2cwsgiutils
+c2c-template==1.5.1
