@@ -104,7 +104,7 @@ pyramid_oereb:
     #db_connection: &main_db_connection
     #  postgresql://{POSTGRES_SERVICE_USER}:{POSTGRES_SERVICE_PASS}@{POSTGRES_SERVICE_HOST}:{POSTGRES_SERVICE_PORT}/{POSTGRES_SERVICE_DATABASE}
     db_connection: &main_db_connection
-      postgresql://www-data:www-data@172.17.0.1:5432/oereb_v2
+      postgresql://postgres:password@172.17.43.1:15432/oereb_v2
 
   # Define the SRID which your server is representing. Note: Only one projection system is possible in the
   # application. It does not provide any reprojection nor data in different projection systems. Take care in
@@ -524,7 +524,7 @@ pyramid_oereb:
       params:
         db_connection: *main_db_connection
         model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
-        # schema_name: land_use_plans
+        schema_name: land_use_plans
     hooks:
       get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
       get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
@@ -573,6 +573,7 @@ pyramid_oereb:
       params:
         db_connection: *main_db_connection
         model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+        schema_name: ch_ju_reserved_areas
     hooks:
       get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
       get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
@@ -621,7 +622,7 @@ pyramid_oereb:
       params:
         db_connection: *main_db_connection
         model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
-        # schema_name: motorways_project_planing_zones
+        schema_name: motorways_project_planing_zones
     hooks:
       get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
       get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
@@ -670,7 +671,7 @@ pyramid_oereb:
       params:
         db_connection: *main_db_connection
         model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
-        # schema_name: motorways_building_lines
+        schema_name: motorways_building_lines
     hooks:
       get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
       get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
@@ -719,7 +720,7 @@ pyramid_oereb:
       params:
         db_connection: *main_db_connection
         model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
-        # schema_name: railways_project_planning_zones
+        schema_name: railways_project_planning_zones
     hooks:
       get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
       get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
@@ -768,7 +769,7 @@ pyramid_oereb:
       params:
         db_connection: *main_db_connection
         model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
-        # schema_name: railways_building_lines
+        schema_name: railways_building_lines
     hooks:
       get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
       get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
@@ -817,7 +818,7 @@ pyramid_oereb:
       params:
         db_connection: *main_db_connection
         model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
-        # schema_name: airports_project_planning_zones
+        schema_name: airports_project_planning_zones
     hooks:
       get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
       get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
@@ -866,7 +867,7 @@ pyramid_oereb:
       params:
         db_connection: *main_db_connection
         model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
-        # schema_name: airports_building_lines
+        schema_name: airports_building_lines
     hooks:
       get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
       get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
@@ -915,7 +916,7 @@ pyramid_oereb:
       params:
         db_connection: *main_db_connection
         model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
-        # schema_name: airports_security_zone_plans
+        schema_name: airports_security_zone_plans
     hooks:
       get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
       get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
@@ -965,7 +966,7 @@ pyramid_oereb:
       params:
         db_connection: *main_db_connection
         model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
-        # schema_name: contaminated_sites
+        schema_name: contaminated_sites
     hooks:
       get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
       get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
@@ -1014,7 +1015,7 @@ pyramid_oereb:
       params:
         db_connection: *main_db_connection
         model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
-        # schema_name: contaminated_military_sites
+        schema_name: contaminated_military_sites
     hooks:
       get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
       get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
@@ -1063,7 +1064,7 @@ pyramid_oereb:
       params:
         db_connection: *main_db_connection
         model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
-        # schema_name: contaminated_civil_aviation_sites
+        schema_name: contaminated_civil_aviation_sites
     hooks:
       get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
       get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
@@ -1112,7 +1113,7 @@ pyramid_oereb:
       params:
         db_connection: *main_db_connection
         model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
-        # schema_name: contaminated_public_transport_sites
+        schema_name: contaminated_public_transport_sites
     hooks:
       get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
       get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
@@ -1161,7 +1162,7 @@ pyramid_oereb:
       params:
         db_connection: *main_db_connection
         model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
-        # schema_name: groundwater_protection_zones
+        schema_name: groundwater_protection_zones
     hooks:
       get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
       get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
@@ -1210,7 +1211,7 @@ pyramid_oereb:
       params:
         db_connection: *main_db_connection
         model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
-        # schema_name: groundwater_protection_sites
+        schema_name: groundwater_protection_sites
     hooks:
       get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
       get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
@@ -1259,7 +1260,7 @@ pyramid_oereb:
       params:
         db_connection: *main_db_connection
         model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
-        # schema_name: noise_sensitivity_levels
+        schema_name: noise_sensitivity_levels
     hooks:
       get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
       get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
@@ -1308,7 +1309,7 @@ pyramid_oereb:
       params:
         db_connection: *main_db_connection
         model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
-        # schema_name: forest_perimeters
+        schema_name: forest_perimeters
     hooks:
       get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
       get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
@@ -1357,7 +1358,7 @@ pyramid_oereb:
       params:
         db_connection: *main_db_connection
         model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
-        # schema_name: forest_distance_lines
+        schema_name: forest_distance_lines
     hooks:
       get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
       get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
@@ -1406,7 +1407,7 @@ pyramid_oereb:
       params:
         db_connection: *main_db_connection
         model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
-        # schema_name: forest_perimeters
+        schema_name: forest_perimeters
     hooks:
       get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
       get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
@@ -1455,6 +1456,7 @@ pyramid_oereb:
       params:
         db_connection: *main_db_connection
         model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+        schema_name: ch_ju_inventories_archaelogical_paleontological_sites
     hooks:
       get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
       get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref

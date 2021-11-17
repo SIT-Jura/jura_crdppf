@@ -168,9 +168,9 @@ CREATE TABLE pyramid_oereb_main.theme_document (
 )
 
 ;
-CREATE SCHEMA IF NOT EXISTS None;
+CREATE SCHEMA IF NOT EXISTS land_use_plans;
 
-CREATE TABLE availability (
+CREATE TABLE land_use_plans.availability (
 	fosnr VARCHAR NOT NULL, 
 	available BOOLEAN NOT NULL, 
 	PRIMARY KEY (fosnr)
@@ -178,7 +178,7 @@ CREATE TABLE availability (
 
 ;
 
-CREATE TABLE office (
+CREATE TABLE land_use_plans.office (
 	id VARCHAR NOT NULL, 
 	name JSON NOT NULL, 
 	office_at_web JSON, 
@@ -194,7 +194,7 @@ CREATE TABLE office (
 
 ;
 
-CREATE TABLE view_service (
+CREATE TABLE land_use_plans.view_service (
 	id VARCHAR NOT NULL, 
 	reference_wms JSON NOT NULL, 
 	layer_index INTEGER NOT NULL, 
@@ -204,18 +204,18 @@ CREATE TABLE view_service (
 
 ;
 
-CREATE TABLE data_integration (
+CREATE TABLE land_use_plans.data_integration (
 	id VARCHAR NOT NULL, 
 	date TIMESTAMP WITHOUT TIME ZONE NOT NULL, 
 	office_id VARCHAR NOT NULL, 
 	checksum VARCHAR, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(office_id) REFERENCES office (id)
+	FOREIGN KEY(office_id) REFERENCES land_use_plans.office (id)
 )
 
 ;
 
-CREATE TABLE document (
+CREATE TABLE land_use_plans.document (
 	id VARCHAR NOT NULL, 
 	document_type VARCHAR NOT NULL, 
 	index INTEGER NOT NULL, 
@@ -230,12 +230,12 @@ CREATE TABLE document (
 	only_in_municipality INTEGER, 
 	file VARCHAR, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(office_id) REFERENCES office (id)
+	FOREIGN KEY(office_id) REFERENCES land_use_plans.office (id)
 )
 
 ;
 
-CREATE TABLE legend_entry (
+CREATE TABLE land_use_plans.legend_entry (
 	id VARCHAR NOT NULL, 
 	symbol VARCHAR NOT NULL, 
 	legend_text JSON NOT NULL, 
@@ -245,12 +245,12 @@ CREATE TABLE legend_entry (
 	sub_theme VARCHAR, 
 	view_service_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(view_service_id) REFERENCES view_service (id)
+	FOREIGN KEY(view_service_id) REFERENCES land_use_plans.view_service (id)
 )
 
 ;
 
-CREATE TABLE public_law_restriction (
+CREATE TABLE land_use_plans.public_law_restriction (
 	id VARCHAR NOT NULL, 
 	law_status VARCHAR NOT NULL, 
 	published_from DATE NOT NULL, 
@@ -259,14 +259,14 @@ CREATE TABLE public_law_restriction (
 	office_id VARCHAR NOT NULL, 
 	legend_entry_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(view_service_id) REFERENCES view_service (id), 
-	FOREIGN KEY(office_id) REFERENCES office (id), 
-	FOREIGN KEY(legend_entry_id) REFERENCES legend_entry (id)
+	FOREIGN KEY(view_service_id) REFERENCES land_use_plans.view_service (id), 
+	FOREIGN KEY(office_id) REFERENCES land_use_plans.office (id), 
+	FOREIGN KEY(legend_entry_id) REFERENCES land_use_plans.legend_entry (id)
 )
 
 ;
 
-CREATE TABLE geometry (
+CREATE TABLE land_use_plans.geometry (
 	id VARCHAR NOT NULL, 
 	law_status VARCHAR NOT NULL, 
 	published_from DATE NOT NULL, 
@@ -275,24 +275,24 @@ CREATE TABLE geometry (
 	geom geometry(GEOMETRYCOLLECTION,2056) NOT NULL, 
 	public_law_restriction_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(public_law_restriction_id) REFERENCES public_law_restriction (id)
+	FOREIGN KEY(public_law_restriction_id) REFERENCES land_use_plans.public_law_restriction (id)
 )
 
 ;
 
-CREATE TABLE public_law_restriction_document (
+CREATE TABLE land_use_plans.public_law_restriction_document (
 	id VARCHAR NOT NULL, 
 	public_law_restriction_id VARCHAR NOT NULL, 
 	document_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(public_law_restriction_id) REFERENCES public_law_restriction (id), 
-	FOREIGN KEY(document_id) REFERENCES document (id)
+	FOREIGN KEY(public_law_restriction_id) REFERENCES land_use_plans.public_law_restriction (id), 
+	FOREIGN KEY(document_id) REFERENCES land_use_plans.document (id)
 )
 
 ;
-CREATE SCHEMA IF NOT EXISTS None;
+CREATE SCHEMA IF NOT EXISTS ch_ju_reserved_areas;
 
-CREATE TABLE availability (
+CREATE TABLE ch_ju_reserved_areas.availability (
 	fosnr VARCHAR NOT NULL, 
 	available BOOLEAN NOT NULL, 
 	PRIMARY KEY (fosnr)
@@ -300,7 +300,7 @@ CREATE TABLE availability (
 
 ;
 
-CREATE TABLE office (
+CREATE TABLE ch_ju_reserved_areas.office (
 	id VARCHAR NOT NULL, 
 	name JSON NOT NULL, 
 	office_at_web JSON, 
@@ -316,7 +316,7 @@ CREATE TABLE office (
 
 ;
 
-CREATE TABLE view_service (
+CREATE TABLE ch_ju_reserved_areas.view_service (
 	id VARCHAR NOT NULL, 
 	reference_wms JSON NOT NULL, 
 	layer_index INTEGER NOT NULL, 
@@ -326,18 +326,18 @@ CREATE TABLE view_service (
 
 ;
 
-CREATE TABLE data_integration (
+CREATE TABLE ch_ju_reserved_areas.data_integration (
 	id VARCHAR NOT NULL, 
 	date TIMESTAMP WITHOUT TIME ZONE NOT NULL, 
 	office_id VARCHAR NOT NULL, 
 	checksum VARCHAR, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(office_id) REFERENCES office (id)
+	FOREIGN KEY(office_id) REFERENCES ch_ju_reserved_areas.office (id)
 )
 
 ;
 
-CREATE TABLE document (
+CREATE TABLE ch_ju_reserved_areas.document (
 	id VARCHAR NOT NULL, 
 	document_type VARCHAR NOT NULL, 
 	index INTEGER NOT NULL, 
@@ -352,12 +352,12 @@ CREATE TABLE document (
 	only_in_municipality INTEGER, 
 	file VARCHAR, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(office_id) REFERENCES office (id)
+	FOREIGN KEY(office_id) REFERENCES ch_ju_reserved_areas.office (id)
 )
 
 ;
 
-CREATE TABLE legend_entry (
+CREATE TABLE ch_ju_reserved_areas.legend_entry (
 	id VARCHAR NOT NULL, 
 	symbol VARCHAR NOT NULL, 
 	legend_text JSON NOT NULL, 
@@ -367,12 +367,12 @@ CREATE TABLE legend_entry (
 	sub_theme VARCHAR, 
 	view_service_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(view_service_id) REFERENCES view_service (id)
+	FOREIGN KEY(view_service_id) REFERENCES ch_ju_reserved_areas.view_service (id)
 )
 
 ;
 
-CREATE TABLE public_law_restriction (
+CREATE TABLE ch_ju_reserved_areas.public_law_restriction (
 	id VARCHAR NOT NULL, 
 	law_status VARCHAR NOT NULL, 
 	published_from DATE NOT NULL, 
@@ -381,14 +381,14 @@ CREATE TABLE public_law_restriction (
 	office_id VARCHAR NOT NULL, 
 	legend_entry_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(view_service_id) REFERENCES view_service (id), 
-	FOREIGN KEY(office_id) REFERENCES office (id), 
-	FOREIGN KEY(legend_entry_id) REFERENCES legend_entry (id)
+	FOREIGN KEY(view_service_id) REFERENCES ch_ju_reserved_areas.view_service (id), 
+	FOREIGN KEY(office_id) REFERENCES ch_ju_reserved_areas.office (id), 
+	FOREIGN KEY(legend_entry_id) REFERENCES ch_ju_reserved_areas.legend_entry (id)
 )
 
 ;
 
-CREATE TABLE geometry (
+CREATE TABLE ch_ju_reserved_areas.geometry (
 	id VARCHAR NOT NULL, 
 	law_status VARCHAR NOT NULL, 
 	published_from DATE NOT NULL, 
@@ -397,24 +397,24 @@ CREATE TABLE geometry (
 	geom geometry(POLYGON,2056) NOT NULL, 
 	public_law_restriction_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(public_law_restriction_id) REFERENCES public_law_restriction (id)
+	FOREIGN KEY(public_law_restriction_id) REFERENCES ch_ju_reserved_areas.public_law_restriction (id)
 )
 
 ;
 
-CREATE TABLE public_law_restriction_document (
+CREATE TABLE ch_ju_reserved_areas.public_law_restriction_document (
 	id VARCHAR NOT NULL, 
 	public_law_restriction_id VARCHAR NOT NULL, 
 	document_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(public_law_restriction_id) REFERENCES public_law_restriction (id), 
-	FOREIGN KEY(document_id) REFERENCES document (id)
+	FOREIGN KEY(public_law_restriction_id) REFERENCES ch_ju_reserved_areas.public_law_restriction (id), 
+	FOREIGN KEY(document_id) REFERENCES ch_ju_reserved_areas.document (id)
 )
 
 ;
-CREATE SCHEMA IF NOT EXISTS None;
+CREATE SCHEMA IF NOT EXISTS motorways_project_planing_zones;
 
-CREATE TABLE availability (
+CREATE TABLE motorways_project_planing_zones.availability (
 	fosnr VARCHAR NOT NULL, 
 	available BOOLEAN NOT NULL, 
 	PRIMARY KEY (fosnr)
@@ -422,7 +422,7 @@ CREATE TABLE availability (
 
 ;
 
-CREATE TABLE office (
+CREATE TABLE motorways_project_planing_zones.office (
 	id VARCHAR NOT NULL, 
 	name JSON NOT NULL, 
 	office_at_web JSON, 
@@ -438,7 +438,7 @@ CREATE TABLE office (
 
 ;
 
-CREATE TABLE view_service (
+CREATE TABLE motorways_project_planing_zones.view_service (
 	id VARCHAR NOT NULL, 
 	reference_wms JSON NOT NULL, 
 	layer_index INTEGER NOT NULL, 
@@ -448,18 +448,18 @@ CREATE TABLE view_service (
 
 ;
 
-CREATE TABLE data_integration (
+CREATE TABLE motorways_project_planing_zones.data_integration (
 	id VARCHAR NOT NULL, 
 	date TIMESTAMP WITHOUT TIME ZONE NOT NULL, 
 	office_id VARCHAR NOT NULL, 
 	checksum VARCHAR, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(office_id) REFERENCES office (id)
+	FOREIGN KEY(office_id) REFERENCES motorways_project_planing_zones.office (id)
 )
 
 ;
 
-CREATE TABLE document (
+CREATE TABLE motorways_project_planing_zones.document (
 	id VARCHAR NOT NULL, 
 	document_type VARCHAR NOT NULL, 
 	index INTEGER NOT NULL, 
@@ -474,12 +474,12 @@ CREATE TABLE document (
 	only_in_municipality INTEGER, 
 	file VARCHAR, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(office_id) REFERENCES office (id)
+	FOREIGN KEY(office_id) REFERENCES motorways_project_planing_zones.office (id)
 )
 
 ;
 
-CREATE TABLE legend_entry (
+CREATE TABLE motorways_project_planing_zones.legend_entry (
 	id VARCHAR NOT NULL, 
 	symbol VARCHAR NOT NULL, 
 	legend_text JSON NOT NULL, 
@@ -489,12 +489,12 @@ CREATE TABLE legend_entry (
 	sub_theme VARCHAR, 
 	view_service_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(view_service_id) REFERENCES view_service (id)
+	FOREIGN KEY(view_service_id) REFERENCES motorways_project_planing_zones.view_service (id)
 )
 
 ;
 
-CREATE TABLE public_law_restriction (
+CREATE TABLE motorways_project_planing_zones.public_law_restriction (
 	id VARCHAR NOT NULL, 
 	law_status VARCHAR NOT NULL, 
 	published_from DATE NOT NULL, 
@@ -503,14 +503,14 @@ CREATE TABLE public_law_restriction (
 	office_id VARCHAR NOT NULL, 
 	legend_entry_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(view_service_id) REFERENCES view_service (id), 
-	FOREIGN KEY(office_id) REFERENCES office (id), 
-	FOREIGN KEY(legend_entry_id) REFERENCES legend_entry (id)
+	FOREIGN KEY(view_service_id) REFERENCES motorways_project_planing_zones.view_service (id), 
+	FOREIGN KEY(office_id) REFERENCES motorways_project_planing_zones.office (id), 
+	FOREIGN KEY(legend_entry_id) REFERENCES motorways_project_planing_zones.legend_entry (id)
 )
 
 ;
 
-CREATE TABLE geometry (
+CREATE TABLE motorways_project_planing_zones.geometry (
 	id VARCHAR NOT NULL, 
 	law_status VARCHAR NOT NULL, 
 	published_from DATE NOT NULL, 
@@ -519,24 +519,24 @@ CREATE TABLE geometry (
 	geom geometry(MULTIPOLYGON,2056) NOT NULL, 
 	public_law_restriction_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(public_law_restriction_id) REFERENCES public_law_restriction (id)
+	FOREIGN KEY(public_law_restriction_id) REFERENCES motorways_project_planing_zones.public_law_restriction (id)
 )
 
 ;
 
-CREATE TABLE public_law_restriction_document (
+CREATE TABLE motorways_project_planing_zones.public_law_restriction_document (
 	id VARCHAR NOT NULL, 
 	public_law_restriction_id VARCHAR NOT NULL, 
 	document_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(public_law_restriction_id) REFERENCES public_law_restriction (id), 
-	FOREIGN KEY(document_id) REFERENCES document (id)
+	FOREIGN KEY(public_law_restriction_id) REFERENCES motorways_project_planing_zones.public_law_restriction (id), 
+	FOREIGN KEY(document_id) REFERENCES motorways_project_planing_zones.document (id)
 )
 
 ;
-CREATE SCHEMA IF NOT EXISTS None;
+CREATE SCHEMA IF NOT EXISTS motorways_building_lines;
 
-CREATE TABLE availability (
+CREATE TABLE motorways_building_lines.availability (
 	fosnr VARCHAR NOT NULL, 
 	available BOOLEAN NOT NULL, 
 	PRIMARY KEY (fosnr)
@@ -544,7 +544,7 @@ CREATE TABLE availability (
 
 ;
 
-CREATE TABLE office (
+CREATE TABLE motorways_building_lines.office (
 	id VARCHAR NOT NULL, 
 	name JSON NOT NULL, 
 	office_at_web JSON, 
@@ -560,7 +560,7 @@ CREATE TABLE office (
 
 ;
 
-CREATE TABLE view_service (
+CREATE TABLE motorways_building_lines.view_service (
 	id VARCHAR NOT NULL, 
 	reference_wms JSON NOT NULL, 
 	layer_index INTEGER NOT NULL, 
@@ -570,18 +570,18 @@ CREATE TABLE view_service (
 
 ;
 
-CREATE TABLE data_integration (
+CREATE TABLE motorways_building_lines.data_integration (
 	id VARCHAR NOT NULL, 
 	date TIMESTAMP WITHOUT TIME ZONE NOT NULL, 
 	office_id VARCHAR NOT NULL, 
 	checksum VARCHAR, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(office_id) REFERENCES office (id)
+	FOREIGN KEY(office_id) REFERENCES motorways_building_lines.office (id)
 )
 
 ;
 
-CREATE TABLE document (
+CREATE TABLE motorways_building_lines.document (
 	id VARCHAR NOT NULL, 
 	document_type VARCHAR NOT NULL, 
 	index INTEGER NOT NULL, 
@@ -596,12 +596,12 @@ CREATE TABLE document (
 	only_in_municipality INTEGER, 
 	file VARCHAR, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(office_id) REFERENCES office (id)
+	FOREIGN KEY(office_id) REFERENCES motorways_building_lines.office (id)
 )
 
 ;
 
-CREATE TABLE legend_entry (
+CREATE TABLE motorways_building_lines.legend_entry (
 	id VARCHAR NOT NULL, 
 	symbol VARCHAR NOT NULL, 
 	legend_text JSON NOT NULL, 
@@ -611,12 +611,12 @@ CREATE TABLE legend_entry (
 	sub_theme VARCHAR, 
 	view_service_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(view_service_id) REFERENCES view_service (id)
+	FOREIGN KEY(view_service_id) REFERENCES motorways_building_lines.view_service (id)
 )
 
 ;
 
-CREATE TABLE public_law_restriction (
+CREATE TABLE motorways_building_lines.public_law_restriction (
 	id VARCHAR NOT NULL, 
 	law_status VARCHAR NOT NULL, 
 	published_from DATE NOT NULL, 
@@ -625,14 +625,14 @@ CREATE TABLE public_law_restriction (
 	office_id VARCHAR NOT NULL, 
 	legend_entry_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(view_service_id) REFERENCES view_service (id), 
-	FOREIGN KEY(office_id) REFERENCES office (id), 
-	FOREIGN KEY(legend_entry_id) REFERENCES legend_entry (id)
+	FOREIGN KEY(view_service_id) REFERENCES motorways_building_lines.view_service (id), 
+	FOREIGN KEY(office_id) REFERENCES motorways_building_lines.office (id), 
+	FOREIGN KEY(legend_entry_id) REFERENCES motorways_building_lines.legend_entry (id)
 )
 
 ;
 
-CREATE TABLE geometry (
+CREATE TABLE motorways_building_lines.geometry (
 	id VARCHAR NOT NULL, 
 	law_status VARCHAR NOT NULL, 
 	published_from DATE NOT NULL, 
@@ -641,24 +641,24 @@ CREATE TABLE geometry (
 	geom geometry(LINESTRING,2056) NOT NULL, 
 	public_law_restriction_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(public_law_restriction_id) REFERENCES public_law_restriction (id)
+	FOREIGN KEY(public_law_restriction_id) REFERENCES motorways_building_lines.public_law_restriction (id)
 )
 
 ;
 
-CREATE TABLE public_law_restriction_document (
+CREATE TABLE motorways_building_lines.public_law_restriction_document (
 	id VARCHAR NOT NULL, 
 	public_law_restriction_id VARCHAR NOT NULL, 
 	document_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(public_law_restriction_id) REFERENCES public_law_restriction (id), 
-	FOREIGN KEY(document_id) REFERENCES document (id)
+	FOREIGN KEY(public_law_restriction_id) REFERENCES motorways_building_lines.public_law_restriction (id), 
+	FOREIGN KEY(document_id) REFERENCES motorways_building_lines.document (id)
 )
 
 ;
-CREATE SCHEMA IF NOT EXISTS None;
+CREATE SCHEMA IF NOT EXISTS railways_project_planning_zones;
 
-CREATE TABLE availability (
+CREATE TABLE railways_project_planning_zones.availability (
 	fosnr VARCHAR NOT NULL, 
 	available BOOLEAN NOT NULL, 
 	PRIMARY KEY (fosnr)
@@ -666,7 +666,7 @@ CREATE TABLE availability (
 
 ;
 
-CREATE TABLE office (
+CREATE TABLE railways_project_planning_zones.office (
 	id VARCHAR NOT NULL, 
 	name JSON NOT NULL, 
 	office_at_web JSON, 
@@ -682,7 +682,7 @@ CREATE TABLE office (
 
 ;
 
-CREATE TABLE view_service (
+CREATE TABLE railways_project_planning_zones.view_service (
 	id VARCHAR NOT NULL, 
 	reference_wms JSON NOT NULL, 
 	layer_index INTEGER NOT NULL, 
@@ -692,18 +692,18 @@ CREATE TABLE view_service (
 
 ;
 
-CREATE TABLE data_integration (
+CREATE TABLE railways_project_planning_zones.data_integration (
 	id VARCHAR NOT NULL, 
 	date TIMESTAMP WITHOUT TIME ZONE NOT NULL, 
 	office_id VARCHAR NOT NULL, 
 	checksum VARCHAR, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(office_id) REFERENCES office (id)
+	FOREIGN KEY(office_id) REFERENCES railways_project_planning_zones.office (id)
 )
 
 ;
 
-CREATE TABLE document (
+CREATE TABLE railways_project_planning_zones.document (
 	id VARCHAR NOT NULL, 
 	document_type VARCHAR NOT NULL, 
 	index INTEGER NOT NULL, 
@@ -718,12 +718,12 @@ CREATE TABLE document (
 	only_in_municipality INTEGER, 
 	file VARCHAR, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(office_id) REFERENCES office (id)
+	FOREIGN KEY(office_id) REFERENCES railways_project_planning_zones.office (id)
 )
 
 ;
 
-CREATE TABLE legend_entry (
+CREATE TABLE railways_project_planning_zones.legend_entry (
 	id VARCHAR NOT NULL, 
 	symbol VARCHAR NOT NULL, 
 	legend_text JSON NOT NULL, 
@@ -733,12 +733,12 @@ CREATE TABLE legend_entry (
 	sub_theme VARCHAR, 
 	view_service_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(view_service_id) REFERENCES view_service (id)
+	FOREIGN KEY(view_service_id) REFERENCES railways_project_planning_zones.view_service (id)
 )
 
 ;
 
-CREATE TABLE public_law_restriction (
+CREATE TABLE railways_project_planning_zones.public_law_restriction (
 	id VARCHAR NOT NULL, 
 	law_status VARCHAR NOT NULL, 
 	published_from DATE NOT NULL, 
@@ -747,14 +747,14 @@ CREATE TABLE public_law_restriction (
 	office_id VARCHAR NOT NULL, 
 	legend_entry_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(view_service_id) REFERENCES view_service (id), 
-	FOREIGN KEY(office_id) REFERENCES office (id), 
-	FOREIGN KEY(legend_entry_id) REFERENCES legend_entry (id)
+	FOREIGN KEY(view_service_id) REFERENCES railways_project_planning_zones.view_service (id), 
+	FOREIGN KEY(office_id) REFERENCES railways_project_planning_zones.office (id), 
+	FOREIGN KEY(legend_entry_id) REFERENCES railways_project_planning_zones.legend_entry (id)
 )
 
 ;
 
-CREATE TABLE geometry (
+CREATE TABLE railways_project_planning_zones.geometry (
 	id VARCHAR NOT NULL, 
 	law_status VARCHAR NOT NULL, 
 	published_from DATE NOT NULL, 
@@ -763,24 +763,24 @@ CREATE TABLE geometry (
 	geom geometry(POLYGON,2056) NOT NULL, 
 	public_law_restriction_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(public_law_restriction_id) REFERENCES public_law_restriction (id)
+	FOREIGN KEY(public_law_restriction_id) REFERENCES railways_project_planning_zones.public_law_restriction (id)
 )
 
 ;
 
-CREATE TABLE public_law_restriction_document (
+CREATE TABLE railways_project_planning_zones.public_law_restriction_document (
 	id VARCHAR NOT NULL, 
 	public_law_restriction_id VARCHAR NOT NULL, 
 	document_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(public_law_restriction_id) REFERENCES public_law_restriction (id), 
-	FOREIGN KEY(document_id) REFERENCES document (id)
+	FOREIGN KEY(public_law_restriction_id) REFERENCES railways_project_planning_zones.public_law_restriction (id), 
+	FOREIGN KEY(document_id) REFERENCES railways_project_planning_zones.document (id)
 )
 
 ;
-CREATE SCHEMA IF NOT EXISTS None;
+CREATE SCHEMA IF NOT EXISTS railways_building_lines;
 
-CREATE TABLE availability (
+CREATE TABLE railways_building_lines.availability (
 	fosnr VARCHAR NOT NULL, 
 	available BOOLEAN NOT NULL, 
 	PRIMARY KEY (fosnr)
@@ -788,7 +788,7 @@ CREATE TABLE availability (
 
 ;
 
-CREATE TABLE office (
+CREATE TABLE railways_building_lines.office (
 	id VARCHAR NOT NULL, 
 	name JSON NOT NULL, 
 	office_at_web JSON, 
@@ -804,7 +804,7 @@ CREATE TABLE office (
 
 ;
 
-CREATE TABLE view_service (
+CREATE TABLE railways_building_lines.view_service (
 	id VARCHAR NOT NULL, 
 	reference_wms JSON NOT NULL, 
 	layer_index INTEGER NOT NULL, 
@@ -814,18 +814,18 @@ CREATE TABLE view_service (
 
 ;
 
-CREATE TABLE data_integration (
+CREATE TABLE railways_building_lines.data_integration (
 	id VARCHAR NOT NULL, 
 	date TIMESTAMP WITHOUT TIME ZONE NOT NULL, 
 	office_id VARCHAR NOT NULL, 
 	checksum VARCHAR, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(office_id) REFERENCES office (id)
+	FOREIGN KEY(office_id) REFERENCES railways_building_lines.office (id)
 )
 
 ;
 
-CREATE TABLE document (
+CREATE TABLE railways_building_lines.document (
 	id VARCHAR NOT NULL, 
 	document_type VARCHAR NOT NULL, 
 	index INTEGER NOT NULL, 
@@ -840,12 +840,12 @@ CREATE TABLE document (
 	only_in_municipality INTEGER, 
 	file VARCHAR, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(office_id) REFERENCES office (id)
+	FOREIGN KEY(office_id) REFERENCES railways_building_lines.office (id)
 )
 
 ;
 
-CREATE TABLE legend_entry (
+CREATE TABLE railways_building_lines.legend_entry (
 	id VARCHAR NOT NULL, 
 	symbol VARCHAR NOT NULL, 
 	legend_text JSON NOT NULL, 
@@ -855,12 +855,12 @@ CREATE TABLE legend_entry (
 	sub_theme VARCHAR, 
 	view_service_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(view_service_id) REFERENCES view_service (id)
+	FOREIGN KEY(view_service_id) REFERENCES railways_building_lines.view_service (id)
 )
 
 ;
 
-CREATE TABLE public_law_restriction (
+CREATE TABLE railways_building_lines.public_law_restriction (
 	id VARCHAR NOT NULL, 
 	law_status VARCHAR NOT NULL, 
 	published_from DATE NOT NULL, 
@@ -869,14 +869,14 @@ CREATE TABLE public_law_restriction (
 	office_id VARCHAR NOT NULL, 
 	legend_entry_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(view_service_id) REFERENCES view_service (id), 
-	FOREIGN KEY(office_id) REFERENCES office (id), 
-	FOREIGN KEY(legend_entry_id) REFERENCES legend_entry (id)
+	FOREIGN KEY(view_service_id) REFERENCES railways_building_lines.view_service (id), 
+	FOREIGN KEY(office_id) REFERENCES railways_building_lines.office (id), 
+	FOREIGN KEY(legend_entry_id) REFERENCES railways_building_lines.legend_entry (id)
 )
 
 ;
 
-CREATE TABLE geometry (
+CREATE TABLE railways_building_lines.geometry (
 	id VARCHAR NOT NULL, 
 	law_status VARCHAR NOT NULL, 
 	published_from DATE NOT NULL, 
@@ -885,24 +885,24 @@ CREATE TABLE geometry (
 	geom geometry(LINESTRING,2056) NOT NULL, 
 	public_law_restriction_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(public_law_restriction_id) REFERENCES public_law_restriction (id)
+	FOREIGN KEY(public_law_restriction_id) REFERENCES railways_building_lines.public_law_restriction (id)
 )
 
 ;
 
-CREATE TABLE public_law_restriction_document (
+CREATE TABLE railways_building_lines.public_law_restriction_document (
 	id VARCHAR NOT NULL, 
 	public_law_restriction_id VARCHAR NOT NULL, 
 	document_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(public_law_restriction_id) REFERENCES public_law_restriction (id), 
-	FOREIGN KEY(document_id) REFERENCES document (id)
+	FOREIGN KEY(public_law_restriction_id) REFERENCES railways_building_lines.public_law_restriction (id), 
+	FOREIGN KEY(document_id) REFERENCES railways_building_lines.document (id)
 )
 
 ;
-CREATE SCHEMA IF NOT EXISTS None;
+CREATE SCHEMA IF NOT EXISTS airports_project_planning_zones;
 
-CREATE TABLE availability (
+CREATE TABLE airports_project_planning_zones.availability (
 	fosnr VARCHAR NOT NULL, 
 	available BOOLEAN NOT NULL, 
 	PRIMARY KEY (fosnr)
@@ -910,7 +910,7 @@ CREATE TABLE availability (
 
 ;
 
-CREATE TABLE office (
+CREATE TABLE airports_project_planning_zones.office (
 	id VARCHAR NOT NULL, 
 	name JSON NOT NULL, 
 	office_at_web JSON, 
@@ -926,7 +926,7 @@ CREATE TABLE office (
 
 ;
 
-CREATE TABLE view_service (
+CREATE TABLE airports_project_planning_zones.view_service (
 	id VARCHAR NOT NULL, 
 	reference_wms JSON NOT NULL, 
 	layer_index INTEGER NOT NULL, 
@@ -936,18 +936,18 @@ CREATE TABLE view_service (
 
 ;
 
-CREATE TABLE data_integration (
+CREATE TABLE airports_project_planning_zones.data_integration (
 	id VARCHAR NOT NULL, 
 	date TIMESTAMP WITHOUT TIME ZONE NOT NULL, 
 	office_id VARCHAR NOT NULL, 
 	checksum VARCHAR, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(office_id) REFERENCES office (id)
+	FOREIGN KEY(office_id) REFERENCES airports_project_planning_zones.office (id)
 )
 
 ;
 
-CREATE TABLE document (
+CREATE TABLE airports_project_planning_zones.document (
 	id VARCHAR NOT NULL, 
 	document_type VARCHAR NOT NULL, 
 	index INTEGER NOT NULL, 
@@ -962,12 +962,12 @@ CREATE TABLE document (
 	only_in_municipality INTEGER, 
 	file VARCHAR, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(office_id) REFERENCES office (id)
+	FOREIGN KEY(office_id) REFERENCES airports_project_planning_zones.office (id)
 )
 
 ;
 
-CREATE TABLE legend_entry (
+CREATE TABLE airports_project_planning_zones.legend_entry (
 	id VARCHAR NOT NULL, 
 	symbol VARCHAR NOT NULL, 
 	legend_text JSON NOT NULL, 
@@ -977,12 +977,12 @@ CREATE TABLE legend_entry (
 	sub_theme VARCHAR, 
 	view_service_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(view_service_id) REFERENCES view_service (id)
+	FOREIGN KEY(view_service_id) REFERENCES airports_project_planning_zones.view_service (id)
 )
 
 ;
 
-CREATE TABLE public_law_restriction (
+CREATE TABLE airports_project_planning_zones.public_law_restriction (
 	id VARCHAR NOT NULL, 
 	law_status VARCHAR NOT NULL, 
 	published_from DATE NOT NULL, 
@@ -991,14 +991,14 @@ CREATE TABLE public_law_restriction (
 	office_id VARCHAR NOT NULL, 
 	legend_entry_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(view_service_id) REFERENCES view_service (id), 
-	FOREIGN KEY(office_id) REFERENCES office (id), 
-	FOREIGN KEY(legend_entry_id) REFERENCES legend_entry (id)
+	FOREIGN KEY(view_service_id) REFERENCES airports_project_planning_zones.view_service (id), 
+	FOREIGN KEY(office_id) REFERENCES airports_project_planning_zones.office (id), 
+	FOREIGN KEY(legend_entry_id) REFERENCES airports_project_planning_zones.legend_entry (id)
 )
 
 ;
 
-CREATE TABLE geometry (
+CREATE TABLE airports_project_planning_zones.geometry (
 	id VARCHAR NOT NULL, 
 	law_status VARCHAR NOT NULL, 
 	published_from DATE NOT NULL, 
@@ -1007,24 +1007,24 @@ CREATE TABLE geometry (
 	geom geometry(POLYGON,2056) NOT NULL, 
 	public_law_restriction_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(public_law_restriction_id) REFERENCES public_law_restriction (id)
+	FOREIGN KEY(public_law_restriction_id) REFERENCES airports_project_planning_zones.public_law_restriction (id)
 )
 
 ;
 
-CREATE TABLE public_law_restriction_document (
+CREATE TABLE airports_project_planning_zones.public_law_restriction_document (
 	id VARCHAR NOT NULL, 
 	public_law_restriction_id VARCHAR NOT NULL, 
 	document_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(public_law_restriction_id) REFERENCES public_law_restriction (id), 
-	FOREIGN KEY(document_id) REFERENCES document (id)
+	FOREIGN KEY(public_law_restriction_id) REFERENCES airports_project_planning_zones.public_law_restriction (id), 
+	FOREIGN KEY(document_id) REFERENCES airports_project_planning_zones.document (id)
 )
 
 ;
-CREATE SCHEMA IF NOT EXISTS None;
+CREATE SCHEMA IF NOT EXISTS airports_building_lines;
 
-CREATE TABLE availability (
+CREATE TABLE airports_building_lines.availability (
 	fosnr VARCHAR NOT NULL, 
 	available BOOLEAN NOT NULL, 
 	PRIMARY KEY (fosnr)
@@ -1032,7 +1032,7 @@ CREATE TABLE availability (
 
 ;
 
-CREATE TABLE office (
+CREATE TABLE airports_building_lines.office (
 	id VARCHAR NOT NULL, 
 	name JSON NOT NULL, 
 	office_at_web JSON, 
@@ -1048,7 +1048,7 @@ CREATE TABLE office (
 
 ;
 
-CREATE TABLE view_service (
+CREATE TABLE airports_building_lines.view_service (
 	id VARCHAR NOT NULL, 
 	reference_wms JSON NOT NULL, 
 	layer_index INTEGER NOT NULL, 
@@ -1058,18 +1058,18 @@ CREATE TABLE view_service (
 
 ;
 
-CREATE TABLE data_integration (
+CREATE TABLE airports_building_lines.data_integration (
 	id VARCHAR NOT NULL, 
 	date TIMESTAMP WITHOUT TIME ZONE NOT NULL, 
 	office_id VARCHAR NOT NULL, 
 	checksum VARCHAR, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(office_id) REFERENCES office (id)
+	FOREIGN KEY(office_id) REFERENCES airports_building_lines.office (id)
 )
 
 ;
 
-CREATE TABLE document (
+CREATE TABLE airports_building_lines.document (
 	id VARCHAR NOT NULL, 
 	document_type VARCHAR NOT NULL, 
 	index INTEGER NOT NULL, 
@@ -1084,12 +1084,12 @@ CREATE TABLE document (
 	only_in_municipality INTEGER, 
 	file VARCHAR, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(office_id) REFERENCES office (id)
+	FOREIGN KEY(office_id) REFERENCES airports_building_lines.office (id)
 )
 
 ;
 
-CREATE TABLE legend_entry (
+CREATE TABLE airports_building_lines.legend_entry (
 	id VARCHAR NOT NULL, 
 	symbol VARCHAR NOT NULL, 
 	legend_text JSON NOT NULL, 
@@ -1099,12 +1099,12 @@ CREATE TABLE legend_entry (
 	sub_theme VARCHAR, 
 	view_service_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(view_service_id) REFERENCES view_service (id)
+	FOREIGN KEY(view_service_id) REFERENCES airports_building_lines.view_service (id)
 )
 
 ;
 
-CREATE TABLE public_law_restriction (
+CREATE TABLE airports_building_lines.public_law_restriction (
 	id VARCHAR NOT NULL, 
 	law_status VARCHAR NOT NULL, 
 	published_from DATE NOT NULL, 
@@ -1113,14 +1113,14 @@ CREATE TABLE public_law_restriction (
 	office_id VARCHAR NOT NULL, 
 	legend_entry_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(view_service_id) REFERENCES view_service (id), 
-	FOREIGN KEY(office_id) REFERENCES office (id), 
-	FOREIGN KEY(legend_entry_id) REFERENCES legend_entry (id)
+	FOREIGN KEY(view_service_id) REFERENCES airports_building_lines.view_service (id), 
+	FOREIGN KEY(office_id) REFERENCES airports_building_lines.office (id), 
+	FOREIGN KEY(legend_entry_id) REFERENCES airports_building_lines.legend_entry (id)
 )
 
 ;
 
-CREATE TABLE geometry (
+CREATE TABLE airports_building_lines.geometry (
 	id VARCHAR NOT NULL, 
 	law_status VARCHAR NOT NULL, 
 	published_from DATE NOT NULL, 
@@ -1129,24 +1129,24 @@ CREATE TABLE geometry (
 	geom geometry(LINESTRING,2056) NOT NULL, 
 	public_law_restriction_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(public_law_restriction_id) REFERENCES public_law_restriction (id)
+	FOREIGN KEY(public_law_restriction_id) REFERENCES airports_building_lines.public_law_restriction (id)
 )
 
 ;
 
-CREATE TABLE public_law_restriction_document (
+CREATE TABLE airports_building_lines.public_law_restriction_document (
 	id VARCHAR NOT NULL, 
 	public_law_restriction_id VARCHAR NOT NULL, 
 	document_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(public_law_restriction_id) REFERENCES public_law_restriction (id), 
-	FOREIGN KEY(document_id) REFERENCES document (id)
+	FOREIGN KEY(public_law_restriction_id) REFERENCES airports_building_lines.public_law_restriction (id), 
+	FOREIGN KEY(document_id) REFERENCES airports_building_lines.document (id)
 )
 
 ;
-CREATE SCHEMA IF NOT EXISTS None;
+CREATE SCHEMA IF NOT EXISTS airports_security_zone_plans;
 
-CREATE TABLE availability (
+CREATE TABLE airports_security_zone_plans.availability (
 	fosnr VARCHAR NOT NULL, 
 	available BOOLEAN NOT NULL, 
 	PRIMARY KEY (fosnr)
@@ -1154,7 +1154,7 @@ CREATE TABLE availability (
 
 ;
 
-CREATE TABLE office (
+CREATE TABLE airports_security_zone_plans.office (
 	id VARCHAR NOT NULL, 
 	name JSON NOT NULL, 
 	office_at_web JSON, 
@@ -1170,7 +1170,7 @@ CREATE TABLE office (
 
 ;
 
-CREATE TABLE view_service (
+CREATE TABLE airports_security_zone_plans.view_service (
 	id VARCHAR NOT NULL, 
 	reference_wms JSON NOT NULL, 
 	layer_index INTEGER NOT NULL, 
@@ -1180,18 +1180,18 @@ CREATE TABLE view_service (
 
 ;
 
-CREATE TABLE data_integration (
+CREATE TABLE airports_security_zone_plans.data_integration (
 	id VARCHAR NOT NULL, 
 	date TIMESTAMP WITHOUT TIME ZONE NOT NULL, 
 	office_id VARCHAR NOT NULL, 
 	checksum VARCHAR, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(office_id) REFERENCES office (id)
+	FOREIGN KEY(office_id) REFERENCES airports_security_zone_plans.office (id)
 )
 
 ;
 
-CREATE TABLE document (
+CREATE TABLE airports_security_zone_plans.document (
 	id VARCHAR NOT NULL, 
 	document_type VARCHAR NOT NULL, 
 	index INTEGER NOT NULL, 
@@ -1206,12 +1206,12 @@ CREATE TABLE document (
 	only_in_municipality INTEGER, 
 	file VARCHAR, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(office_id) REFERENCES office (id)
+	FOREIGN KEY(office_id) REFERENCES airports_security_zone_plans.office (id)
 )
 
 ;
 
-CREATE TABLE legend_entry (
+CREATE TABLE airports_security_zone_plans.legend_entry (
 	id VARCHAR NOT NULL, 
 	symbol VARCHAR NOT NULL, 
 	legend_text JSON NOT NULL, 
@@ -1221,12 +1221,12 @@ CREATE TABLE legend_entry (
 	sub_theme VARCHAR, 
 	view_service_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(view_service_id) REFERENCES view_service (id)
+	FOREIGN KEY(view_service_id) REFERENCES airports_security_zone_plans.view_service (id)
 )
 
 ;
 
-CREATE TABLE public_law_restriction (
+CREATE TABLE airports_security_zone_plans.public_law_restriction (
 	id VARCHAR NOT NULL, 
 	law_status VARCHAR NOT NULL, 
 	published_from DATE NOT NULL, 
@@ -1235,14 +1235,14 @@ CREATE TABLE public_law_restriction (
 	office_id VARCHAR NOT NULL, 
 	legend_entry_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(view_service_id) REFERENCES view_service (id), 
-	FOREIGN KEY(office_id) REFERENCES office (id), 
-	FOREIGN KEY(legend_entry_id) REFERENCES legend_entry (id)
+	FOREIGN KEY(view_service_id) REFERENCES airports_security_zone_plans.view_service (id), 
+	FOREIGN KEY(office_id) REFERENCES airports_security_zone_plans.office (id), 
+	FOREIGN KEY(legend_entry_id) REFERENCES airports_security_zone_plans.legend_entry (id)
 )
 
 ;
 
-CREATE TABLE geometry (
+CREATE TABLE airports_security_zone_plans.geometry (
 	id VARCHAR NOT NULL, 
 	law_status VARCHAR NOT NULL, 
 	published_from DATE NOT NULL, 
@@ -1251,24 +1251,24 @@ CREATE TABLE geometry (
 	geom geometry(MULTIPOLYGON,2056) NOT NULL, 
 	public_law_restriction_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(public_law_restriction_id) REFERENCES public_law_restriction (id)
+	FOREIGN KEY(public_law_restriction_id) REFERENCES airports_security_zone_plans.public_law_restriction (id)
 )
 
 ;
 
-CREATE TABLE public_law_restriction_document (
+CREATE TABLE airports_security_zone_plans.public_law_restriction_document (
 	id VARCHAR NOT NULL, 
 	public_law_restriction_id VARCHAR NOT NULL, 
 	document_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(public_law_restriction_id) REFERENCES public_law_restriction (id), 
-	FOREIGN KEY(document_id) REFERENCES document (id)
+	FOREIGN KEY(public_law_restriction_id) REFERENCES airports_security_zone_plans.public_law_restriction (id), 
+	FOREIGN KEY(document_id) REFERENCES airports_security_zone_plans.document (id)
 )
 
 ;
-CREATE SCHEMA IF NOT EXISTS None;
+CREATE SCHEMA IF NOT EXISTS contaminated_sites;
 
-CREATE TABLE availability (
+CREATE TABLE contaminated_sites.availability (
 	fosnr VARCHAR NOT NULL, 
 	available BOOLEAN NOT NULL, 
 	PRIMARY KEY (fosnr)
@@ -1276,7 +1276,7 @@ CREATE TABLE availability (
 
 ;
 
-CREATE TABLE office (
+CREATE TABLE contaminated_sites.office (
 	id VARCHAR NOT NULL, 
 	name JSON NOT NULL, 
 	office_at_web JSON, 
@@ -1292,7 +1292,7 @@ CREATE TABLE office (
 
 ;
 
-CREATE TABLE view_service (
+CREATE TABLE contaminated_sites.view_service (
 	id VARCHAR NOT NULL, 
 	reference_wms JSON NOT NULL, 
 	layer_index INTEGER NOT NULL, 
@@ -1302,18 +1302,18 @@ CREATE TABLE view_service (
 
 ;
 
-CREATE TABLE data_integration (
+CREATE TABLE contaminated_sites.data_integration (
 	id VARCHAR NOT NULL, 
 	date TIMESTAMP WITHOUT TIME ZONE NOT NULL, 
 	office_id VARCHAR NOT NULL, 
 	checksum VARCHAR, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(office_id) REFERENCES office (id)
+	FOREIGN KEY(office_id) REFERENCES contaminated_sites.office (id)
 )
 
 ;
 
-CREATE TABLE document (
+CREATE TABLE contaminated_sites.document (
 	id VARCHAR NOT NULL, 
 	document_type VARCHAR NOT NULL, 
 	index INTEGER NOT NULL, 
@@ -1328,12 +1328,12 @@ CREATE TABLE document (
 	only_in_municipality INTEGER, 
 	file VARCHAR, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(office_id) REFERENCES office (id)
+	FOREIGN KEY(office_id) REFERENCES contaminated_sites.office (id)
 )
 
 ;
 
-CREATE TABLE legend_entry (
+CREATE TABLE contaminated_sites.legend_entry (
 	id VARCHAR NOT NULL, 
 	symbol VARCHAR NOT NULL, 
 	legend_text JSON NOT NULL, 
@@ -1343,12 +1343,12 @@ CREATE TABLE legend_entry (
 	sub_theme VARCHAR, 
 	view_service_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(view_service_id) REFERENCES view_service (id)
+	FOREIGN KEY(view_service_id) REFERENCES contaminated_sites.view_service (id)
 )
 
 ;
 
-CREATE TABLE public_law_restriction (
+CREATE TABLE contaminated_sites.public_law_restriction (
 	id VARCHAR NOT NULL, 
 	law_status VARCHAR NOT NULL, 
 	published_from DATE NOT NULL, 
@@ -1357,14 +1357,14 @@ CREATE TABLE public_law_restriction (
 	office_id VARCHAR NOT NULL, 
 	legend_entry_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(view_service_id) REFERENCES view_service (id), 
-	FOREIGN KEY(office_id) REFERENCES office (id), 
-	FOREIGN KEY(legend_entry_id) REFERENCES legend_entry (id)
+	FOREIGN KEY(view_service_id) REFERENCES contaminated_sites.view_service (id), 
+	FOREIGN KEY(office_id) REFERENCES contaminated_sites.office (id), 
+	FOREIGN KEY(legend_entry_id) REFERENCES contaminated_sites.legend_entry (id)
 )
 
 ;
 
-CREATE TABLE geometry (
+CREATE TABLE contaminated_sites.geometry (
 	id VARCHAR NOT NULL, 
 	law_status VARCHAR NOT NULL, 
 	published_from DATE NOT NULL, 
@@ -1373,24 +1373,24 @@ CREATE TABLE geometry (
 	geom geometry(GEOMETRYCOLLECTION,2056) NOT NULL, 
 	public_law_restriction_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(public_law_restriction_id) REFERENCES public_law_restriction (id)
+	FOREIGN KEY(public_law_restriction_id) REFERENCES contaminated_sites.public_law_restriction (id)
 )
 
 ;
 
-CREATE TABLE public_law_restriction_document (
+CREATE TABLE contaminated_sites.public_law_restriction_document (
 	id VARCHAR NOT NULL, 
 	public_law_restriction_id VARCHAR NOT NULL, 
 	document_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(public_law_restriction_id) REFERENCES public_law_restriction (id), 
-	FOREIGN KEY(document_id) REFERENCES document (id)
+	FOREIGN KEY(public_law_restriction_id) REFERENCES contaminated_sites.public_law_restriction (id), 
+	FOREIGN KEY(document_id) REFERENCES contaminated_sites.document (id)
 )
 
 ;
-CREATE SCHEMA IF NOT EXISTS None;
+CREATE SCHEMA IF NOT EXISTS contaminated_military_sites;
 
-CREATE TABLE availability (
+CREATE TABLE contaminated_military_sites.availability (
 	fosnr VARCHAR NOT NULL, 
 	available BOOLEAN NOT NULL, 
 	PRIMARY KEY (fosnr)
@@ -1398,7 +1398,7 @@ CREATE TABLE availability (
 
 ;
 
-CREATE TABLE office (
+CREATE TABLE contaminated_military_sites.office (
 	id VARCHAR NOT NULL, 
 	name JSON NOT NULL, 
 	office_at_web JSON, 
@@ -1414,7 +1414,7 @@ CREATE TABLE office (
 
 ;
 
-CREATE TABLE view_service (
+CREATE TABLE contaminated_military_sites.view_service (
 	id VARCHAR NOT NULL, 
 	reference_wms JSON NOT NULL, 
 	layer_index INTEGER NOT NULL, 
@@ -1424,18 +1424,18 @@ CREATE TABLE view_service (
 
 ;
 
-CREATE TABLE data_integration (
+CREATE TABLE contaminated_military_sites.data_integration (
 	id VARCHAR NOT NULL, 
 	date TIMESTAMP WITHOUT TIME ZONE NOT NULL, 
 	office_id VARCHAR NOT NULL, 
 	checksum VARCHAR, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(office_id) REFERENCES office (id)
+	FOREIGN KEY(office_id) REFERENCES contaminated_military_sites.office (id)
 )
 
 ;
 
-CREATE TABLE document (
+CREATE TABLE contaminated_military_sites.document (
 	id VARCHAR NOT NULL, 
 	document_type VARCHAR NOT NULL, 
 	index INTEGER NOT NULL, 
@@ -1450,12 +1450,12 @@ CREATE TABLE document (
 	only_in_municipality INTEGER, 
 	file VARCHAR, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(office_id) REFERENCES office (id)
+	FOREIGN KEY(office_id) REFERENCES contaminated_military_sites.office (id)
 )
 
 ;
 
-CREATE TABLE legend_entry (
+CREATE TABLE contaminated_military_sites.legend_entry (
 	id VARCHAR NOT NULL, 
 	symbol VARCHAR NOT NULL, 
 	legend_text JSON NOT NULL, 
@@ -1465,12 +1465,12 @@ CREATE TABLE legend_entry (
 	sub_theme VARCHAR, 
 	view_service_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(view_service_id) REFERENCES view_service (id)
+	FOREIGN KEY(view_service_id) REFERENCES contaminated_military_sites.view_service (id)
 )
 
 ;
 
-CREATE TABLE public_law_restriction (
+CREATE TABLE contaminated_military_sites.public_law_restriction (
 	id VARCHAR NOT NULL, 
 	law_status VARCHAR NOT NULL, 
 	published_from DATE NOT NULL, 
@@ -1479,14 +1479,14 @@ CREATE TABLE public_law_restriction (
 	office_id VARCHAR NOT NULL, 
 	legend_entry_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(view_service_id) REFERENCES view_service (id), 
-	FOREIGN KEY(office_id) REFERENCES office (id), 
-	FOREIGN KEY(legend_entry_id) REFERENCES legend_entry (id)
+	FOREIGN KEY(view_service_id) REFERENCES contaminated_military_sites.view_service (id), 
+	FOREIGN KEY(office_id) REFERENCES contaminated_military_sites.office (id), 
+	FOREIGN KEY(legend_entry_id) REFERENCES contaminated_military_sites.legend_entry (id)
 )
 
 ;
 
-CREATE TABLE geometry (
+CREATE TABLE contaminated_military_sites.geometry (
 	id VARCHAR NOT NULL, 
 	law_status VARCHAR NOT NULL, 
 	published_from DATE NOT NULL, 
@@ -1495,24 +1495,24 @@ CREATE TABLE geometry (
 	geom geometry(GEOMETRYCOLLECTION,2056) NOT NULL, 
 	public_law_restriction_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(public_law_restriction_id) REFERENCES public_law_restriction (id)
+	FOREIGN KEY(public_law_restriction_id) REFERENCES contaminated_military_sites.public_law_restriction (id)
 )
 
 ;
 
-CREATE TABLE public_law_restriction_document (
+CREATE TABLE contaminated_military_sites.public_law_restriction_document (
 	id VARCHAR NOT NULL, 
 	public_law_restriction_id VARCHAR NOT NULL, 
 	document_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(public_law_restriction_id) REFERENCES public_law_restriction (id), 
-	FOREIGN KEY(document_id) REFERENCES document (id)
+	FOREIGN KEY(public_law_restriction_id) REFERENCES contaminated_military_sites.public_law_restriction (id), 
+	FOREIGN KEY(document_id) REFERENCES contaminated_military_sites.document (id)
 )
 
 ;
-CREATE SCHEMA IF NOT EXISTS None;
+CREATE SCHEMA IF NOT EXISTS contaminated_civil_aviation_sites;
 
-CREATE TABLE availability (
+CREATE TABLE contaminated_civil_aviation_sites.availability (
 	fosnr VARCHAR NOT NULL, 
 	available BOOLEAN NOT NULL, 
 	PRIMARY KEY (fosnr)
@@ -1520,7 +1520,7 @@ CREATE TABLE availability (
 
 ;
 
-CREATE TABLE office (
+CREATE TABLE contaminated_civil_aviation_sites.office (
 	id VARCHAR NOT NULL, 
 	name JSON NOT NULL, 
 	office_at_web JSON, 
@@ -1536,7 +1536,7 @@ CREATE TABLE office (
 
 ;
 
-CREATE TABLE view_service (
+CREATE TABLE contaminated_civil_aviation_sites.view_service (
 	id VARCHAR NOT NULL, 
 	reference_wms JSON NOT NULL, 
 	layer_index INTEGER NOT NULL, 
@@ -1546,18 +1546,18 @@ CREATE TABLE view_service (
 
 ;
 
-CREATE TABLE data_integration (
+CREATE TABLE contaminated_civil_aviation_sites.data_integration (
 	id VARCHAR NOT NULL, 
 	date TIMESTAMP WITHOUT TIME ZONE NOT NULL, 
 	office_id VARCHAR NOT NULL, 
 	checksum VARCHAR, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(office_id) REFERENCES office (id)
+	FOREIGN KEY(office_id) REFERENCES contaminated_civil_aviation_sites.office (id)
 )
 
 ;
 
-CREATE TABLE document (
+CREATE TABLE contaminated_civil_aviation_sites.document (
 	id VARCHAR NOT NULL, 
 	document_type VARCHAR NOT NULL, 
 	index INTEGER NOT NULL, 
@@ -1572,12 +1572,12 @@ CREATE TABLE document (
 	only_in_municipality INTEGER, 
 	file VARCHAR, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(office_id) REFERENCES office (id)
+	FOREIGN KEY(office_id) REFERENCES contaminated_civil_aviation_sites.office (id)
 )
 
 ;
 
-CREATE TABLE legend_entry (
+CREATE TABLE contaminated_civil_aviation_sites.legend_entry (
 	id VARCHAR NOT NULL, 
 	symbol VARCHAR NOT NULL, 
 	legend_text JSON NOT NULL, 
@@ -1587,12 +1587,12 @@ CREATE TABLE legend_entry (
 	sub_theme VARCHAR, 
 	view_service_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(view_service_id) REFERENCES view_service (id)
+	FOREIGN KEY(view_service_id) REFERENCES contaminated_civil_aviation_sites.view_service (id)
 )
 
 ;
 
-CREATE TABLE public_law_restriction (
+CREATE TABLE contaminated_civil_aviation_sites.public_law_restriction (
 	id VARCHAR NOT NULL, 
 	law_status VARCHAR NOT NULL, 
 	published_from DATE NOT NULL, 
@@ -1601,14 +1601,14 @@ CREATE TABLE public_law_restriction (
 	office_id VARCHAR NOT NULL, 
 	legend_entry_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(view_service_id) REFERENCES view_service (id), 
-	FOREIGN KEY(office_id) REFERENCES office (id), 
-	FOREIGN KEY(legend_entry_id) REFERENCES legend_entry (id)
+	FOREIGN KEY(view_service_id) REFERENCES contaminated_civil_aviation_sites.view_service (id), 
+	FOREIGN KEY(office_id) REFERENCES contaminated_civil_aviation_sites.office (id), 
+	FOREIGN KEY(legend_entry_id) REFERENCES contaminated_civil_aviation_sites.legend_entry (id)
 )
 
 ;
 
-CREATE TABLE geometry (
+CREATE TABLE contaminated_civil_aviation_sites.geometry (
 	id VARCHAR NOT NULL, 
 	law_status VARCHAR NOT NULL, 
 	published_from DATE NOT NULL, 
@@ -1617,24 +1617,24 @@ CREATE TABLE geometry (
 	geom geometry(GEOMETRYCOLLECTION,2056) NOT NULL, 
 	public_law_restriction_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(public_law_restriction_id) REFERENCES public_law_restriction (id)
+	FOREIGN KEY(public_law_restriction_id) REFERENCES contaminated_civil_aviation_sites.public_law_restriction (id)
 )
 
 ;
 
-CREATE TABLE public_law_restriction_document (
+CREATE TABLE contaminated_civil_aviation_sites.public_law_restriction_document (
 	id VARCHAR NOT NULL, 
 	public_law_restriction_id VARCHAR NOT NULL, 
 	document_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(public_law_restriction_id) REFERENCES public_law_restriction (id), 
-	FOREIGN KEY(document_id) REFERENCES document (id)
+	FOREIGN KEY(public_law_restriction_id) REFERENCES contaminated_civil_aviation_sites.public_law_restriction (id), 
+	FOREIGN KEY(document_id) REFERENCES contaminated_civil_aviation_sites.document (id)
 )
 
 ;
-CREATE SCHEMA IF NOT EXISTS None;
+CREATE SCHEMA IF NOT EXISTS contaminated_public_transport_sites;
 
-CREATE TABLE availability (
+CREATE TABLE contaminated_public_transport_sites.availability (
 	fosnr VARCHAR NOT NULL, 
 	available BOOLEAN NOT NULL, 
 	PRIMARY KEY (fosnr)
@@ -1642,7 +1642,7 @@ CREATE TABLE availability (
 
 ;
 
-CREATE TABLE office (
+CREATE TABLE contaminated_public_transport_sites.office (
 	id VARCHAR NOT NULL, 
 	name JSON NOT NULL, 
 	office_at_web JSON, 
@@ -1658,7 +1658,7 @@ CREATE TABLE office (
 
 ;
 
-CREATE TABLE view_service (
+CREATE TABLE contaminated_public_transport_sites.view_service (
 	id VARCHAR NOT NULL, 
 	reference_wms JSON NOT NULL, 
 	layer_index INTEGER NOT NULL, 
@@ -1668,18 +1668,18 @@ CREATE TABLE view_service (
 
 ;
 
-CREATE TABLE data_integration (
+CREATE TABLE contaminated_public_transport_sites.data_integration (
 	id VARCHAR NOT NULL, 
 	date TIMESTAMP WITHOUT TIME ZONE NOT NULL, 
 	office_id VARCHAR NOT NULL, 
 	checksum VARCHAR, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(office_id) REFERENCES office (id)
+	FOREIGN KEY(office_id) REFERENCES contaminated_public_transport_sites.office (id)
 )
 
 ;
 
-CREATE TABLE document (
+CREATE TABLE contaminated_public_transport_sites.document (
 	id VARCHAR NOT NULL, 
 	document_type VARCHAR NOT NULL, 
 	index INTEGER NOT NULL, 
@@ -1694,12 +1694,12 @@ CREATE TABLE document (
 	only_in_municipality INTEGER, 
 	file VARCHAR, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(office_id) REFERENCES office (id)
+	FOREIGN KEY(office_id) REFERENCES contaminated_public_transport_sites.office (id)
 )
 
 ;
 
-CREATE TABLE legend_entry (
+CREATE TABLE contaminated_public_transport_sites.legend_entry (
 	id VARCHAR NOT NULL, 
 	symbol VARCHAR NOT NULL, 
 	legend_text JSON NOT NULL, 
@@ -1709,12 +1709,12 @@ CREATE TABLE legend_entry (
 	sub_theme VARCHAR, 
 	view_service_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(view_service_id) REFERENCES view_service (id)
+	FOREIGN KEY(view_service_id) REFERENCES contaminated_public_transport_sites.view_service (id)
 )
 
 ;
 
-CREATE TABLE public_law_restriction (
+CREATE TABLE contaminated_public_transport_sites.public_law_restriction (
 	id VARCHAR NOT NULL, 
 	law_status VARCHAR NOT NULL, 
 	published_from DATE NOT NULL, 
@@ -1723,14 +1723,14 @@ CREATE TABLE public_law_restriction (
 	office_id VARCHAR NOT NULL, 
 	legend_entry_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(view_service_id) REFERENCES view_service (id), 
-	FOREIGN KEY(office_id) REFERENCES office (id), 
-	FOREIGN KEY(legend_entry_id) REFERENCES legend_entry (id)
+	FOREIGN KEY(view_service_id) REFERENCES contaminated_public_transport_sites.view_service (id), 
+	FOREIGN KEY(office_id) REFERENCES contaminated_public_transport_sites.office (id), 
+	FOREIGN KEY(legend_entry_id) REFERENCES contaminated_public_transport_sites.legend_entry (id)
 )
 
 ;
 
-CREATE TABLE geometry (
+CREATE TABLE contaminated_public_transport_sites.geometry (
 	id VARCHAR NOT NULL, 
 	law_status VARCHAR NOT NULL, 
 	published_from DATE NOT NULL, 
@@ -1739,24 +1739,24 @@ CREATE TABLE geometry (
 	geom geometry(GEOMETRYCOLLECTION,2056) NOT NULL, 
 	public_law_restriction_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(public_law_restriction_id) REFERENCES public_law_restriction (id)
+	FOREIGN KEY(public_law_restriction_id) REFERENCES contaminated_public_transport_sites.public_law_restriction (id)
 )
 
 ;
 
-CREATE TABLE public_law_restriction_document (
+CREATE TABLE contaminated_public_transport_sites.public_law_restriction_document (
 	id VARCHAR NOT NULL, 
 	public_law_restriction_id VARCHAR NOT NULL, 
 	document_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(public_law_restriction_id) REFERENCES public_law_restriction (id), 
-	FOREIGN KEY(document_id) REFERENCES document (id)
+	FOREIGN KEY(public_law_restriction_id) REFERENCES contaminated_public_transport_sites.public_law_restriction (id), 
+	FOREIGN KEY(document_id) REFERENCES contaminated_public_transport_sites.document (id)
 )
 
 ;
-CREATE SCHEMA IF NOT EXISTS None;
+CREATE SCHEMA IF NOT EXISTS groundwater_protection_zones;
 
-CREATE TABLE availability (
+CREATE TABLE groundwater_protection_zones.availability (
 	fosnr VARCHAR NOT NULL, 
 	available BOOLEAN NOT NULL, 
 	PRIMARY KEY (fosnr)
@@ -1764,7 +1764,7 @@ CREATE TABLE availability (
 
 ;
 
-CREATE TABLE office (
+CREATE TABLE groundwater_protection_zones.office (
 	id VARCHAR NOT NULL, 
 	name JSON NOT NULL, 
 	office_at_web JSON, 
@@ -1780,7 +1780,7 @@ CREATE TABLE office (
 
 ;
 
-CREATE TABLE view_service (
+CREATE TABLE groundwater_protection_zones.view_service (
 	id VARCHAR NOT NULL, 
 	reference_wms JSON NOT NULL, 
 	layer_index INTEGER NOT NULL, 
@@ -1790,18 +1790,18 @@ CREATE TABLE view_service (
 
 ;
 
-CREATE TABLE data_integration (
+CREATE TABLE groundwater_protection_zones.data_integration (
 	id VARCHAR NOT NULL, 
 	date TIMESTAMP WITHOUT TIME ZONE NOT NULL, 
 	office_id VARCHAR NOT NULL, 
 	checksum VARCHAR, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(office_id) REFERENCES office (id)
+	FOREIGN KEY(office_id) REFERENCES groundwater_protection_zones.office (id)
 )
 
 ;
 
-CREATE TABLE document (
+CREATE TABLE groundwater_protection_zones.document (
 	id VARCHAR NOT NULL, 
 	document_type VARCHAR NOT NULL, 
 	index INTEGER NOT NULL, 
@@ -1816,12 +1816,12 @@ CREATE TABLE document (
 	only_in_municipality INTEGER, 
 	file VARCHAR, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(office_id) REFERENCES office (id)
+	FOREIGN KEY(office_id) REFERENCES groundwater_protection_zones.office (id)
 )
 
 ;
 
-CREATE TABLE legend_entry (
+CREATE TABLE groundwater_protection_zones.legend_entry (
 	id VARCHAR NOT NULL, 
 	symbol VARCHAR NOT NULL, 
 	legend_text JSON NOT NULL, 
@@ -1831,12 +1831,12 @@ CREATE TABLE legend_entry (
 	sub_theme VARCHAR, 
 	view_service_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(view_service_id) REFERENCES view_service (id)
+	FOREIGN KEY(view_service_id) REFERENCES groundwater_protection_zones.view_service (id)
 )
 
 ;
 
-CREATE TABLE public_law_restriction (
+CREATE TABLE groundwater_protection_zones.public_law_restriction (
 	id VARCHAR NOT NULL, 
 	law_status VARCHAR NOT NULL, 
 	published_from DATE NOT NULL, 
@@ -1845,14 +1845,14 @@ CREATE TABLE public_law_restriction (
 	office_id VARCHAR NOT NULL, 
 	legend_entry_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(view_service_id) REFERENCES view_service (id), 
-	FOREIGN KEY(office_id) REFERENCES office (id), 
-	FOREIGN KEY(legend_entry_id) REFERENCES legend_entry (id)
+	FOREIGN KEY(view_service_id) REFERENCES groundwater_protection_zones.view_service (id), 
+	FOREIGN KEY(office_id) REFERENCES groundwater_protection_zones.office (id), 
+	FOREIGN KEY(legend_entry_id) REFERENCES groundwater_protection_zones.legend_entry (id)
 )
 
 ;
 
-CREATE TABLE geometry (
+CREATE TABLE groundwater_protection_zones.geometry (
 	id VARCHAR NOT NULL, 
 	law_status VARCHAR NOT NULL, 
 	published_from DATE NOT NULL, 
@@ -1861,24 +1861,24 @@ CREATE TABLE geometry (
 	geom geometry(POLYGON,2056) NOT NULL, 
 	public_law_restriction_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(public_law_restriction_id) REFERENCES public_law_restriction (id)
+	FOREIGN KEY(public_law_restriction_id) REFERENCES groundwater_protection_zones.public_law_restriction (id)
 )
 
 ;
 
-CREATE TABLE public_law_restriction_document (
+CREATE TABLE groundwater_protection_zones.public_law_restriction_document (
 	id VARCHAR NOT NULL, 
 	public_law_restriction_id VARCHAR NOT NULL, 
 	document_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(public_law_restriction_id) REFERENCES public_law_restriction (id), 
-	FOREIGN KEY(document_id) REFERENCES document (id)
+	FOREIGN KEY(public_law_restriction_id) REFERENCES groundwater_protection_zones.public_law_restriction (id), 
+	FOREIGN KEY(document_id) REFERENCES groundwater_protection_zones.document (id)
 )
 
 ;
-CREATE SCHEMA IF NOT EXISTS None;
+CREATE SCHEMA IF NOT EXISTS groundwater_protection_sites;
 
-CREATE TABLE availability (
+CREATE TABLE groundwater_protection_sites.availability (
 	fosnr VARCHAR NOT NULL, 
 	available BOOLEAN NOT NULL, 
 	PRIMARY KEY (fosnr)
@@ -1886,7 +1886,7 @@ CREATE TABLE availability (
 
 ;
 
-CREATE TABLE office (
+CREATE TABLE groundwater_protection_sites.office (
 	id VARCHAR NOT NULL, 
 	name JSON NOT NULL, 
 	office_at_web JSON, 
@@ -1902,7 +1902,7 @@ CREATE TABLE office (
 
 ;
 
-CREATE TABLE view_service (
+CREATE TABLE groundwater_protection_sites.view_service (
 	id VARCHAR NOT NULL, 
 	reference_wms JSON NOT NULL, 
 	layer_index INTEGER NOT NULL, 
@@ -1912,18 +1912,18 @@ CREATE TABLE view_service (
 
 ;
 
-CREATE TABLE data_integration (
+CREATE TABLE groundwater_protection_sites.data_integration (
 	id VARCHAR NOT NULL, 
 	date TIMESTAMP WITHOUT TIME ZONE NOT NULL, 
 	office_id VARCHAR NOT NULL, 
 	checksum VARCHAR, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(office_id) REFERENCES office (id)
+	FOREIGN KEY(office_id) REFERENCES groundwater_protection_sites.office (id)
 )
 
 ;
 
-CREATE TABLE document (
+CREATE TABLE groundwater_protection_sites.document (
 	id VARCHAR NOT NULL, 
 	document_type VARCHAR NOT NULL, 
 	index INTEGER NOT NULL, 
@@ -1938,12 +1938,12 @@ CREATE TABLE document (
 	only_in_municipality INTEGER, 
 	file VARCHAR, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(office_id) REFERENCES office (id)
+	FOREIGN KEY(office_id) REFERENCES groundwater_protection_sites.office (id)
 )
 
 ;
 
-CREATE TABLE legend_entry (
+CREATE TABLE groundwater_protection_sites.legend_entry (
 	id VARCHAR NOT NULL, 
 	symbol VARCHAR NOT NULL, 
 	legend_text JSON NOT NULL, 
@@ -1953,12 +1953,12 @@ CREATE TABLE legend_entry (
 	sub_theme VARCHAR, 
 	view_service_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(view_service_id) REFERENCES view_service (id)
+	FOREIGN KEY(view_service_id) REFERENCES groundwater_protection_sites.view_service (id)
 )
 
 ;
 
-CREATE TABLE public_law_restriction (
+CREATE TABLE groundwater_protection_sites.public_law_restriction (
 	id VARCHAR NOT NULL, 
 	law_status VARCHAR NOT NULL, 
 	published_from DATE NOT NULL, 
@@ -1967,14 +1967,14 @@ CREATE TABLE public_law_restriction (
 	office_id VARCHAR NOT NULL, 
 	legend_entry_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(view_service_id) REFERENCES view_service (id), 
-	FOREIGN KEY(office_id) REFERENCES office (id), 
-	FOREIGN KEY(legend_entry_id) REFERENCES legend_entry (id)
+	FOREIGN KEY(view_service_id) REFERENCES groundwater_protection_sites.view_service (id), 
+	FOREIGN KEY(office_id) REFERENCES groundwater_protection_sites.office (id), 
+	FOREIGN KEY(legend_entry_id) REFERENCES groundwater_protection_sites.legend_entry (id)
 )
 
 ;
 
-CREATE TABLE geometry (
+CREATE TABLE groundwater_protection_sites.geometry (
 	id VARCHAR NOT NULL, 
 	law_status VARCHAR NOT NULL, 
 	published_from DATE NOT NULL, 
@@ -1983,24 +1983,24 @@ CREATE TABLE geometry (
 	geom geometry(POLYGON,2056) NOT NULL, 
 	public_law_restriction_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(public_law_restriction_id) REFERENCES public_law_restriction (id)
+	FOREIGN KEY(public_law_restriction_id) REFERENCES groundwater_protection_sites.public_law_restriction (id)
 )
 
 ;
 
-CREATE TABLE public_law_restriction_document (
+CREATE TABLE groundwater_protection_sites.public_law_restriction_document (
 	id VARCHAR NOT NULL, 
 	public_law_restriction_id VARCHAR NOT NULL, 
 	document_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(public_law_restriction_id) REFERENCES public_law_restriction (id), 
-	FOREIGN KEY(document_id) REFERENCES document (id)
+	FOREIGN KEY(public_law_restriction_id) REFERENCES groundwater_protection_sites.public_law_restriction (id), 
+	FOREIGN KEY(document_id) REFERENCES groundwater_protection_sites.document (id)
 )
 
 ;
-CREATE SCHEMA IF NOT EXISTS None;
+CREATE SCHEMA IF NOT EXISTS noise_sensitivity_levels;
 
-CREATE TABLE availability (
+CREATE TABLE noise_sensitivity_levels.availability (
 	fosnr VARCHAR NOT NULL, 
 	available BOOLEAN NOT NULL, 
 	PRIMARY KEY (fosnr)
@@ -2008,7 +2008,7 @@ CREATE TABLE availability (
 
 ;
 
-CREATE TABLE office (
+CREATE TABLE noise_sensitivity_levels.office (
 	id VARCHAR NOT NULL, 
 	name JSON NOT NULL, 
 	office_at_web JSON, 
@@ -2024,7 +2024,7 @@ CREATE TABLE office (
 
 ;
 
-CREATE TABLE view_service (
+CREATE TABLE noise_sensitivity_levels.view_service (
 	id VARCHAR NOT NULL, 
 	reference_wms JSON NOT NULL, 
 	layer_index INTEGER NOT NULL, 
@@ -2034,18 +2034,18 @@ CREATE TABLE view_service (
 
 ;
 
-CREATE TABLE data_integration (
+CREATE TABLE noise_sensitivity_levels.data_integration (
 	id VARCHAR NOT NULL, 
 	date TIMESTAMP WITHOUT TIME ZONE NOT NULL, 
 	office_id VARCHAR NOT NULL, 
 	checksum VARCHAR, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(office_id) REFERENCES office (id)
+	FOREIGN KEY(office_id) REFERENCES noise_sensitivity_levels.office (id)
 )
 
 ;
 
-CREATE TABLE document (
+CREATE TABLE noise_sensitivity_levels.document (
 	id VARCHAR NOT NULL, 
 	document_type VARCHAR NOT NULL, 
 	index INTEGER NOT NULL, 
@@ -2060,12 +2060,12 @@ CREATE TABLE document (
 	only_in_municipality INTEGER, 
 	file VARCHAR, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(office_id) REFERENCES office (id)
+	FOREIGN KEY(office_id) REFERENCES noise_sensitivity_levels.office (id)
 )
 
 ;
 
-CREATE TABLE legend_entry (
+CREATE TABLE noise_sensitivity_levels.legend_entry (
 	id VARCHAR NOT NULL, 
 	symbol VARCHAR NOT NULL, 
 	legend_text JSON NOT NULL, 
@@ -2075,12 +2075,12 @@ CREATE TABLE legend_entry (
 	sub_theme VARCHAR, 
 	view_service_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(view_service_id) REFERENCES view_service (id)
+	FOREIGN KEY(view_service_id) REFERENCES noise_sensitivity_levels.view_service (id)
 )
 
 ;
 
-CREATE TABLE public_law_restriction (
+CREATE TABLE noise_sensitivity_levels.public_law_restriction (
 	id VARCHAR NOT NULL, 
 	law_status VARCHAR NOT NULL, 
 	published_from DATE NOT NULL, 
@@ -2089,14 +2089,14 @@ CREATE TABLE public_law_restriction (
 	office_id VARCHAR NOT NULL, 
 	legend_entry_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(view_service_id) REFERENCES view_service (id), 
-	FOREIGN KEY(office_id) REFERENCES office (id), 
-	FOREIGN KEY(legend_entry_id) REFERENCES legend_entry (id)
+	FOREIGN KEY(view_service_id) REFERENCES noise_sensitivity_levels.view_service (id), 
+	FOREIGN KEY(office_id) REFERENCES noise_sensitivity_levels.office (id), 
+	FOREIGN KEY(legend_entry_id) REFERENCES noise_sensitivity_levels.legend_entry (id)
 )
 
 ;
 
-CREATE TABLE geometry (
+CREATE TABLE noise_sensitivity_levels.geometry (
 	id VARCHAR NOT NULL, 
 	law_status VARCHAR NOT NULL, 
 	published_from DATE NOT NULL, 
@@ -2105,24 +2105,24 @@ CREATE TABLE geometry (
 	geom geometry(POLYGON,2056) NOT NULL, 
 	public_law_restriction_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(public_law_restriction_id) REFERENCES public_law_restriction (id)
+	FOREIGN KEY(public_law_restriction_id) REFERENCES noise_sensitivity_levels.public_law_restriction (id)
 )
 
 ;
 
-CREATE TABLE public_law_restriction_document (
+CREATE TABLE noise_sensitivity_levels.public_law_restriction_document (
 	id VARCHAR NOT NULL, 
 	public_law_restriction_id VARCHAR NOT NULL, 
 	document_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(public_law_restriction_id) REFERENCES public_law_restriction (id), 
-	FOREIGN KEY(document_id) REFERENCES document (id)
+	FOREIGN KEY(public_law_restriction_id) REFERENCES noise_sensitivity_levels.public_law_restriction (id), 
+	FOREIGN KEY(document_id) REFERENCES noise_sensitivity_levels.document (id)
 )
 
 ;
-CREATE SCHEMA IF NOT EXISTS None;
+CREATE SCHEMA IF NOT EXISTS forest_perimeters;
 
-CREATE TABLE availability (
+CREATE TABLE forest_perimeters.availability (
 	fosnr VARCHAR NOT NULL, 
 	available BOOLEAN NOT NULL, 
 	PRIMARY KEY (fosnr)
@@ -2130,7 +2130,7 @@ CREATE TABLE availability (
 
 ;
 
-CREATE TABLE office (
+CREATE TABLE forest_perimeters.office (
 	id VARCHAR NOT NULL, 
 	name JSON NOT NULL, 
 	office_at_web JSON, 
@@ -2146,7 +2146,7 @@ CREATE TABLE office (
 
 ;
 
-CREATE TABLE view_service (
+CREATE TABLE forest_perimeters.view_service (
 	id VARCHAR NOT NULL, 
 	reference_wms JSON NOT NULL, 
 	layer_index INTEGER NOT NULL, 
@@ -2156,18 +2156,18 @@ CREATE TABLE view_service (
 
 ;
 
-CREATE TABLE data_integration (
+CREATE TABLE forest_perimeters.data_integration (
 	id VARCHAR NOT NULL, 
 	date TIMESTAMP WITHOUT TIME ZONE NOT NULL, 
 	office_id VARCHAR NOT NULL, 
 	checksum VARCHAR, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(office_id) REFERENCES office (id)
+	FOREIGN KEY(office_id) REFERENCES forest_perimeters.office (id)
 )
 
 ;
 
-CREATE TABLE document (
+CREATE TABLE forest_perimeters.document (
 	id VARCHAR NOT NULL, 
 	document_type VARCHAR NOT NULL, 
 	index INTEGER NOT NULL, 
@@ -2182,12 +2182,12 @@ CREATE TABLE document (
 	only_in_municipality INTEGER, 
 	file VARCHAR, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(office_id) REFERENCES office (id)
+	FOREIGN KEY(office_id) REFERENCES forest_perimeters.office (id)
 )
 
 ;
 
-CREATE TABLE legend_entry (
+CREATE TABLE forest_perimeters.legend_entry (
 	id VARCHAR NOT NULL, 
 	symbol VARCHAR NOT NULL, 
 	legend_text JSON NOT NULL, 
@@ -2197,12 +2197,12 @@ CREATE TABLE legend_entry (
 	sub_theme VARCHAR, 
 	view_service_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(view_service_id) REFERENCES view_service (id)
+	FOREIGN KEY(view_service_id) REFERENCES forest_perimeters.view_service (id)
 )
 
 ;
 
-CREATE TABLE public_law_restriction (
+CREATE TABLE forest_perimeters.public_law_restriction (
 	id VARCHAR NOT NULL, 
 	law_status VARCHAR NOT NULL, 
 	published_from DATE NOT NULL, 
@@ -2211,14 +2211,14 @@ CREATE TABLE public_law_restriction (
 	office_id VARCHAR NOT NULL, 
 	legend_entry_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(view_service_id) REFERENCES view_service (id), 
-	FOREIGN KEY(office_id) REFERENCES office (id), 
-	FOREIGN KEY(legend_entry_id) REFERENCES legend_entry (id)
+	FOREIGN KEY(view_service_id) REFERENCES forest_perimeters.view_service (id), 
+	FOREIGN KEY(office_id) REFERENCES forest_perimeters.office (id), 
+	FOREIGN KEY(legend_entry_id) REFERENCES forest_perimeters.legend_entry (id)
 )
 
 ;
 
-CREATE TABLE geometry (
+CREATE TABLE forest_perimeters.geometry (
 	id VARCHAR NOT NULL, 
 	law_status VARCHAR NOT NULL, 
 	published_from DATE NOT NULL, 
@@ -2227,24 +2227,24 @@ CREATE TABLE geometry (
 	geom geometry(LINESTRING,2056) NOT NULL, 
 	public_law_restriction_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(public_law_restriction_id) REFERENCES public_law_restriction (id)
+	FOREIGN KEY(public_law_restriction_id) REFERENCES forest_perimeters.public_law_restriction (id)
 )
 
 ;
 
-CREATE TABLE public_law_restriction_document (
+CREATE TABLE forest_perimeters.public_law_restriction_document (
 	id VARCHAR NOT NULL, 
 	public_law_restriction_id VARCHAR NOT NULL, 
 	document_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(public_law_restriction_id) REFERENCES public_law_restriction (id), 
-	FOREIGN KEY(document_id) REFERENCES document (id)
+	FOREIGN KEY(public_law_restriction_id) REFERENCES forest_perimeters.public_law_restriction (id), 
+	FOREIGN KEY(document_id) REFERENCES forest_perimeters.document (id)
 )
 
 ;
-CREATE SCHEMA IF NOT EXISTS None;
+CREATE SCHEMA IF NOT EXISTS forest_distance_lines;
 
-CREATE TABLE availability (
+CREATE TABLE forest_distance_lines.availability (
 	fosnr VARCHAR NOT NULL, 
 	available BOOLEAN NOT NULL, 
 	PRIMARY KEY (fosnr)
@@ -2252,7 +2252,7 @@ CREATE TABLE availability (
 
 ;
 
-CREATE TABLE office (
+CREATE TABLE forest_distance_lines.office (
 	id VARCHAR NOT NULL, 
 	name JSON NOT NULL, 
 	office_at_web JSON, 
@@ -2268,7 +2268,7 @@ CREATE TABLE office (
 
 ;
 
-CREATE TABLE view_service (
+CREATE TABLE forest_distance_lines.view_service (
 	id VARCHAR NOT NULL, 
 	reference_wms JSON NOT NULL, 
 	layer_index INTEGER NOT NULL, 
@@ -2278,18 +2278,18 @@ CREATE TABLE view_service (
 
 ;
 
-CREATE TABLE data_integration (
+CREATE TABLE forest_distance_lines.data_integration (
 	id VARCHAR NOT NULL, 
 	date TIMESTAMP WITHOUT TIME ZONE NOT NULL, 
 	office_id VARCHAR NOT NULL, 
 	checksum VARCHAR, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(office_id) REFERENCES office (id)
+	FOREIGN KEY(office_id) REFERENCES forest_distance_lines.office (id)
 )
 
 ;
 
-CREATE TABLE document (
+CREATE TABLE forest_distance_lines.document (
 	id VARCHAR NOT NULL, 
 	document_type VARCHAR NOT NULL, 
 	index INTEGER NOT NULL, 
@@ -2304,12 +2304,12 @@ CREATE TABLE document (
 	only_in_municipality INTEGER, 
 	file VARCHAR, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(office_id) REFERENCES office (id)
+	FOREIGN KEY(office_id) REFERENCES forest_distance_lines.office (id)
 )
 
 ;
 
-CREATE TABLE legend_entry (
+CREATE TABLE forest_distance_lines.legend_entry (
 	id VARCHAR NOT NULL, 
 	symbol VARCHAR NOT NULL, 
 	legend_text JSON NOT NULL, 
@@ -2319,12 +2319,12 @@ CREATE TABLE legend_entry (
 	sub_theme VARCHAR, 
 	view_service_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(view_service_id) REFERENCES view_service (id)
+	FOREIGN KEY(view_service_id) REFERENCES forest_distance_lines.view_service (id)
 )
 
 ;
 
-CREATE TABLE public_law_restriction (
+CREATE TABLE forest_distance_lines.public_law_restriction (
 	id VARCHAR NOT NULL, 
 	law_status VARCHAR NOT NULL, 
 	published_from DATE NOT NULL, 
@@ -2333,14 +2333,14 @@ CREATE TABLE public_law_restriction (
 	office_id VARCHAR NOT NULL, 
 	legend_entry_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(view_service_id) REFERENCES view_service (id), 
-	FOREIGN KEY(office_id) REFERENCES office (id), 
-	FOREIGN KEY(legend_entry_id) REFERENCES legend_entry (id)
+	FOREIGN KEY(view_service_id) REFERENCES forest_distance_lines.view_service (id), 
+	FOREIGN KEY(office_id) REFERENCES forest_distance_lines.office (id), 
+	FOREIGN KEY(legend_entry_id) REFERENCES forest_distance_lines.legend_entry (id)
 )
 
 ;
 
-CREATE TABLE geometry (
+CREATE TABLE forest_distance_lines.geometry (
 	id VARCHAR NOT NULL, 
 	law_status VARCHAR NOT NULL, 
 	published_from DATE NOT NULL, 
@@ -2349,24 +2349,24 @@ CREATE TABLE geometry (
 	geom geometry(LINESTRING,2056) NOT NULL, 
 	public_law_restriction_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(public_law_restriction_id) REFERENCES public_law_restriction (id)
+	FOREIGN KEY(public_law_restriction_id) REFERENCES forest_distance_lines.public_law_restriction (id)
 )
 
 ;
 
-CREATE TABLE public_law_restriction_document (
+CREATE TABLE forest_distance_lines.public_law_restriction_document (
 	id VARCHAR NOT NULL, 
 	public_law_restriction_id VARCHAR NOT NULL, 
 	document_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(public_law_restriction_id) REFERENCES public_law_restriction (id), 
-	FOREIGN KEY(document_id) REFERENCES document (id)
+	FOREIGN KEY(public_law_restriction_id) REFERENCES forest_distance_lines.public_law_restriction (id), 
+	FOREIGN KEY(document_id) REFERENCES forest_distance_lines.document (id)
 )
 
 ;
-CREATE SCHEMA IF NOT EXISTS None;
+CREATE SCHEMA IF NOT EXISTS forest_perimeters;
 
-CREATE TABLE availability (
+CREATE TABLE forest_perimeters.availability (
 	fosnr VARCHAR NOT NULL, 
 	available BOOLEAN NOT NULL, 
 	PRIMARY KEY (fosnr)
@@ -2374,7 +2374,7 @@ CREATE TABLE availability (
 
 ;
 
-CREATE TABLE office (
+CREATE TABLE forest_perimeters.office (
 	id VARCHAR NOT NULL, 
 	name JSON NOT NULL, 
 	office_at_web JSON, 
@@ -2390,7 +2390,7 @@ CREATE TABLE office (
 
 ;
 
-CREATE TABLE view_service (
+CREATE TABLE forest_perimeters.view_service (
 	id VARCHAR NOT NULL, 
 	reference_wms JSON NOT NULL, 
 	layer_index INTEGER NOT NULL, 
@@ -2400,18 +2400,18 @@ CREATE TABLE view_service (
 
 ;
 
-CREATE TABLE data_integration (
+CREATE TABLE forest_perimeters.data_integration (
 	id VARCHAR NOT NULL, 
 	date TIMESTAMP WITHOUT TIME ZONE NOT NULL, 
 	office_id VARCHAR NOT NULL, 
 	checksum VARCHAR, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(office_id) REFERENCES office (id)
+	FOREIGN KEY(office_id) REFERENCES forest_perimeters.office (id)
 )
 
 ;
 
-CREATE TABLE document (
+CREATE TABLE forest_perimeters.document (
 	id VARCHAR NOT NULL, 
 	document_type VARCHAR NOT NULL, 
 	index INTEGER NOT NULL, 
@@ -2426,12 +2426,12 @@ CREATE TABLE document (
 	only_in_municipality INTEGER, 
 	file VARCHAR, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(office_id) REFERENCES office (id)
+	FOREIGN KEY(office_id) REFERENCES forest_perimeters.office (id)
 )
 
 ;
 
-CREATE TABLE legend_entry (
+CREATE TABLE forest_perimeters.legend_entry (
 	id VARCHAR NOT NULL, 
 	symbol VARCHAR NOT NULL, 
 	legend_text JSON NOT NULL, 
@@ -2441,12 +2441,12 @@ CREATE TABLE legend_entry (
 	sub_theme VARCHAR, 
 	view_service_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(view_service_id) REFERENCES view_service (id)
+	FOREIGN KEY(view_service_id) REFERENCES forest_perimeters.view_service (id)
 )
 
 ;
 
-CREATE TABLE public_law_restriction (
+CREATE TABLE forest_perimeters.public_law_restriction (
 	id VARCHAR NOT NULL, 
 	law_status VARCHAR NOT NULL, 
 	published_from DATE NOT NULL, 
@@ -2455,14 +2455,14 @@ CREATE TABLE public_law_restriction (
 	office_id VARCHAR NOT NULL, 
 	legend_entry_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(view_service_id) REFERENCES view_service (id), 
-	FOREIGN KEY(office_id) REFERENCES office (id), 
-	FOREIGN KEY(legend_entry_id) REFERENCES legend_entry (id)
+	FOREIGN KEY(view_service_id) REFERENCES forest_perimeters.view_service (id), 
+	FOREIGN KEY(office_id) REFERENCES forest_perimeters.office (id), 
+	FOREIGN KEY(legend_entry_id) REFERENCES forest_perimeters.legend_entry (id)
 )
 
 ;
 
-CREATE TABLE geometry (
+CREATE TABLE forest_perimeters.geometry (
 	id VARCHAR NOT NULL, 
 	law_status VARCHAR NOT NULL, 
 	published_from DATE NOT NULL, 
@@ -2471,24 +2471,24 @@ CREATE TABLE geometry (
 	geom geometry(LINESTRING,2056) NOT NULL, 
 	public_law_restriction_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(public_law_restriction_id) REFERENCES public_law_restriction (id)
+	FOREIGN KEY(public_law_restriction_id) REFERENCES forest_perimeters.public_law_restriction (id)
 )
 
 ;
 
-CREATE TABLE public_law_restriction_document (
+CREATE TABLE forest_perimeters.public_law_restriction_document (
 	id VARCHAR NOT NULL, 
 	public_law_restriction_id VARCHAR NOT NULL, 
 	document_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(public_law_restriction_id) REFERENCES public_law_restriction (id), 
-	FOREIGN KEY(document_id) REFERENCES document (id)
+	FOREIGN KEY(public_law_restriction_id) REFERENCES forest_perimeters.public_law_restriction (id), 
+	FOREIGN KEY(document_id) REFERENCES forest_perimeters.document (id)
 )
 
 ;
-CREATE SCHEMA IF NOT EXISTS None;
+CREATE SCHEMA IF NOT EXISTS ch_ju_inventories_archaelogical_paleontological_sites;
 
-CREATE TABLE availability (
+CREATE TABLE ch_ju_inventories_archaelogical_paleontological_sites.availability (
 	fosnr VARCHAR NOT NULL, 
 	available BOOLEAN NOT NULL, 
 	PRIMARY KEY (fosnr)
@@ -2496,7 +2496,7 @@ CREATE TABLE availability (
 
 ;
 
-CREATE TABLE office (
+CREATE TABLE ch_ju_inventories_archaelogical_paleontological_sites.office (
 	id VARCHAR NOT NULL, 
 	name JSON NOT NULL, 
 	office_at_web JSON, 
@@ -2512,7 +2512,7 @@ CREATE TABLE office (
 
 ;
 
-CREATE TABLE view_service (
+CREATE TABLE ch_ju_inventories_archaelogical_paleontological_sites.view_service (
 	id VARCHAR NOT NULL, 
 	reference_wms JSON NOT NULL, 
 	layer_index INTEGER NOT NULL, 
@@ -2522,18 +2522,18 @@ CREATE TABLE view_service (
 
 ;
 
-CREATE TABLE data_integration (
+CREATE TABLE ch_ju_inventories_archaelogical_paleontological_sites.data_integration (
 	id VARCHAR NOT NULL, 
 	date TIMESTAMP WITHOUT TIME ZONE NOT NULL, 
 	office_id VARCHAR NOT NULL, 
 	checksum VARCHAR, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(office_id) REFERENCES office (id)
+	FOREIGN KEY(office_id) REFERENCES ch_ju_inventories_archaelogical_paleontological_sites.office (id)
 )
 
 ;
 
-CREATE TABLE document (
+CREATE TABLE ch_ju_inventories_archaelogical_paleontological_sites.document (
 	id VARCHAR NOT NULL, 
 	document_type VARCHAR NOT NULL, 
 	index INTEGER NOT NULL, 
@@ -2548,12 +2548,12 @@ CREATE TABLE document (
 	only_in_municipality INTEGER, 
 	file VARCHAR, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(office_id) REFERENCES office (id)
+	FOREIGN KEY(office_id) REFERENCES ch_ju_inventories_archaelogical_paleontological_sites.office (id)
 )
 
 ;
 
-CREATE TABLE legend_entry (
+CREATE TABLE ch_ju_inventories_archaelogical_paleontological_sites.legend_entry (
 	id VARCHAR NOT NULL, 
 	symbol VARCHAR NOT NULL, 
 	legend_text JSON NOT NULL, 
@@ -2563,12 +2563,12 @@ CREATE TABLE legend_entry (
 	sub_theme VARCHAR, 
 	view_service_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(view_service_id) REFERENCES view_service (id)
+	FOREIGN KEY(view_service_id) REFERENCES ch_ju_inventories_archaelogical_paleontological_sites.view_service (id)
 )
 
 ;
 
-CREATE TABLE public_law_restriction (
+CREATE TABLE ch_ju_inventories_archaelogical_paleontological_sites.public_law_restriction (
 	id VARCHAR NOT NULL, 
 	law_status VARCHAR NOT NULL, 
 	published_from DATE NOT NULL, 
@@ -2577,14 +2577,14 @@ CREATE TABLE public_law_restriction (
 	office_id VARCHAR NOT NULL, 
 	legend_entry_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(view_service_id) REFERENCES view_service (id), 
-	FOREIGN KEY(office_id) REFERENCES office (id), 
-	FOREIGN KEY(legend_entry_id) REFERENCES legend_entry (id)
+	FOREIGN KEY(view_service_id) REFERENCES ch_ju_inventories_archaelogical_paleontological_sites.view_service (id), 
+	FOREIGN KEY(office_id) REFERENCES ch_ju_inventories_archaelogical_paleontological_sites.office (id), 
+	FOREIGN KEY(legend_entry_id) REFERENCES ch_ju_inventories_archaelogical_paleontological_sites.legend_entry (id)
 )
 
 ;
 
-CREATE TABLE geometry (
+CREATE TABLE ch_ju_inventories_archaelogical_paleontological_sites.geometry (
 	id VARCHAR NOT NULL, 
 	law_status VARCHAR NOT NULL, 
 	published_from DATE NOT NULL, 
@@ -2593,18 +2593,18 @@ CREATE TABLE geometry (
 	geom geometry(POLYGON,2056) NOT NULL, 
 	public_law_restriction_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(public_law_restriction_id) REFERENCES public_law_restriction (id)
+	FOREIGN KEY(public_law_restriction_id) REFERENCES ch_ju_inventories_archaelogical_paleontological_sites.public_law_restriction (id)
 )
 
 ;
 
-CREATE TABLE public_law_restriction_document (
+CREATE TABLE ch_ju_inventories_archaelogical_paleontological_sites.public_law_restriction_document (
 	id VARCHAR NOT NULL, 
 	public_law_restriction_id VARCHAR NOT NULL, 
 	document_id VARCHAR NOT NULL, 
 	PRIMARY KEY (id), 
-	FOREIGN KEY(public_law_restriction_id) REFERENCES public_law_restriction (id), 
-	FOREIGN KEY(document_id) REFERENCES document (id)
+	FOREIGN KEY(public_law_restriction_id) REFERENCES ch_ju_inventories_archaelogical_paleontological_sites.public_law_restriction (id), 
+	FOREIGN KEY(document_id) REFERENCES ch_ju_inventories_archaelogical_paleontological_sites.document (id)
 )
 
 ;
