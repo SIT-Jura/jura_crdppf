@@ -528,7 +528,7 @@ vars:
         params:
           db_connection: *main_db_connection
           model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
-          # schema_name: land_use_plans
+          schema_name: land_use_plans
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
@@ -577,7 +577,8 @@ vars:
         params:
           db_connection: *main_db_connection
           model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
-      hooks:
+          schema_name: ch_ju_reserved_areas
+    hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status_lookup:
@@ -625,7 +626,7 @@ vars:
         params:
           db_connection: *main_db_connection
           model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
-          # schema_name: motorways_project_planing_zones
+          schema_name: motorways_project_planing_zones
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
@@ -674,7 +675,7 @@ vars:
         params:
           db_connection: *main_db_connection
           model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
-          # schema_name: motorways_building_lines
+          schema_name: motorways_building_lines
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
@@ -723,7 +724,7 @@ vars:
         params:
           db_connection: *main_db_connection
           model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
-          # schema_name: railways_project_planning_zones
+          schema_name: railways_project_planning_zones
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
@@ -772,7 +773,7 @@ vars:
         params:
           db_connection: *main_db_connection
           model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
-          # schema_name: railways_building_lines
+          schema_name: railways_building_lines
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
@@ -821,7 +822,7 @@ vars:
         params:
           db_connection: *main_db_connection
           model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
-          # schema_name: airports_project_planning_zones
+          schema_name: airports_project_planning_zones
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
@@ -870,7 +871,7 @@ vars:
         params:
           db_connection: *main_db_connection
           model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
-          # schema_name: airports_building_lines
+          schema_name: airports_building_lines
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
@@ -919,7 +920,7 @@ vars:
         params:
           db_connection: *main_db_connection
           model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
-          # schema_name: airports_security_zone_plans
+          schema_name: airports_security_zone_plans
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
@@ -969,7 +970,7 @@ vars:
         params:
           db_connection: *main_db_connection
           model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
-          # schema_name: contaminated_sites
+          schema_name: contaminated_sites
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
@@ -1018,7 +1019,7 @@ vars:
         params:
           db_connection: *main_db_connection
           model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
-          # schema_name: contaminated_military_sites
+          schema_name: contaminated_military_sites
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
@@ -1067,7 +1068,7 @@ vars:
         params:
           db_connection: *main_db_connection
           model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
-          # schema_name: contaminated_civil_aviation_sites
+          schema_name: contaminated_civil_aviation_sites
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
@@ -1116,7 +1117,7 @@ vars:
         params:
           db_connection: *main_db_connection
           model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
-          # schema_name: contaminated_public_transport_sites
+          schema_name: contaminated_public_transport_sites
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
@@ -1165,7 +1166,7 @@ vars:
         params:
           db_connection: *main_db_connection
           model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
-          # schema_name: groundwater_protection_zones
+          schema_name: groundwater_protection_zones
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
@@ -1214,7 +1215,7 @@ vars:
         params:
           db_connection: *main_db_connection
           model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
-          # schema_name: groundwater_protection_sites
+          schema_name: groundwater_protection_sites
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
@@ -1263,7 +1264,7 @@ vars:
         params:
           db_connection: *main_db_connection
           model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
-          # schema_name: noise_sensitivity_levels
+          schema_name: noise_sensitivity_levels
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
@@ -1312,7 +1313,7 @@ vars:
         params:
           db_connection: *main_db_connection
           model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
-          # schema_name: forest_perimeters
+          schema_name: forest_perimeters
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
@@ -1361,56 +1362,7 @@ vars:
         params:
           db_connection: *main_db_connection
           model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
-          # schema_name: forest_distance_lines
-      hooks:
-        get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
-        get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
-      law_status_lookup:
-        - data_code: inKraft
-          extract_code: inForce
-          transfer_code: inKraft
-        - data_code: AenderungMitVorwirkung
-          extract_code: changeWithPreEffect
-          transfer_code: AenderungMitVorwirkung
-        - data_code: AenderungOhneVorwirkung
-          extract_code: changeWithoutPreEffect
-          transfer_code: AenderungOhneVorwirkung
-      document_types_lookup:
-        - data_code: Rechtsvorschrift
-          extract_code: LegalProvision
-          transfer_code: Rechtsvorschrift
-        - data_code: GesetzlicheGrundlage
-          extract_code: Law
-          transfer_code: GesetzlicheGrundlage
-        - data_code: Hinweis
-          extract_code: Hint
-          transfer_code: Hinweis
-
-    - code: ch.StatischeWaldgrenzen
-      geometry_type: LINESTRING
-      thresholds:
-        length:
-          limit: 1.0
-          unit: 'm'
-          precision: 2
-        area:
-          limit: 1.0
-          unit: 'm²'
-          precision: 2
-        percentage:
-          precision: 1
-      language: fr
-      federal: false
-      standard: true
-      view_service:
-        layer_index: 1
-        layer_opacity: 1.0
-      source:
-        class: pyramid_oereb.standard.sources.plr.DatabaseSource
-        params:
-          db_connection: *main_db_connection
-          model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
-          # schema_name: forest_perimeters
+          schema_name: forest_distance_lines
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
@@ -1459,6 +1411,7 @@ vars:
         params:
           db_connection: *main_db_connection
           model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+          schema_name: ch_ju_inventories_archaelogical_paleontological_sites
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
