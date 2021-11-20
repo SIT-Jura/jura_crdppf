@@ -20,7 +20,7 @@ help:
 build: .venv/install-timestamp
 
 .venv/timestamp:
-	virtualenv --python=python3.7 --no-site-packages .venv
+	python3 -m virtualenv --python=python3.7 .venv
 	touch $@
 
 .venv/install-timestamp: .venv/timestamp
