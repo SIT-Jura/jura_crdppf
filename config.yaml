@@ -578,7 +578,7 @@ vars:
           db_connection: *main_db_connection
           model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
           schema_name: ch_ju_reserved_areas
-    hooks:
+      hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
       law_status_lookup:
