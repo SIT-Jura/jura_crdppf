@@ -1,3 +1,4 @@
+PYTHON_VERSION ?= python3.8
 VENV_BIN ?= .venv/bin/
 PIP_UPDATE = $(VENV_BIN)pip3 install --upgrade pip
 PIP_CMD ?= $(VENV_BIN)pip3 install docker-compose flake8
@@ -18,9 +19,10 @@ help:
 
 .PHONY: build
 build: .venv/install-timestamp
+	$(VENV_BIN)/docker-compose build
 
 .venv/timestamp:
-	python3 -m virtualenv --python=python3.7 .venv
+	python3 -m virtualenv --python=$(PYTHON_VERSION) .venv
 	touch $@
 
 .venv/install-timestamp: .venv/timestamp
@@ -30,11 +32,11 @@ build: .venv/install-timestamp
 
 .PHONY: serve
 serve: build 
-	$(VENV_BIN)/docker-compose up --build --remove-orphans -d
+	$(VENV_BIN)/docker-compose up --remove-orphans -d
 
 .PHONY: stop
 stop:
-	$(VENV_BIN)/docker-compose down
+	$(VENV_BIN)/docker-compose down --remove-orphans
 
 .PHONY: lint
 lint: .venv/install-timestamp
