@@ -14,7 +14,7 @@ RUN apt update && \
     DEBIAN_FRONTEND=noninteractive apt install --yes --no-install-recommends \
         ${PYTHON_DEV_PACKAGES} ${DEV_PACKAGES} && \
     apt install --yes vim && \
-    pip3 install --disable-pip-version-check --no-cache-dir --requirement requirements.txt && \
+    pip3 install --disable-pip-version-check --no-cache-dir --extra-index-url https://test.pypi.org/simple --requirement requirements.txt && \
     apt-get clean && \
     rm --force --recursive /var/lib/apt/lists/*
 
@@ -27,6 +27,6 @@ COPY scripts ./scripts
 COPY config.yaml .
 COPY config-for-scripts.yaml .
 
-RUN pip3 install --disable-pip-version-check --no-cache-dir --editable .
+RUN pip3 install --disable-pip-version-check --no-cache-dir --extra-index-url https://test.pypi.org/simple --editable .
 
 RUN apt remove --purge --autoremove --yes ${PYTHON_DEV_PACKAGES} binutils

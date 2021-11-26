@@ -8,7 +8,7 @@ oereb_client:
   #   "icon"  - URL to image used as favicon
   application:
     title: CRDPPF Jura
-    icon: https://www.jura.ch/favicon.ico
+    icon: https://geo.jura.ch/favicon.ico
     #logo_canton: https://oereb.geo.zg.ch/oereb/wsgi/oereb/image/logo/canton 
     #logo_canton: views/static/oereb_testportal.png
     logo_canton: views/static/logo_llv.png
@@ -55,18 +55,18 @@ oereb_client:
       url: search/fulltext
       limit: 30
     wfs:
-      #url: https://geowms.bl.ch
+      #url: https://geo.jura.ch/search
       url:
       limit: 5
 
   # Support
   support:
-    office1: Amt für Bau und Infrastruktur
-    office2: Fachbereich Vermessung und Geoinformation
-    street: Städtle 38
-    city: 9590 Vaduz
-    email: info.abi@llv.li
-    phone: +423 236 60 72
+    office1: Canton du Jura
+    office2: Section du cadastre et de la geoinformation
+    street: Rue des Moulins 2
+    city: 2800 Delémont
+    email: scg.sdt@jura.ch
+    phone: +41 32 420 53 10
  
   # Custom CSS file
   # Add the URL to a custom CSS file to adjust styles.

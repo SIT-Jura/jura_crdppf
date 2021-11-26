@@ -1,4 +1,4 @@
-PYTHON_VERSION ?= python3.8
+PYTHON_VERSION ?= python3.7
 VENV_BIN ?= .venv/bin/
 PIP_UPDATE = $(VENV_BIN)pip3 install --upgrade pip
 PIP_CMD ?= $(VENV_BIN)pip3 install docker-compose flake8
