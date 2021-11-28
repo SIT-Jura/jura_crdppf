@@ -128,6 +128,7 @@ vars:
       #db_connection: &main_db_connection
       #  postgresql://{POSTGRES_SERVICE_USER}:{POSTGRES_SERVICE_PASS}@{POSTGRES_SERVICE_HOST}:{POSTGRES_SERVICE_PORT}/{POSTGRES_SERVICE_DATABASE}
       db_connection: &main_db_connection
+        #postgresql://www-data:www-data@172.17.0.1:5432/pyramid_oereb
         postgresql://www-data:www-data@172.17.0.1:5432/dump_wkaltz_20211127
 
     # Define the SRID which your server is representing. Note: Only one projection system is possible in the
