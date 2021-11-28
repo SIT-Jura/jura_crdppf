@@ -25,15 +25,16 @@ services:
     - /var/www/vhosts/sitj/logs:/var/log/host_apache_logs
     - /etc/localtime:/etc/localtime:ro
 
-  oereb-print:
-    mem_limit: 2G
-    image: camptocamp/mapfish_print:3.28.1
-    networks:
-     - default
-    environment:
-      PRINT_YAML_MAX_ALIASES: 200
-      LOG_LEVEL: INFO
-      CATALINA_OPTS: >-
-        -Xmx512M
-    volumes:
-      - ./CONST_print-apps:/usr/local/tomcat/webapps/ROOT/print-apps:ro
+# TODO reactivate once print templates are installed
+#  oereb-print:
+#    mem_limit: 2G
+#    image: camptocamp/mapfish_print:3.28.1
+#    networks:
+#     - default
+#    environment:
+#      PRINT_YAML_MAX_ALIASES: 200
+#      LOG_LEVEL: INFO
+#      CATALINA_OPTS: >-
+#        -Xmx512M
+#    volumes:
+#      - ./CONST_print-apps:/usr/local/tomcat/webapps/ROOT/print-apps:ro

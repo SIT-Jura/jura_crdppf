@@ -1,6 +1,6 @@
 from pyramid.config import Configurator
 import c2cwsgiutils.pyramid
-import os
+import yaml
 
 
 def main(_, **settings):
@@ -9,7 +9,6 @@ def main(_, **settings):
     config = Configurator(settings=settings)
     # Read and update settings for oereb client
     settings = config.get_settings()
-    route_prefix = os.environ.get('OEREB_ROUTE_PREFIX', 'oereb')
     with open(settings.get('oereb_client.cfg'), encoding='utf-8') as f:
         settings.update({
             'oereb_client': yaml.load(f.read()).get('oereb_client')
