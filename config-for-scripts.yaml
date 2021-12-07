@@ -124,7 +124,8 @@ pyramid_oereb:
     #db_connection: &main_db_connection
     #  postgresql://{POSTGRES_SERVICE_USER}:{POSTGRES_SERVICE_PASS}@{POSTGRES_SERVICE_HOST}:{POSTGRES_SERVICE_PORT}/{POSTGRES_SERVICE_DATABASE}
     db_connection: &main_db_connection
-      postgresql://postgres:password@172.17.43.1:15432/oereb_v2
+      #postgresql://www-data:www-data@geo-test.jura.ch:5432/pyramid_oereb
+      postgresql://www-data:www-data@localhost:5432/pyramid_oereb
 
   # Define the SRID which your server is representing. Note: Only one projection system is possible in the
   # application. It does not provide any reprojection nor data in different projection systems. Take care in
