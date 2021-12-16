@@ -432,27 +432,27 @@ vars:
     # is assumed to be read from a database. Hint: If you want to read the values out of an existing database
     # table to avoid imports of this data every time it gets updates, you only need to change the model bound to
     # the source. The model must implement the same field names and information as the default model does.
-  real_estate_type:
-    lookup:
-      - data_code: Liegenschaft
-        transfer_code: Liegenschaft
-        extract_code: RealEstate
-      - data_code: SelbstRecht.Baurecht
-        transfer_code: SelbstRecht.Baurecht
-        extract_code: Distinct_and_permanent_rights.BuildingRight
-      - data_code: SelbstRecht.Quellenrecht
-        transfer_code: SelbstRecht.Quellenrecht
-        extract_code: Distinct_and_permanent_rights.right_to_spring_water
-      - data_code: SelbstRecht.Konzessionsrecht
-        transfer_code: SelbstRecht.Konzessionsrecht
-        extract_code: Distinct_and_permanent_rights.concession
-      - data_code: SelbstRecht.weitere
-        transfer_code: SelbstRecht.weitere
-        extract_code: Distinct_and_permanent_rights.other
-      - data_code: Bergwerk
-        transfer_code: Bergwerk
-        extract_code: Mineral_rights
-      # The real estate type text elements must have a property source.
+    real_estate_type:
+      lookup:
+        - data_code: Liegenschaft
+          transfer_code: Liegenschaft
+          extract_code: RealEstate
+        - data_code: SelbstRecht.Baurecht
+          transfer_code: SelbstRecht.Baurecht
+          extract_code: Distinct_and_permanent_rights.BuildingRight
+        - data_code: SelbstRecht.Quellenrecht
+          transfer_code: SelbstRecht.Quellenrecht
+          extract_code: Distinct_and_permanent_rights.right_to_spring_water
+        - data_code: SelbstRecht.Konzessionsrecht
+          transfer_code: SelbstRecht.Konzessionsrecht
+          extract_code: Distinct_and_permanent_rights.concession
+        - data_code: SelbstRecht.weitere
+          transfer_code: SelbstRecht.weitere
+          extract_code: Distinct_and_permanent_rights.other
+        - data_code: Bergwerk
+          transfer_code: Bergwerk
+          extract_code: Mineral_rights
+        # The real estate type text elements must have a property source.
       source:
         # The source must have a class which represents the accessor to the source. In this example, it is an
         # already implemented source which reads data from a database.
@@ -519,1040 +519,1039 @@ vars:
     # the extract creation process which loops over this list.
     plrs:
 
-  - code: ch.Planungszonen
-    geometry_type: POLYGON
-    thresholds:
-      length:
-        limit: 1.0
-        unit: 'm'
-        precision: 2
-      area:
-        limit: 1.0
-        unit: 'm²'
-        precision: 2
-      percentage:
-        precision: 1
-    language: fr
-    federal: false
-    standard: true
-    view_service:
-      layer_index: 1
-      layer_opacity: 0.75
-    source:
-      class: pyramid_oereb.standard.sources.plr.DatabaseSource
-      params:
-        db_connection: *main_db_connection
-        model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
-        schema_name: reserved_areas
-    hooks:
-      get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
-      get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
-    law_status_lookup:
-      - data_code: inKraft
-        extract_code: inForce
-        transfer_code: inKraft
-      - data_code: AenderungMitVorwirkung
-        extract_code: changeWithPreEffect
-        transfer_code: AenderungMitVorwirkung
-      - data_code: AenderungOhneVorwirkung
-        extract_code: changeWithoutPreEffect
-        transfer_code: AenderungOhneVorwirkung
-    document_types_lookup:
-      - data_code: Rechtsvorschrift
-        extract_code: LegalProvision
-        transfer_code: Rechtsvorschrift
-      - data_code: GesetzlicheGrundlage
-        extract_code: Law
-        transfer_code: GesetzlicheGrundlage
-      - data_code: Hinweis
-        extract_code: Hint
-        transfer_code: Hinweis
+    - code: ch.Planungszonen
+      geometry_type: POLYGON
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm²'
+          precision: 2
+        percentage:
+          precision: 1
+      language: fr
+      federal: false
+      standard: true
+      view_service:
+        layer_index: 1
+        layer_opacity: 0.75
+      source:
+        class: pyramid_oereb.standard.sources.plr.DatabaseSource
+        params:
+          db_connection: *main_db_connection
+          model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+          schema_name: reserved_areas
+      hooks:
+        get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
+        get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
+      law_status_lookup:
+        - data_code: inKraft
+          extract_code: inForce
+          transfer_code: inKraft
+        - data_code: AenderungMitVorwirkung
+          extract_code: changeWithPreEffect
+          transfer_code: AenderungMitVorwirkung
+        - data_code: AenderungOhneVorwirkung
+          extract_code: changeWithoutPreEffect
+          transfer_code: AenderungOhneVorwirkung
+      document_types_lookup:
+        - data_code: Rechtsvorschrift
+          extract_code: LegalProvision
+          transfer_code: Rechtsvorschrift
+        - data_code: GesetzlicheGrundlage
+          extract_code: Law
+          transfer_code: GesetzlicheGrundlage
+        - data_code: Hinweis
+          extract_code: Hint
+          transfer_code: Hinweis
 
-
-  - code: ch.Nutzungsplanung
-    geometry_type: GEOMETRYCOLLECTION
-    # Define the minimal area and length for public law restrictions that should be considered as 'true' restrictions
-    # and not as calculation errors (false trues) due to topological imperfections
-    thresholds:
-      length:
-        limit: 1.0
-        unit: 'm'
-        precision: 2
-      area:
-        limit: 1.0
-        unit: 'm²'
-        precision: 2
-      percentage:
-        precision: 1
-    language: fr
-    federal: false
-    standard: true
-    view_service:
-      layer_index: 1
-      layer_opacity: 1.0
-    source:
-      class: pyramid_oereb.standard.sources.plr.DatabaseSource
-      params:
-        db_connection: *main_db_connection
-        model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
-        schema_name: land_use_plans
-    hooks:
-      get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
-      get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
-    law_status_lookup:
-      - data_code: inKraft
-        extract_code: inForce
-        transfer_code: inKraft
-      - data_code: AenderungMitVorwirkung
-        extract_code: changeWithPreEffect
-        transfer_code: AenderungMitVorwirkung
-      - data_code: AenderungOhneVorwirkung
-        extract_code: changeWithoutPreEffect
-        transfer_code: AenderungOhneVorwirkung
-    document_types_lookup:
-      - data_code: Rechtsvorschrift
-        extract_code: LegalProvision
-        transfer_code: Rechtsvorschrift
-      - data_code: GesetzlicheGrundlage
-        extract_code: Law
-        transfer_code: GesetzlicheGrundlage
-      - data_code: Hinweis
-        extract_code: Hint
-        transfer_code: Hinweis
-
-  - code: ch.ProjektierungszonenNationalstrassen
-    geometry_type: MULTIPOLYGON
-    thresholds:
-      length:
-        limit: 1.0
-        unit: 'm'
-        precision: 2
-      area:
-        limit: 1.0
-        unit: 'm²'
-        precision: 2
-      percentage:
-        precision: 1
-    language: fr
-    federal: true
-    standard: true
-    view_service:
-      layer_index: 1
-      layer_opacity: 0.75
-    source:
-      class: pyramid_oereb.standard.sources.plr.DatabaseSource
-      params:
-        db_connection: *main_db_connection
-        model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
-        schema_name: motorways_project_planing_zones
-    hooks:
-      get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
-      get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
-    law_status_lookup:
-      - data_code: inKraft
-        extract_code: inForce
-        transfer_code: inKraft
-      - data_code: AenderungMitVorwirkung
-        extract_code: changeWithPreEffect
-        transfer_code: AenderungMitVorwirkung
-      - data_code: AenderungOhneVorwirkung
-        extract_code: changeWithoutPreEffect
-        transfer_code: AenderungOhneVorwirkung
-    document_types_lookup:
-      - data_code: Rechtsvorschrift
-        extract_code: LegalProvision
-        transfer_code: Rechtsvorschrift
-      - data_code: GesetzlicheGrundlage
-        extract_code: Law
-        transfer_code: GesetzlicheGrundlage
-      - data_code: Hinweis
-        extract_code: Hint
-        transfer_code: Hinweis
-
-  - code: ch.Laermempfindlichkeitsstufen
-    geometry_type: POLYGON
-    thresholds:
-      length:
-        limit: 1.0
-        unit: 'm'
-        precision: 2
-      area:
-        limit: 1.0
-        unit: 'm²'
-        precision: 2
-      percentage:
-        precision: 1
-    language: fr
-    federal: false
-    standard: true
-    view_service:
-      layer_index: 1
-      layer_opacity: 1.0
-    source:
-      class: pyramid_oereb.standard.sources.plr.DatabaseSource
-      params:
-        db_connection: *main_db_connection
-        model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
-        schema_name: noise_sensitivity_levels
-    hooks:
-      get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
-      get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
-    law_status_lookup:
-      - data_code: inKraft
-        extract_code: inForce
-        transfer_code: inKraft
-      - data_code: AenderungMitVorwirkung
-        extract_code: changeWithPreEffect
-        transfer_code: AenderungMitVorwirkung
-      - data_code: AenderungOhneVorwirkung
-        extract_code: changeWithoutPreEffect
-        transfer_code: AenderungOhneVorwirkung
-    document_types_lookup:
-      - data_code: Rechtsvorschrift
-        extract_code: LegalProvision
-        transfer_code: Rechtsvorschrift
-      - data_code: GesetzlicheGrundlage
-        extract_code: Law
-        transfer_code: GesetzlicheGrundlage
-      - data_code: Hinweis
-        extract_code: Hint
-        transfer_code: Hinweis
-        
-  - code: ch.BaulinienNationalstrassen
-    geometry_type: LINESTRING
-    thresholds:
-      length:
-        limit: 1.0
-        unit: 'm'
-        precision: 2
-      area:
-        limit: 1.0
-        unit: 'm²'
-        precision: 2
-      percentage:
-        precision: 1
-    language: fr
-    federal: true
-    standard: true
-    view_service:
-      layer_index: 1
-      layer_opacity: 0.75
-    source:
-      class: pyramid_oereb.standard.sources.plr.DatabaseSource
-      params:
-        db_connection: *main_db_connection
-        model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
-        schema_name: motorways_building_lines
-    hooks:
-      get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
-      get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
-    law_status_lookup:
-      - data_code: inKraft
-        extract_code: inForce
-        transfer_code: inKraft
-      - data_code: AenderungMitVorwirkung
-        extract_code: changeWithPreEffect
-        transfer_code: AenderungMitVorwirkung
-      - data_code: AenderungOhneVorwirkung
-        extract_code: changeWithoutPreEffect
-        transfer_code: AenderungOhneVorwirkung
-    document_types_lookup:
-      - data_code: Rechtsvorschrift
-        extract_code: LegalProvision
-        transfer_code: Rechtsvorschrift
-      - data_code: GesetzlicheGrundlage
-        extract_code: Law
-        transfer_code: GesetzlicheGrundlage
-      - data_code: Hinweis
-        extract_code: Hint
-        transfer_code: Hinweis
-
-  - code: ch.ProjektierungszonenEisenbahnanlagen
-    geometry_type: POLYGON
-    thresholds:
-      length:
-        limit: 1.0
-        unit: 'm'
-        precision: 2
-      area:
-        limit: 1.0
-        unit: 'm²'
-        precision: 2
-      percentage:
-        precision: 1
-    language: fr
-    federal: true
-    standard: true
-    view_service:
-      layer_index: 1
-      layer_opacity: 0.75
-    source:
-      class: pyramid_oereb.standard.sources.plr.DatabaseSource
-      params:
-        db_connection: *main_db_connection
-        model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
-        schema_name: railways_project_planning_zones
-    hooks:
-      get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
-      get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
-    law_status_lookup:
-      - data_code: inKraft
-        extract_code: inForce
-        transfer_code: inKraft
-      - data_code: AenderungMitVorwirkung
-        extract_code: changeWithPreEffect
-        transfer_code: AenderungMitVorwirkung
-      - data_code: AenderungOhneVorwirkung
-        extract_code: changeWithoutPreEffect
-        transfer_code: AenderungOhneVorwirkung
-    document_types_lookup:
-      - data_code: Rechtsvorschrift
-        extract_code: LegalProvision
-        transfer_code: Rechtsvorschrift
-      - data_code: GesetzlicheGrundlage
-        extract_code: Law
-        transfer_code: GesetzlicheGrundlage
-      - data_code: Hinweis
-        extract_code: Hint
-        transfer_code: Hinweis
-
-  - code: ch.BaulinienEisenbahnanlagen
-    geometry_type: LINESTRING
-    thresholds:
-      length:
-        limit: 1.0
-        unit: 'm'
-        precision: 2
-      area:
-        limit: 1.0
-        unit: 'm²'
-        precision: 2
-      percentage:
-        precision: 1
-    language: fr
-    federal: true
-    standard: true
-    view_service:
-      layer_index: 1
-      layer_opacity: 0.75
-    source:
-      class: pyramid_oereb.standard.sources.plr.DatabaseSource
-      params:
-        db_connection: *main_db_connection
-        model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
-        schema_name: railways_building_lines
-    hooks:
-      get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
-      get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
-    law_status_lookup:
-      - data_code: inKraft
-        extract_code: inForce
-        transfer_code: inKraft
-      - data_code: AenderungMitVorwirkung
-        extract_code: changeWithPreEffect
-        transfer_code: AenderungMitVorwirkung
-      - data_code: AenderungOhneVorwirkung
-        extract_code: changeWithoutPreEffect
-        transfer_code: AenderungOhneVorwirkung
-    document_types_lookup:
-      - data_code: Rechtsvorschrift
-        extract_code: LegalProvision
-        transfer_code: Rechtsvorschrift
-      - data_code: GesetzlicheGrundlage
-        extract_code: Law
-        transfer_code: GesetzlicheGrundlage
-      - data_code: Hinweis
-        extract_code: Hint
-        transfer_code: Hinweis
-
-  - code: ch.ProjektierungszonenFlughafenanlagen
-    geometry_type: POLYGON
-    thresholds:
-      length:
-        limit: 1.0
-        unit: 'm'
-        precision: 2
-      area:
-        limit: 1.0
-        unit: 'm²'
-        precision: 2
-      percentage:
-        precision: 1
-    language: fr
-    federal: true
-    standard: true
-    view_service:
-      layer_index: 1
-      layer_opacity: 0.75
-    source:
-      class: pyramid_oereb.standard.sources.plr.DatabaseSource
-      params:
-        db_connection: *main_db_connection
-        model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
-        schema_name: airports_project_planning_zones
-    hooks:
-      get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
-      get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
-    law_status_lookup:
-      - data_code: inKraft
-        extract_code: inForce
-        transfer_code: inKraft
-      - data_code: AenderungMitVorwirkung
-        extract_code: changeWithPreEffect
-        transfer_code: AenderungMitVorwirkung
-      - data_code: AenderungOhneVorwirkung
-        extract_code: changeWithoutPreEffect
-        transfer_code: AenderungOhneVorwirkung
-    document_types_lookup:
-      - data_code: Rechtsvorschrift
-        extract_code: LegalProvision
-        transfer_code: Rechtsvorschrift
-      - data_code: GesetzlicheGrundlage
-        extract_code: Law
-        transfer_code: GesetzlicheGrundlage
-      - data_code: Hinweis
-        extract_code: Hint
-        transfer_code: Hinweis
-
-  - code: ch.BaulinienFlughafenanlagen
-    geometry_type: LINESTRING
-    thresholds:
-      length:
-        limit: 1.0
-        unit: 'm'
-        precision: 2
-      area:
-        limit: 1.0
-        unit: 'm²'
-        precision: 2
-      percentage:
-        precision: 1
-    language: fr
-    federal: true
-    standard: true
-    view_service:
-      layer_index: 1
-      layer_opacity: 0.75
-    source:
-      class: pyramid_oereb.standard.sources.plr.DatabaseSource
-      params:
-        db_connection: *main_db_connection
-        model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
-        schema_name: airports_building_lines
-    hooks:
-      get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
-      get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
-    law_status_lookup:
-      - data_code: inKraft
-        extract_code: inForce
-        transfer_code: inKraft
-      - data_code: AenderungMitVorwirkung
-        extract_code: changeWithPreEffect
-        transfer_code: AenderungMitVorwirkung
-      - data_code: AenderungOhneVorwirkung
-        extract_code: changeWithoutPreEffect
-        transfer_code: AenderungOhneVorwirkung
-    document_types_lookup:
-      - data_code: Rechtsvorschrift
-        extract_code: LegalProvision
-        transfer_code: Rechtsvorschrift
-      - data_code: GesetzlicheGrundlage
-        extract_code: Law
-        transfer_code: GesetzlicheGrundlage
-      - data_code: Hinweis
-        extract_code: Hint
-        transfer_code: Hinweis
-
-  - code: ch.Sicherheitszonenplan
-    geometry_type: MULTIPOLYGON
-    thresholds:
-      length:
-        limit: 1.0
-        unit: 'm'
-        precision: 2
-      area:
-        limit: 1.0
-        unit: 'm²'
-        precision: 2
-      percentage:
-        precision: 1
-    language: fr
-    federal: true
-    standard: true
-    view_service:
-      layer_index: 1
-      layer_opacity: 0.75
-    source:
-      class: pyramid_oereb.standard.sources.plr.DatabaseSource
-      params:
-        db_connection: *main_db_connection
-        model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
-        schema_name: airports_security_zone_plans
-    hooks:
-      get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
-      get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
-    law_status_lookup:
-      - data_code: inKraft
-        extract_code: inForce
-        transfer_code: inKraft
-      - data_code: AenderungMitVorwirkung
-        extract_code: changeWithPreEffect
-        transfer_code: AenderungMitVorwirkung
-      - data_code: AenderungOhneVorwirkung
-        extract_code: changeWithoutPreEffect
-        transfer_code: AenderungOhneVorwirkung
-    document_types_lookup:
-      - data_code: Rechtsvorschrift
-        extract_code: LegalProvision
-        transfer_code: Rechtsvorschrift
-      - data_code: GesetzlicheGrundlage
-        extract_code: Law
-        transfer_code: GesetzlicheGrundlage
-      - data_code: Hinweis
-        extract_code: Hint
-        transfer_code: Hinweis
-    download: https://data.geo.admin.ch/ch.bazl.sicherheitszonenplan.oereb/data.zip
-
-  - code: ch.BelasteteStandorte
-    geometry_type: GEOMETRYCOLLECTION
-    thresholds:
-      length:
-        limit: 1.0
-        unit: 'm'
-        precision: 2
-      area:
-        limit: 1.0
-        unit: 'm²'
-        precision: 2
-      percentage:
-        precision: 1
-    language: fr
-    federal: false
-    standard: true
-    view_service:
-      layer_index: 1
-      layer_opacity: 1.0
-    source:
-      class: pyramid_oereb.standard.sources.plr.DatabaseSource
-      params:
-        db_connection: *main_db_connection
-        model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
-        schema_name: contaminated_sites
-    hooks:
-      get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
-      get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
-    law_status_lookup:
-      - data_code: inKraft
-        extract_code: inForce
-        transfer_code: inKraft
-      - data_code: AenderungMitVorwirkung
-        extract_code: changeWithPreEffect
-        transfer_code: AenderungMitVorwirkung
-      - data_code: AenderungOhneVorwirkung
-        extract_code: changeWithoutPreEffect
-        transfer_code: AenderungOhneVorwirkung
-    document_types_lookup:
-      - data_code: Rechtsvorschrift
-        extract_code: LegalProvision
-        transfer_code: Rechtsvorschrift
-      - data_code: GesetzlicheGrundlage
-        extract_code: Law
-        transfer_code: GesetzlicheGrundlage
-      - data_code: Hinweis
-        extract_code: Hint
-        transfer_code: Hinweis
-
-  - code: ch.BelasteteStandorteMilitaer
-    geometry_type: GEOMETRYCOLLECTION
-    thresholds:
-      length:
-        limit: 1.0
-        unit: 'm'
-        precision: 2
-      area:
-        limit: 1.0
-        unit: 'm²'
-        precision: 2
-      percentage:
-        precision: 1
-    language: fr
-    federal: true
-    standard: true
-    view_service:
-      layer_index: 1
-      layer_opacity: 0.75
-    source:
-      class: pyramid_oereb.standard.sources.plr.DatabaseSource
-      params:
-        db_connection: *main_db_connection
-        model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
-        schema_name: contaminated_military_sites
-    hooks:
-      get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
-      get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
-    law_status_lookup:
-      - data_code: inKraft
-        extract_code: inForce
-        transfer_code: inKraft
-      - data_code: AenderungMitVorwirkung
-        extract_code: changeWithPreEffect
-        transfer_code: AenderungMitVorwirkung
-      - data_code: AenderungOhneVorwirkung
-        extract_code: changeWithoutPreEffect
-        transfer_code: AenderungOhneVorwirkung
-    document_types_lookup:
-      - data_code: Rechtsvorschrift
-        extract_code: LegalProvision
-        transfer_code: Rechtsvorschrift
-      - data_code: GesetzlicheGrundlage
-        extract_code: Law
-        transfer_code: GesetzlicheGrundlage
-      - data_code: Hinweis
-        extract_code: Hint
-        transfer_code: Hinweis
-
-  - code: ch.BelasteteStandorteZivileFlugplaetze
-    geometry_type: GEOMETRYCOLLECTION
-    thresholds:
-      length:
-        limit: 1.0
-        unit: 'm'
-        precision: 2
-      area:
-        limit: 1.0
-        unit: 'm²'
-        precision: 2
-      percentage:
-        precision: 1
-    language: fr
-    federal: true
-    standard: true
-    view_service:
-      layer_index: 1
-      layer_opacity: 0.75
-    source:
-      class: pyramid_oereb.standard.sources.plr.DatabaseSource
-      params:
-        db_connection: *main_db_connection
-        model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
-        schema_name: contaminated_civil_aviation_sites
-    hooks:
-      get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
-      get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
-    law_status_lookup:
-      - data_code: inKraft
-        extract_code: inForce
-        transfer_code: inKraft
-      - data_code: AenderungMitVorwirkung
-        extract_code: changeWithPreEffect
-        transfer_code: AenderungMitVorwirkung
-      - data_code: AenderungOhneVorwirkung
-        extract_code: changeWithoutPreEffect
-        transfer_code: AenderungOhneVorwirkung
-    document_types_lookup:
-      - data_code: Rechtsvorschrift
-        extract_code: LegalProvision
-        transfer_code: Rechtsvorschrift
-      - data_code: GesetzlicheGrundlage
-        extract_code: Law
-        transfer_code: GesetzlicheGrundlage
-      - data_code: Hinweis
-        extract_code: Hint
-        transfer_code: Hinweis
-
-  - code: ch.BelasteteStandorteOeffentlicherVerkehr
-    geometry_type: GEOMETRYCOLLECTION
-    thresholds:
-      length:
-        limit: 1.0
-        unit: 'm'
-        precision: 2
-      area:
-        limit: 1.0
-        unit: 'm²'
-        precision: 2
-      percentage:
-        precision: 1
-    language: fr
-    federal: true
-    standard: true
-    view_service:
-      layer_index: 1
-      layer_opacity: 0.75
-    source:
-      class: pyramid_oereb.standard.sources.plr.DatabaseSource
-      params:
-        db_connection: *main_db_connection
-        model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
-        schema_name: contaminated_public_transport_sites
-    hooks:
-      get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
-      get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
-    law_status_lookup:
-      - data_code: inKraft
-        extract_code: inForce
-        transfer_code: inKraft
-      - data_code: AenderungMitVorwirkung
-        extract_code: changeWithPreEffect
-        transfer_code: AenderungMitVorwirkung
-      - data_code: AenderungOhneVorwirkung
-        extract_code: changeWithoutPreEffect
-        transfer_code: AenderungOhneVorwirkung
-    document_types_lookup:
-      - data_code: Rechtsvorschrift
-        extract_code: LegalProvision
-        transfer_code: Rechtsvorschrift
-      - data_code: GesetzlicheGrundlage
-        extract_code: Law
-        transfer_code: GesetzlicheGrundlage
-      - data_code: Hinweis
-        extract_code: Hint
-        transfer_code: Hinweis
-
-  - code: ch.Grundwasserschutzzonen
-    geometry_type: POLYGON
-    thresholds:
-      length:
-        limit: 1.0
-        unit: 'm'
-        precision: 2
-      area:
-        limit: 1.0
-        unit: 'm²'
-        precision: 2
-      percentage:
-        precision: 1
-    language: fr
-    federal: false
-    standard: true
-    view_service:
-      layer_index: 1
-      layer_opacity: 1.0
-    source:
-      class: pyramid_oereb.standard.sources.plr.DatabaseSource
-      params:
-        db_connection: *main_db_connection
-        model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
-        schema_name: groundwater_protection_zones
-    hooks:
-      get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
-      get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
-    law_status_lookup:
-      - data_code: inKraft
-        extract_code: inForce
-        transfer_code: inKraft
-      - data_code: AenderungMitVorwirkung
-        extract_code: changeWithPreEffect
-        transfer_code: AenderungMitVorwirkung
-      - data_code: AenderungOhneVorwirkung
-        extract_code: changeWithoutPreEffect
-        transfer_code: AenderungOhneVorwirkung
-    document_types_lookup:
-      - data_code: Rechtsvorschrift
-        extract_code: LegalProvision
-        transfer_code: Rechtsvorschrift
-      - data_code: GesetzlicheGrundlage
-        extract_code: Law
-        transfer_code: GesetzlicheGrundlage
-      - data_code: Hinweis
-        extract_code: Hint
-        transfer_code: Hinweis
-
-  - code: ch.Grundwasserschutzareale
-    geometry_type: POLYGON
-    thresholds:
-      length:
-        limit: 1.0
-        unit: 'm'
-        precision: 2
-      area:
-        limit: 1.0
-        unit: 'm²'
-        precision: 2
-      percentage:
-        precision: 1
-    language: fr
-    federal: false
-    standard: true
-    view_service:
-      layer_index: 1
-      layer_opacity: 1.0
-    source:
-      class: pyramid_oereb.standard.sources.plr.DatabaseSource
-      params:
-        db_connection: *main_db_connection
-        model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
-        schema_name: groundwater_protection_sites
-    hooks:
-      get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
-      get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
-    law_status_lookup:
-      - data_code: inKraft
-        extract_code: inForce
-        transfer_code: inKraft
-      - data_code: AenderungMitVorwirkung
-        extract_code: changeWithPreEffect
-        transfer_code: AenderungMitVorwirkung
-      - data_code: AenderungOhneVorwirkung
-        extract_code: changeWithoutPreEffect
-        transfer_code: AenderungOhneVorwirkung
-    document_types_lookup:
-      - data_code: Rechtsvorschrift
-        extract_code: LegalProvision
-        transfer_code: Rechtsvorschrift
-      - data_code: GesetzlicheGrundlage
-        extract_code: Law
-        transfer_code: GesetzlicheGrundlage
-      - data_code: Hinweis
-        extract_code: Hint
-        transfer_code: Hinweis
-
-  - code: ch.StatischeWaldgrenzen
-    geometry_type: LINESTRING
-    thresholds:
-      length:
-        limit: 1.0
-        unit: 'm'
-        precision: 2
-      area:
-        limit: 1.0
-        unit: 'm²'
-        precision: 2
-      percentage:
-        precision: 1
-    language: fr
-    federal: false
-    standard: true
-    view_service:
-      layer_index: 1
-      layer_opacity: 1.0
-    source:
-      class: pyramid_oereb.standard.sources.plr.DatabaseSource
-      params:
-        db_connection: *main_db_connection
-        model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
-        schema_name: forest_perimeters
-    hooks:
-      get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
-      get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
-    law_status_lookup:
+    - code: ch.Nutzungsplanung
+      geometry_type: GEOMETRYCOLLECTION
+      # Define the minimal area and length for public law restrictions that should be considered as 'true' restrictions
+      # and not as calculation errors (false trues) due to topological imperfections
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm²'
+          precision: 2
+        percentage:
+          precision: 1
+      language: fr
+      federal: false
+      standard: true
+      view_service:
+        layer_index: 1
+        layer_opacity: 1.0
+      source:
+        class: pyramid_oereb.standard.sources.plr.DatabaseSource
+        params:
+          db_connection: *main_db_connection
+          model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+          schema_name: land_use_plans
+      hooks:
+        get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
+        get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
+      law_status_lookup:
+        - data_code: inKraft
+          extract_code: inForce
+          transfer_code: inKraft
+        - data_code: AenderungMitVorwirkung
+          extract_code: changeWithPreEffect
+          transfer_code: AenderungMitVorwirkung
+        - data_code: AenderungOhneVorwirkung
+          extract_code: changeWithoutPreEffect
+          transfer_code: AenderungOhneVorwirkung
+      document_types_lookup:
+        - data_code: Rechtsvorschrift
+          extract_code: LegalProvision
+          transfer_code: Rechtsvorschrift
+        - data_code: GesetzlicheGrundlage
+          extract_code: Law
+          transfer_code: GesetzlicheGrundlage
+        - data_code: Hinweis
+          extract_code: Hint
+          transfer_code: Hinweis
+  
+    - code: ch.ProjektierungszonenNationalstrassen
+      geometry_type: MULTIPOLYGON
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm²'
+          precision: 2
+        percentage:
+          precision: 1
+      language: fr
+      federal: true
+      standard: true
+      view_service:
+        layer_index: 1
+        layer_opacity: 0.75
+      source:
+        class: pyramid_oereb.standard.sources.plr.DatabaseSource
+        params:
+          db_connection: *main_db_connection
+          model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+          schema_name: motorways_project_planing_zones
+      hooks:
+        get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
+        get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
+      law_status_lookup:
+        - data_code: inKraft
+          extract_code: inForce
+          transfer_code: inKraft
+        - data_code: AenderungMitVorwirkung
+          extract_code: changeWithPreEffect
+          transfer_code: AenderungMitVorwirkung
+        - data_code: AenderungOhneVorwirkung
+          extract_code: changeWithoutPreEffect
+          transfer_code: AenderungOhneVorwirkung
+      document_types_lookup:
+        - data_code: Rechtsvorschrift
+          extract_code: LegalProvision
+          transfer_code: Rechtsvorschrift
+        - data_code: GesetzlicheGrundlage
+          extract_code: Law
+          transfer_code: GesetzlicheGrundlage
+        - data_code: Hinweis
+          extract_code: Hint
+          transfer_code: Hinweis
+  
+    - code: ch.Laermempfindlichkeitsstufen
+      geometry_type: POLYGON
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm²'
+          precision: 2
+        percentage:
+          precision: 1
+      language: fr
+      federal: false
+      standard: true
+      view_service:
+        layer_index: 1
+        layer_opacity: 1.0
+      source:
+        class: pyramid_oereb.standard.sources.plr.DatabaseSource
+        params:
+          db_connection: *main_db_connection
+          model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+          schema_name: noise_sensitivity_levels
+      hooks:
+        get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
+        get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
+      law_status_lookup:
+        - data_code: inKraft
+          extract_code: inForce
+          transfer_code: inKraft
+        - data_code: AenderungMitVorwirkung
+          extract_code: changeWithPreEffect
+          transfer_code: AenderungMitVorwirkung
+        - data_code: AenderungOhneVorwirkung
+          extract_code: changeWithoutPreEffect
+          transfer_code: AenderungOhneVorwirkung
+      document_types_lookup:
+        - data_code: Rechtsvorschrift
+          extract_code: LegalProvision
+          transfer_code: Rechtsvorschrift
+        - data_code: GesetzlicheGrundlage
+          extract_code: Law
+          transfer_code: GesetzlicheGrundlage
+        - data_code: Hinweis
+          extract_code: Hint
+          transfer_code: Hinweis
+          
+    - code: ch.BaulinienNationalstrassen
+      geometry_type: LINESTRING
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm²'
+          precision: 2
+        percentage:
+          precision: 1
+      language: fr
+      federal: true
+      standard: true
+      view_service:
+        layer_index: 1
+        layer_opacity: 0.75
+      source:
+        class: pyramid_oereb.standard.sources.plr.DatabaseSource
+        params:
+          db_connection: *main_db_connection
+          model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+          schema_name: motorways_building_lines
+      hooks:
+        get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
+        get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
+      law_status_lookup:
+        - data_code: inKraft
+          extract_code: inForce
+          transfer_code: inKraft
+        - data_code: AenderungMitVorwirkung
+          extract_code: changeWithPreEffect
+          transfer_code: AenderungMitVorwirkung
+        - data_code: AenderungOhneVorwirkung
+          extract_code: changeWithoutPreEffect
+          transfer_code: AenderungOhneVorwirkung
+      document_types_lookup:
+        - data_code: Rechtsvorschrift
+          extract_code: LegalProvision
+          transfer_code: Rechtsvorschrift
+        - data_code: GesetzlicheGrundlage
+          extract_code: Law
+          transfer_code: GesetzlicheGrundlage
+        - data_code: Hinweis
+          extract_code: Hint
+          transfer_code: Hinweis
+  
+    - code: ch.ProjektierungszonenEisenbahnanlagen
+      geometry_type: POLYGON
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm²'
+          precision: 2
+        percentage:
+          precision: 1
+      language: fr
+      federal: true
+      standard: true
+      view_service:
+        layer_index: 1
+        layer_opacity: 0.75
+      source:
+        class: pyramid_oereb.standard.sources.plr.DatabaseSource
+        params:
+          db_connection: *main_db_connection
+          model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+          schema_name: railways_project_planning_zones
+      hooks:
+        get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
+        get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
+      law_status_lookup:
+        - data_code: inKraft
+          extract_code: inForce
+          transfer_code: inKraft
+        - data_code: AenderungMitVorwirkung
+          extract_code: changeWithPreEffect
+          transfer_code: AenderungMitVorwirkung
+        - data_code: AenderungOhneVorwirkung
+          extract_code: changeWithoutPreEffect
+          transfer_code: AenderungOhneVorwirkung
+      document_types_lookup:
+        - data_code: Rechtsvorschrift
+          extract_code: LegalProvision
+          transfer_code: Rechtsvorschrift
+        - data_code: GesetzlicheGrundlage
+          extract_code: Law
+          transfer_code: GesetzlicheGrundlage
+        - data_code: Hinweis
+          extract_code: Hint
+          transfer_code: Hinweis
+  
+    - code: ch.BaulinienEisenbahnanlagen
+      geometry_type: LINESTRING
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm²'
+          precision: 2
+        percentage:
+          precision: 1
+      language: fr
+      federal: true
+      standard: true
+      view_service:
+        layer_index: 1
+        layer_opacity: 0.75
+      source:
+        class: pyramid_oereb.standard.sources.plr.DatabaseSource
+        params:
+          db_connection: *main_db_connection
+          model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+          schema_name: railways_building_lines
+      hooks:
+        get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
+        get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
+      law_status_lookup:
+        - data_code: inKraft
+          extract_code: inForce
+          transfer_code: inKraft
+        - data_code: AenderungMitVorwirkung
+          extract_code: changeWithPreEffect
+          transfer_code: AenderungMitVorwirkung
+        - data_code: AenderungOhneVorwirkung
+          extract_code: changeWithoutPreEffect
+          transfer_code: AenderungOhneVorwirkung
+      document_types_lookup:
+        - data_code: Rechtsvorschrift
+          extract_code: LegalProvision
+          transfer_code: Rechtsvorschrift
+        - data_code: GesetzlicheGrundlage
+          extract_code: Law
+          transfer_code: GesetzlicheGrundlage
+        - data_code: Hinweis
+          extract_code: Hint
+          transfer_code: Hinweis
+  
+    - code: ch.ProjektierungszonenFlughafenanlagen
+      geometry_type: POLYGON
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm²'
+          precision: 2
+        percentage:
+          precision: 1
+      language: fr
+      federal: true
+      standard: true
+      view_service:
+        layer_index: 1
+        layer_opacity: 0.75
+      source:
+        class: pyramid_oereb.standard.sources.plr.DatabaseSource
+        params:
+          db_connection: *main_db_connection
+          model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+          schema_name: airports_project_planning_zones
+      hooks:
+        get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
+        get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
+      law_status_lookup:
+        - data_code: inKraft
+          extract_code: inForce
+          transfer_code: inKraft
+        - data_code: AenderungMitVorwirkung
+          extract_code: changeWithPreEffect
+          transfer_code: AenderungMitVorwirkung
+        - data_code: AenderungOhneVorwirkung
+          extract_code: changeWithoutPreEffect
+          transfer_code: AenderungOhneVorwirkung
+      document_types_lookup:
+        - data_code: Rechtsvorschrift
+          extract_code: LegalProvision
+          transfer_code: Rechtsvorschrift
+        - data_code: GesetzlicheGrundlage
+          extract_code: Law
+          transfer_code: GesetzlicheGrundlage
+        - data_code: Hinweis
+          extract_code: Hint
+          transfer_code: Hinweis
+  
+    - code: ch.BaulinienFlughafenanlagen
+      geometry_type: LINESTRING
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm²'
+          precision: 2
+        percentage:
+          precision: 1
+      language: fr
+      federal: true
+      standard: true
+      view_service:
+        layer_index: 1
+        layer_opacity: 0.75
+      source:
+        class: pyramid_oereb.standard.sources.plr.DatabaseSource
+        params:
+          db_connection: *main_db_connection
+          model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+          schema_name: airports_building_lines
+      hooks:
+        get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
+        get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
+      law_status_lookup:
+        - data_code: inKraft
+          extract_code: inForce
+          transfer_code: inKraft
+        - data_code: AenderungMitVorwirkung
+          extract_code: changeWithPreEffect
+          transfer_code: AenderungMitVorwirkung
+        - data_code: AenderungOhneVorwirkung
+          extract_code: changeWithoutPreEffect
+          transfer_code: AenderungOhneVorwirkung
+      document_types_lookup:
+        - data_code: Rechtsvorschrift
+          extract_code: LegalProvision
+          transfer_code: Rechtsvorschrift
+        - data_code: GesetzlicheGrundlage
+          extract_code: Law
+          transfer_code: GesetzlicheGrundlage
+        - data_code: Hinweis
+          extract_code: Hint
+          transfer_code: Hinweis
+  
+    - code: ch.Sicherheitszonenplan
+      geometry_type: MULTIPOLYGON
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm²'
+          precision: 2
+        percentage:
+          precision: 1
+      language: fr
+      federal: true
+      standard: true
+      view_service:
+        layer_index: 1
+        layer_opacity: 0.75
+      source:
+        class: pyramid_oereb.standard.sources.plr.DatabaseSource
+        params:
+          db_connection: *main_db_connection
+          model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+          schema_name: airports_security_zone_plans
+      hooks:
+        get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
+        get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
+      law_status_lookup:
+        - data_code: inKraft
+          extract_code: inForce
+          transfer_code: inKraft
+        - data_code: AenderungMitVorwirkung
+          extract_code: changeWithPreEffect
+          transfer_code: AenderungMitVorwirkung
+        - data_code: AenderungOhneVorwirkung
+          extract_code: changeWithoutPreEffect
+          transfer_code: AenderungOhneVorwirkung
+      document_types_lookup:
+        - data_code: Rechtsvorschrift
+          extract_code: LegalProvision
+          transfer_code: Rechtsvorschrift
+        - data_code: GesetzlicheGrundlage
+          extract_code: Law
+          transfer_code: GesetzlicheGrundlage
+        - data_code: Hinweis
+          extract_code: Hint
+          transfer_code: Hinweis
+      download: https://data.geo.admin.ch/ch.bazl.sicherheitszonenplan.oereb/data.zip
+  
+    - code: ch.BelasteteStandorte
+      geometry_type: GEOMETRYCOLLECTION
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm²'
+          precision: 2
+        percentage:
+          precision: 1
+      language: fr
+      federal: false
+      standard: true
+      view_service:
+        layer_index: 1
+        layer_opacity: 1.0
+      source:
+        class: pyramid_oereb.standard.sources.plr.DatabaseSource
+        params:
+          db_connection: *main_db_connection
+          model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+          schema_name: contaminated_sites
+      hooks:
+        get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
+        get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
+      law_status_lookup:
+        - data_code: inKraft
+          extract_code: inForce
+          transfer_code: inKraft
+        - data_code: AenderungMitVorwirkung
+          extract_code: changeWithPreEffect
+          transfer_code: AenderungMitVorwirkung
+        - data_code: AenderungOhneVorwirkung
+          extract_code: changeWithoutPreEffect
+          transfer_code: AenderungOhneVorwirkung
+      document_types_lookup:
+        - data_code: Rechtsvorschrift
+          extract_code: LegalProvision
+          transfer_code: Rechtsvorschrift
+        - data_code: GesetzlicheGrundlage
+          extract_code: Law
+          transfer_code: GesetzlicheGrundlage
+        - data_code: Hinweis
+          extract_code: Hint
+          transfer_code: Hinweis
+  
+    - code: ch.BelasteteStandorteMilitaer
+      geometry_type: GEOMETRYCOLLECTION
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm²'
+          precision: 2
+        percentage:
+          precision: 1
+      language: fr
+      federal: true
+      standard: true
+      view_service:
+        layer_index: 1
+        layer_opacity: 0.75
+      source:
+        class: pyramid_oereb.standard.sources.plr.DatabaseSource
+        params:
+          db_connection: *main_db_connection
+          model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+          schema_name: contaminated_military_sites
+      hooks:
+        get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
+        get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
+      law_status_lookup:
+        - data_code: inKraft
+          extract_code: inForce
+          transfer_code: inKraft
+        - data_code: AenderungMitVorwirkung
+          extract_code: changeWithPreEffect
+          transfer_code: AenderungMitVorwirkung
+        - data_code: AenderungOhneVorwirkung
+          extract_code: changeWithoutPreEffect
+          transfer_code: AenderungOhneVorwirkung
+      document_types_lookup:
+        - data_code: Rechtsvorschrift
+          extract_code: LegalProvision
+          transfer_code: Rechtsvorschrift
+        - data_code: GesetzlicheGrundlage
+          extract_code: Law
+          transfer_code: GesetzlicheGrundlage
+        - data_code: Hinweis
+          extract_code: Hint
+          transfer_code: Hinweis
+  
+    - code: ch.BelasteteStandorteZivileFlugplaetze
+      geometry_type: GEOMETRYCOLLECTION
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm²'
+          precision: 2
+        percentage:
+          precision: 1
+      language: fr
+      federal: true
+      standard: true
+      view_service:
+        layer_index: 1
+        layer_opacity: 0.75
+      source:
+        class: pyramid_oereb.standard.sources.plr.DatabaseSource
+        params:
+          db_connection: *main_db_connection
+          model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+          schema_name: contaminated_civil_aviation_sites
+      hooks:
+        get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
+        get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
+      law_status_lookup:
+        - data_code: inKraft
+          extract_code: inForce
+          transfer_code: inKraft
+        - data_code: AenderungMitVorwirkung
+          extract_code: changeWithPreEffect
+          transfer_code: AenderungMitVorwirkung
+        - data_code: AenderungOhneVorwirkung
+          extract_code: changeWithoutPreEffect
+          transfer_code: AenderungOhneVorwirkung
+      document_types_lookup:
+        - data_code: Rechtsvorschrift
+          extract_code: LegalProvision
+          transfer_code: Rechtsvorschrift
+        - data_code: GesetzlicheGrundlage
+          extract_code: Law
+          transfer_code: GesetzlicheGrundlage
+        - data_code: Hinweis
+          extract_code: Hint
+          transfer_code: Hinweis
+  
+    - code: ch.BelasteteStandorteOeffentlicherVerkehr
+      geometry_type: GEOMETRYCOLLECTION
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm²'
+          precision: 2
+        percentage:
+          precision: 1
+      language: fr
+      federal: true
+      standard: true
+      view_service:
+        layer_index: 1
+        layer_opacity: 0.75
+      source:
+        class: pyramid_oereb.standard.sources.plr.DatabaseSource
+        params:
+          db_connection: *main_db_connection
+          model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+          schema_name: contaminated_public_transport_sites
+      hooks:
+        get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
+        get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
+      law_status_lookup:
+        - data_code: inKraft
+          extract_code: inForce
+          transfer_code: inKraft
+        - data_code: AenderungMitVorwirkung
+          extract_code: changeWithPreEffect
+          transfer_code: AenderungMitVorwirkung
+        - data_code: AenderungOhneVorwirkung
+          extract_code: changeWithoutPreEffect
+          transfer_code: AenderungOhneVorwirkung
+      document_types_lookup:
+        - data_code: Rechtsvorschrift
+          extract_code: LegalProvision
+          transfer_code: Rechtsvorschrift
+        - data_code: GesetzlicheGrundlage
+          extract_code: Law
+          transfer_code: GesetzlicheGrundlage
+        - data_code: Hinweis
+          extract_code: Hint
+          transfer_code: Hinweis
+  
+    - code: ch.Grundwasserschutzzonen
+      geometry_type: POLYGON
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm²'
+          precision: 2
+        percentage:
+          precision: 1
+      language: fr
+      federal: false
+      standard: true
+      view_service:
+        layer_index: 1
+        layer_opacity: 1.0
+      source:
+        class: pyramid_oereb.standard.sources.plr.DatabaseSource
+        params:
+          db_connection: *main_db_connection
+          model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+          schema_name: groundwater_protection_zones
+      hooks:
+        get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
+        get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
+      law_status_lookup:
+        - data_code: inKraft
+          extract_code: inForce
+          transfer_code: inKraft
+        - data_code: AenderungMitVorwirkung
+          extract_code: changeWithPreEffect
+          transfer_code: AenderungMitVorwirkung
+        - data_code: AenderungOhneVorwirkung
+          extract_code: changeWithoutPreEffect
+          transfer_code: AenderungOhneVorwirkung
+      document_types_lookup:
+        - data_code: Rechtsvorschrift
+          extract_code: LegalProvision
+          transfer_code: Rechtsvorschrift
+        - data_code: GesetzlicheGrundlage
+          extract_code: Law
+          transfer_code: GesetzlicheGrundlage
+        - data_code: Hinweis
+          extract_code: Hint
+          transfer_code: Hinweis
+  
+    - code: ch.Grundwasserschutzareale
+      geometry_type: POLYGON
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm²'
+          precision: 2
+        percentage:
+          precision: 1
+      language: fr
+      federal: false
+      standard: true
+      view_service:
+        layer_index: 1
+        layer_opacity: 1.0
+      source:
+        class: pyramid_oereb.standard.sources.plr.DatabaseSource
+        params:
+          db_connection: *main_db_connection
+          model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+          schema_name: groundwater_protection_sites
+      hooks:
+        get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
+        get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
+      law_status_lookup:
+        - data_code: inKraft
+          extract_code: inForce
+          transfer_code: inKraft
+        - data_code: AenderungMitVorwirkung
+          extract_code: changeWithPreEffect
+          transfer_code: AenderungMitVorwirkung
+        - data_code: AenderungOhneVorwirkung
+          extract_code: changeWithoutPreEffect
+          transfer_code: AenderungOhneVorwirkung
+      document_types_lookup:
+        - data_code: Rechtsvorschrift
+          extract_code: LegalProvision
+          transfer_code: Rechtsvorschrift
+        - data_code: GesetzlicheGrundlage
+          extract_code: Law
+          transfer_code: GesetzlicheGrundlage
+        - data_code: Hinweis
+          extract_code: Hint
+          transfer_code: Hinweis
+  
+    - code: ch.StatischeWaldgrenzen
+      geometry_type: LINESTRING
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm²'
+          precision: 2
+        percentage:
+          precision: 1
+      language: fr
+      federal: false
+      standard: true
+      view_service:
+        layer_index: 1
+        layer_opacity: 1.0
+      source:
+        class: pyramid_oereb.standard.sources.plr.DatabaseSource
+        params:
+          db_connection: *main_db_connection
+          model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+          schema_name: forest_perimeters
+      hooks:
+        get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
+        get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
+      law_status_lookup:
+        # wkaltz: changed to fit current extract
+        - data_code: inKraft
+          extract_code: inForce
+          transfer_code: inKraft
+        - data_code: AenderungMitVorwirkung
+          extract_code: changeWithPreEffect
+          transfer_code: AenderungMitVorwirkung
+        - data_code: AenderungOhneVorwirkung
+          extract_code: changeWithoutPreEffect
+          transfer_code: AenderungOhneVorwirkung
       # wkaltz: changed to fit current extract
-      - data_code: inKraft
-        extract_code: inForce
-        transfer_code: inKraft
-      - data_code: AenderungMitVorwirkung
-        extract_code: changeWithPreEffect
-        transfer_code: AenderungMitVorwirkung
-      - data_code: AenderungOhneVorwirkung
-        extract_code: changeWithoutPreEffect
-        transfer_code: AenderungOhneVorwirkung
-    # wkaltz: changed to fit current extract
-    document_types_lookup:
-      - data_code: Rechtsvorschrift
-        extract_code: LegalProvision
-        transfer_code: Rechtsvorschrift
-      - data_code: GesetzlicheGrundlage
-        extract_code: Law
-        transfer_code: GesetzlicheGrundlage
-      - data_code: Hinweis
-        extract_code: Hint
-        transfer_code: Hinweis
-
-  - code: ch.Waldabstandslinien
-    geometry_type: LINESTRING
-    thresholds:
-      length:
-        limit: 1.0
-        unit: 'm'
-        precision: 2
-      area:
-        limit: 1.0
-        unit: 'm²'
-        precision: 2
-      percentage:
-        precision: 1
-    language: fr
-    federal: false
-    standard: true
-    view_service:
-      layer_index: 1
-      layer_opacity: 1.0
-    source:
-      class: pyramid_oereb.standard.sources.plr.DatabaseSource
-      params:
-        db_connection: *main_db_connection
-        model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
-        schema_name: forest_distance_lines
-    hooks:
-      get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
-      get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
-    law_status_lookup:
-      - data_code: inKraft
-        extract_code: inForce
-        transfer_code: inKraft
-      - data_code: AenderungMitVorwirkung
-        extract_code: changeWithPreEffect
-        transfer_code: AenderungMitVorwirkung
-      - data_code: AenderungOhneVorwirkung
-        extract_code: changeWithoutPreEffect
-        transfer_code: AenderungOhneVorwirkung
-    document_types_lookup:
-      - data_code: Rechtsvorschrift
-        extract_code: LegalProvision
-        transfer_code: Rechtsvorschrift
-      - data_code: GesetzlicheGrundlage
-        extract_code: Law
-        transfer_code: GesetzlicheGrundlage
-      - data_code: Hinweis
-        extract_code: Hint
-        transfer_code: Hinweis
-
-  - code: ch.ProjektierungszonenStarkstromanlagen
-    geometry_type: MULTIPOLYGON
-    thresholds:
-      length:
-        limit: 1.0
-        unit: 'm'
-        precision: 2
-      area:
-        limit: 1.0
-        unit: 'm²'
-        precision: 2
-      percentage:
-        precision: 1
-    language: fr
-    federal: true
-    standard: true
-    view_service:
-      layer_index: 1
-      layer_opacity: 0.75
-    source:
-      class: pyramid_oereb.standard.sources.plr.DatabaseSource
-      params:
-        db_connection: *main_db_connection
-        model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
-        schema_name: nominal_high_voltage_reserved_zones
-    hooks:
-      get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
-      get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
-    law_status_lookup:
-      - data_code: inKraft
-        extract_code: inForce
-        transfer_code: inKraft
-      - data_code: AenderungMitVorwirkung
-        extract_code: changeWithPreEffect
-        transfer_code: AenderungMitVorwirkung
-      - data_code: AenderungOhneVorwirkung
-        extract_code: changeWithoutPreEffect
-        transfer_code: AenderungOhneVorwirkung
-    document_types_lookup:
-      - data_code: Rechtsvorschrift
-        extract_code: LegalProvision
-        transfer_code: Rechtsvorschrift
-      - data_code: GesetzlicheGrundlage
-        extract_code: Law
-        transfer_code: GesetzlicheGrundlage
-      - data_code: Hinweis
-        extract_code: Hint
-        transfer_code: Hinweis
-
-  - code: ch.BaulinienStarkstromanlagen
-    geometry_type: LINESTRING
-    thresholds:
-      length:
-        limit: 1.0
-        unit: 'm'
-        precision: 2
-      area:
-        limit: 1.0
-        unit: 'm²'
-        precision: 2
-      percentage:
-        precision: 1
-    language: fr
-    federal: true
-    standard: true
-    view_service:
-      layer_index: 1
-      layer_opacity: 0.75
-    source:
-      class: pyramid_oereb.standard.sources.plr.DatabaseSource
-      params:
-        db_connection: *main_db_connection
-        model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
-        schema_name: high_voltage_installations_building_lines
-    hooks:
-      get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
-      get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
-    law_status_lookup:
-      - data_code: inKraft
-        extract_code: inForce
-        transfer_code: inKraft
-      - data_code: AenderungMitVorwirkung
-        extract_code: changeWithPreEffect
-        transfer_code: AenderungMitVorwirkung
-      - data_code: AenderungOhneVorwirkung
-        extract_code: changeWithoutPreEffect
-        transfer_code: AenderungOhneVorwirkung
-    document_types_lookup:
-      - data_code: Rechtsvorschrift
-        extract_code: LegalProvision
-        transfer_code: Rechtsvorschrift
-      - data_code: GesetzlicheGrundlage
-        extract_code: Law
-        transfer_code: GesetzlicheGrundlage
-      - data_code: Hinweis
-        extract_code: Hint
-        transfer_code: Hinweis
-
-  - code: ch_ju_inventories_archaelogical_paleontological_sites
-    geometry_type: POLYGON
-    thresholds:
-      length:
-        limit: 1.0
-        unit: 'm'
-        precision: 2
-      area:
-        limit: 1.0
-        unit: 'm²'
-        precision: 2
-      percentage:
-        precision: 1
-    language: fr
-    federal: false
-    standard: true
-    view_service:
-      layer_index: 1
-      layer_opacity: 0.75
-    source:
-      class: pyramid_oereb.standard.sources.plr.DatabaseSource
-      params:
-        db_connection: *main_db_connection
-        model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
-        schema_name: ch_ju_inventories_archaelogical_paleontological_sites
-    hooks:
-      get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
-      get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
-    law_status_lookup:
-      - data_code: inKraft
-        extract_code: inForce
-        transfer_code: inKraft
-      - data_code: AenderungMitVorwirkung
-        extract_code: changeWithPreEffect
-        transfer_code: AenderungMitVorwirkung
-      - data_code: AenderungOhneVorwirkung
-        extract_code: changeWithoutPreEffect
-        transfer_code: AenderungOhneVorwirkung
-    document_types_lookup:
-      - data_code: Rechtsvorschrift
-        extract_code: LegalProvision
-        transfer_code: Rechtsvorschrift
-      - data_code: GesetzlicheGrundlage
-        extract_code: Law
-        transfer_code: GesetzlicheGrundlage
-      - data_code: Hinweis
-        extract_code: Hint
-        transfer_code: Hinweis
+      document_types_lookup:
+        - data_code: Rechtsvorschrift
+          extract_code: LegalProvision
+          transfer_code: Rechtsvorschrift
+        - data_code: GesetzlicheGrundlage
+          extract_code: Law
+          transfer_code: GesetzlicheGrundlage
+        - data_code: Hinweis
+          extract_code: Hint
+          transfer_code: Hinweis
+  
+    - code: ch.Waldabstandslinien
+      geometry_type: LINESTRING
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm²'
+          precision: 2
+        percentage:
+          precision: 1
+      language: fr
+      federal: false
+      standard: true
+      view_service:
+        layer_index: 1
+        layer_opacity: 1.0
+      source:
+        class: pyramid_oereb.standard.sources.plr.DatabaseSource
+        params:
+          db_connection: *main_db_connection
+          model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+          schema_name: forest_distance_lines
+      hooks:
+        get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
+        get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
+      law_status_lookup:
+        - data_code: inKraft
+          extract_code: inForce
+          transfer_code: inKraft
+        - data_code: AenderungMitVorwirkung
+          extract_code: changeWithPreEffect
+          transfer_code: AenderungMitVorwirkung
+        - data_code: AenderungOhneVorwirkung
+          extract_code: changeWithoutPreEffect
+          transfer_code: AenderungOhneVorwirkung
+      document_types_lookup:
+        - data_code: Rechtsvorschrift
+          extract_code: LegalProvision
+          transfer_code: Rechtsvorschrift
+        - data_code: GesetzlicheGrundlage
+          extract_code: Law
+          transfer_code: GesetzlicheGrundlage
+        - data_code: Hinweis
+          extract_code: Hint
+          transfer_code: Hinweis
+  
+    - code: ch.ProjektierungszonenStarkstromanlagen
+      geometry_type: MULTIPOLYGON
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm²'
+          precision: 2
+        percentage:
+          precision: 1
+      language: fr
+      federal: true
+      standard: true
+      view_service:
+        layer_index: 1
+        layer_opacity: 0.75
+      source:
+        class: pyramid_oereb.standard.sources.plr.DatabaseSource
+        params:
+          db_connection: *main_db_connection
+          model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+          schema_name: nominal_high_voltage_reserved_zones
+      hooks:
+        get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
+        get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
+      law_status_lookup:
+        - data_code: inKraft
+          extract_code: inForce
+          transfer_code: inKraft
+        - data_code: AenderungMitVorwirkung
+          extract_code: changeWithPreEffect
+          transfer_code: AenderungMitVorwirkung
+        - data_code: AenderungOhneVorwirkung
+          extract_code: changeWithoutPreEffect
+          transfer_code: AenderungOhneVorwirkung
+      document_types_lookup:
+        - data_code: Rechtsvorschrift
+          extract_code: LegalProvision
+          transfer_code: Rechtsvorschrift
+        - data_code: GesetzlicheGrundlage
+          extract_code: Law
+          transfer_code: GesetzlicheGrundlage
+        - data_code: Hinweis
+          extract_code: Hint
+          transfer_code: Hinweis
+  
+    - code: ch.BaulinienStarkstromanlagen
+      geometry_type: LINESTRING
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm²'
+          precision: 2
+        percentage:
+          precision: 1
+      language: fr
+      federal: true
+      standard: true
+      view_service:
+        layer_index: 1
+        layer_opacity: 0.75
+      source:
+        class: pyramid_oereb.standard.sources.plr.DatabaseSource
+        params:
+          db_connection: *main_db_connection
+          model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+          schema_name: high_voltage_installations_building_lines
+      hooks:
+        get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
+        get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
+      law_status_lookup:
+        - data_code: inKraft
+          extract_code: inForce
+          transfer_code: inKraft
+        - data_code: AenderungMitVorwirkung
+          extract_code: changeWithPreEffect
+          transfer_code: AenderungMitVorwirkung
+        - data_code: AenderungOhneVorwirkung
+          extract_code: changeWithoutPreEffect
+          transfer_code: AenderungOhneVorwirkung
+      document_types_lookup:
+        - data_code: Rechtsvorschrift
+          extract_code: LegalProvision
+          transfer_code: Rechtsvorschrift
+        - data_code: GesetzlicheGrundlage
+          extract_code: Law
+          transfer_code: GesetzlicheGrundlage
+        - data_code: Hinweis
+          extract_code: Hint
+          transfer_code: Hinweis
+  
+    - code: ch_ju_inventories_archaelogical_paleontological_sites
+      geometry_type: POLYGON
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm²'
+          precision: 2
+        percentage:
+          precision: 1
+      language: fr
+      federal: false
+      standard: true
+      view_service:
+        layer_index: 1
+        layer_opacity: 0.75
+      source:
+        class: pyramid_oereb.standard.sources.plr.DatabaseSource
+        params:
+          db_connection: *main_db_connection
+          model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+          schema_name: ch_ju_inventories_archaelogical_paleontological_sites
+      hooks:
+        get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
+        get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
+      law_status_lookup:
+        - data_code: inKraft
+          extract_code: inForce
+          transfer_code: inKraft
+        - data_code: AenderungMitVorwirkung
+          extract_code: changeWithPreEffect
+          transfer_code: AenderungMitVorwirkung
+        - data_code: AenderungOhneVorwirkung
+          extract_code: changeWithoutPreEffect
+          transfer_code: AenderungOhneVorwirkung
+      document_types_lookup:
+        - data_code: Rechtsvorschrift
+          extract_code: LegalProvision
+          transfer_code: Rechtsvorschrift
+        - data_code: GesetzlicheGrundlage
+          extract_code: Law
+          transfer_code: GesetzlicheGrundlage
+        - data_code: Hinweis
+          extract_code: Hint
+          transfer_code: Hinweis
 
   # The error message returned if an error occurs when requesting a static extract
   # The content of the message is defined in the specification (document "Inhalt und Darstellung des statischen Auszugs")
