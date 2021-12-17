@@ -1,5 +1,4 @@
 from pyramid.config import Configurator
-import c2cwsgiutils.pyramid
 import os
 import yaml
 

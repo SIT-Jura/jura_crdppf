@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 
 volumes: {}
 
@@ -12,11 +12,11 @@ services:
     environment:
     - PRINT_SERVICE_HOST=print
     - PRINT_SERVICE_PORT=8080
-    - POSTGRES_SERVICE_USER=www-data
-    - POSTGRES_SERVICE_PASS=www-data
-    - POSTGRES_SERVICE_HOST=172.17.0.1
-    - POSTGRES_SERVICE_PORT=5432
-    - POSTGRES_SERVICE_DATABASE=pyramid_oereb
+    - PGHOST=${PGHOST:-172.17.0.1}
+    - PGDATABASE=${PGDB:-pyramid_oereb}
+    - PGPORT=${PGPORT:-5432}
+    - PGUSER=${PGUSER:-www-data}
+    - PGPASSWORD=${PGPASSWORD:-www-data}
     - OEREB_ROUTE_PREFIX
     ports:
     - ${EXTERNAL_PORT}:8080

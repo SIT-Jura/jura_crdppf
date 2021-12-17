@@ -1,7 +1,8 @@
 PYTHON_VERSION ?= python3.7
 VENV_BIN ?= .venv/bin/
 PIP_UPDATE = $(VENV_BIN)pip3 install --upgrade pip
-PIP_CMD ?= $(VENV_BIN)pip3 install docker-compose flake8
+PIP_OPTIONS ?= --trusted-host pypi.org --trusted-host files.pythonhosted.org --extra-index-url https://test.pypi.org/simple
+PIP_CMD ?= $(VENV_BIN)pip3 install ${PIP_OPTIONS} docker-compose flake8
 
 PACKAGE ?= jura_crdppf
 

@@ -1,32 +1,24 @@
-FROM camptocamp/c2cwsgiutils:5
+FROM python:3.9-slim
 LABEL maintainer "info@camptocamp.org"
-
-WORKDIR /app
-
-ARG PYTHON_DEV_PACKAGES="python3.8-dev build-essential"
+ARG PYTHON_DEV_PACKAGES="build-essential"
 ARG DEV_PACKAGES="libgeos-c1v5 libpq-dev libgeos-dev"
-
-RUN mkdir /var/log/host_apache_logs
-
-COPY requirements.txt /app/
+ARG PIP_OPTIONS="--trusted-host pypi.org --trusted-host files.pythonhosted.org --extra-index-url https://test.pypi.org/simple"
 
 RUN apt update && \
     DEBIAN_FRONTEND=noninteractive apt install --yes --no-install-recommends \
         ${PYTHON_DEV_PACKAGES} ${DEV_PACKAGES} && \
-    apt install --yes vim && \
-    pip3 install --disable-pip-version-check --no-cache-dir --extra-index-url https://test.pypi.org/simple --requirement requirements.txt && \
     apt-get clean && \
     rm --force --recursive /var/lib/apt/lists/*
 
-COPY . /app
+WORKDIR /app
+COPY requirements.txt /app/
 
-COPY production.ini .
-COPY jura_crdppf ./jura_crdppf
-COPY setup.py .
-COPY scripts ./scripts
-COPY config.yaml .
-COPY config-for-scripts.yaml .
+RUN pip3 install ${PIP_OPTIONS} --disable-pip-version-check --no-cache-dir \
+    --requirement requirements.txt \
+    gunicorn PasteDeploy
 
-RUN pip3 install --disable-pip-version-check --no-cache-dir --extra-index-url https://test.pypi.org/simple --editable .
+COPY . .
 
-RUN apt remove --purge --autoremove --yes ${PYTHON_DEV_PACKAGES} binutils
+RUN pip3 install ${PIP_OPTIONS} --disable-pip-version-check --no-cache-dir -e .
+EXPOSE 8080
+CMD ["gunicorn", "--paste", "production.ini", "-b 0.0.0.0:8080"]
