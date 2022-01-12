@@ -49,3 +49,10 @@ Then run:
   sudo apachectl graceful
 
 You can test your installation at ``https://geo-test.jura.ch/<route_prefix>/versions/json`.
+
+Debug mode
+------------------
+
+.. code::
+
+  docker-compose logs -f
