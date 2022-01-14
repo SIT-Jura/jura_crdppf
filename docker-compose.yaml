@@ -8,7 +8,7 @@ services:
     networks:
     - default
     build: .
-    image: camptocamp/jura-crdppf-v2
+    image: sitj/jura-crdppf-v2
     environment:
     - PRINT_SERVICE_HOST=print
     - PRINT_SERVICE_PORT=8080
@@ -17,7 +17,7 @@ services:
     - PGPORT=${PGPORT:-5432}
     - PGUSER=${PGUSER:-www-data}
     - PGPASSWORD=${PGPASSWORD:-www-data}
-    - OEREB_ROUTE_PREFIX
+    - OEREB_SERVER_ROUTE_PREFIX
     ports:
     - ${EXTERNAL_PORT}:8080
     volumes:
@@ -37,3 +37,19 @@ services:
         -Xmx512M
     volumes:
       - ./print-apps:/usr/local/tomcat/webapps/ROOT/print-apps:ro
+
+  oereb-client:
+    build:
+        context: client
+    image: sitj/oereb-client
+    environment:
+    - OEREB_CLIENT_ROUTE_PREFIX
+    - OEREB_SERVICE_URL
+    - AVAILABILITY_URL
+    - SEARCH_URL
+    ports:
+    - ${EXTERNAL_PORT_CLIENT}:8080
+    volumes:
+    - ./client/config:/app/config
+    restart: always
+

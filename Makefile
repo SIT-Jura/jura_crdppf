@@ -1,7 +1,7 @@
 PYTHON_VERSION ?= python3.7
 VENV_BIN ?= .venv/bin/
 PIP_UPDATE = $(VENV_BIN)pip3 install --upgrade pip
-PIP_OPTIONS ?= --trusted-host pypi.org --trusted-host files.pythonhosted.org --extra-index-url https://test.pypi.org/simple
+#PIP_OPTIONS ?= --trusted-host pypi.org --trusted-host files.pythonhosted.org --extra-index-url https://test.pypi.org/simple
 PIP_CMD ?= $(VENV_BIN)pip3 install ${PIP_OPTIONS} docker-compose flake8
 
 PACKAGE ?= jura_crdppf
@@ -46,8 +46,3 @@ lint: .venv/install-timestamp
 .PHONY: cleanall
 cleanall: stop
 	rm -rf .venv
-
-write_ci_docker_env:
-	echo "COMPOSE_PROJECT_NAME=ci_oereb" >> .env
-	echo "EXTERNAL_PORT=6543" >> .env
-	echo "OEREB_ROUTE_PREFIX=\$${COMPOSE_PROJECT_NAME}" >> .env
