@@ -46,9 +46,11 @@ templates:
             Footer: !string {}
             QRCode: *optStr
             QRCodeRef: *optStr
-            GeneralInformation: !string #/definitions/MultilingualMText
-                default: 'Disclaimer'
-            UpdateDateOS: !string {}
+            GeneralInformation: !datasource
+                default: []
+                attributes:
+                  Info: !string {}
+            UpdateDateCS: !string {}
             Glossary: !datasource
                 default:
                   - Title: 'No term'
@@ -61,13 +63,13 @@ templates:
             RealEstate_EGRID: !string {}
             RealEstate_Type_Text: !string {}
             RealEstate_Canton: !string {}
-            RealEstate_Municipality: !string {}
+            RealEstate_MunicipalityName: !string {}
             RealEstate_SubunitOfLandRegister: *optStr
             Display_RealEstate_SubunitOfLandRegister: !boolean
                 default: true
             Display_Certification: !boolean
                 default: true
-            RealEstate_FosNr: !string {}
+            RealEstate_MunicipalityCode: !string {}
             RealEstate_MetadataOfGeographicalBaseData: *optStr
             RealEstate_LandRegistryArea: !string {}
             RealEstate_RestrictionOnLandownership: !datasource
@@ -158,8 +160,11 @@ templates:
                             OfficeAtWeb: *optStr
             DisclaimerLandRegister_Title: !string {}
             DisclaimerLandRegister_Content: !string {}
-            DisclaimerPollutedSites_Title: !string {}
-            DisclaimerPollutedSites_Content: !string {}
+            Disclaimer: !datasource
+                default: []
+                attributes:
+                    Content: !string {}
+                    Title: !string {}
             PLRCadastreAuthority_Name: !string {} #/definitions/MultilingualText
             PLRCadastreAuthority_OfficeAtWeb: *optStr #/definitions/WebReference
             PLRCadastreAuthority_UID: *optStr #/definitions/UID
@@ -243,6 +248,12 @@ templates:
         - !createDataSource
             processors: []
             inputMapper:
+                GeneralInformation: datasource
+            outputMapper:
+                jrDataSource: GeneralInformationDataSource
+        - !createDataSource
+            processors: []
+            inputMapper:
                 ConcernedTheme: datasource
             outputMapper:
                 jrDataSource: ConcernedThemeDataSource
@@ -264,6 +275,12 @@ templates:
                 Glossary: datasource
             outputMapper:
                 jrDataSource: GlossaryDataSource
+        - !createDataSource
+            processors: []
+            inputMapper:
+                Disclaimer: datasource
+            outputMapper:
+                jrDataSource: DisclaimerDataSource
         - !createDataSource
             copyAttributes: [overlayLayers, style, features]
             processors:
