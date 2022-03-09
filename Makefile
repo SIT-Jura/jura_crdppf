@@ -19,8 +19,11 @@ help:
 	@echo  "- cleanall		Remove all the build artefacts"
 
 .PHONY: build
-build: .venv/install-timestamp
+build: .venv/install-timestamp build-print-image
 	$(VENV_BIN)/docker-compose build
+
+build-print-image:
+	cd docker ; docker build -t sitj/jura-crdppf-print-v2 . ; cd ..
 
 .venv/timestamp:
 	python3 -m virtualenv --python=$(PYTHON_VERSION) .venv

@@ -58,8 +58,7 @@ vars:
       # The map size (in millimeters) used to calculate the size of the requested map (for pdf export only).
       pdf_map_size_millimeters: [174, 99]
       # Base URL with application of the print server
-      #base_url: http://{PRINT_SERVICE_HOST}:{PRINT_SERVICE_PORT}/print/oereb
-      base_url: http://oereb-print:8080/print/oereb
+      base_url: "http://{PRINT_SERVICE_HOST}:{PRINT_SERVICE_PORT}/print/oereb"
       # Name of the print template to use
       template_name: A4 portrait
       # The headers sent to the print
@@ -84,8 +83,8 @@ vars:
       # Specify any additional URL parameters that the print shall use for WMS calls
       wms_url_params:
         TRANSPARENT: 'true'
-        ogcserver: 'Main PNG'
-  
+        ogcserver: 'Main_PNG'
+
       # If you want the print to keep some custom URL parameters directly from the reference_wms you have defined,
       # then use the configuration option wms_url_keep_params.
       # In wms_url_keep_params, you can list which URL parameter values should be read from the reference_wms
@@ -181,13 +180,13 @@ vars:
       plan_for_land_register:
         # WMS URL to query the plan for land register used for all themes pages
         reference_wms:
-          fr: https://geo.jura.ch/mapserv_proxy?ogcserver=Main%20PNG&SERVICE=WMS&REQUEST=GetMap&VERSION=1.3.0&STYLES=default&CRS=EPSG:2056&BBOX=2475000,1065000,2850000,1300000&WIDTH=493&HEIGHT=280&FORMAT=image/png&LAYERS=plan_cadastral_crdppf_pyramid_oereb_page_garde
+          fr: "{BASE_HOST}/mapserv_proxy?ogcserver=Main_PNG&SERVICE=WMS&REQUEST=GetMap&VERSION=1.3.0&STYLES=default&CRS=EPSG:2056&BBOX=2475000,1065000,2850000,1300000&WIDTH=493&HEIGHT=280&FORMAT=image/png&LAYERS=plan_cadastral_crdppf_pyramid_oereb_page_garde"
         layer_index: 0
         layer_opacity: 1.0
       plan_for_land_register_main_page:
         # WMS URL to query the plan for land register specially for static extracts overview page
         reference_wms:
-          fr: https://geo.jura.ch/mapserv_proxy?ogcserver=Main%20PNG&SERVICE=WMS&REQUEST=GetMap&VERSION=1.3.0&STYLES=default&CRS=EPSG:2056&BBOX=2475000,1065000,2850000,1300000&WIDTH=493&HEIGHT=280&FORMAT=image/png&LAYERS=plan_cadastral_crdppf_pyramid_oereb
+          fr: "{BASE_HOST}/mapserv_proxy?ogcserver=Main_PNG&SERVICE=WMS&REQUEST=GetMap&VERSION=1.3.0&STYLES=default&CRS=EPSG:2056&BBOX=2475000,1065000,2850000,1300000&WIDTH=493&HEIGHT=280&FORMAT=image/png&LAYERS=plan_cadastral_crdppf_pyramid_oereb"
         layer_index: 0
         layer_opacity: 1.0
       visualisation:
@@ -1661,7 +1660,10 @@ vars:
       it: "Uno o più temi relativi alle RDPP non sono attualmente disponibili. Non è pertanto possibile allestire alcun estratto. Vi preghiamo di riprovare più tardi. Ci scusiamo per l’inconveniente."
 
 environment:
+- pyramid_oereb.print.base_url
 - pyramid_oereb.app_schema.db_connection
+- pyramid_oereb.real_estate.plan_for_land_register.reference_wms.fr
+- pyramid_oereb.real_estate.plan_for_land_register_main_page.reference_wms.fr
 - pyramid_oereb.real_estate.source.params.db_connection
 - pyramid_oereb.address.source.params.db_connection
 - pyramid_oereb.municipality.source.params.db_connection

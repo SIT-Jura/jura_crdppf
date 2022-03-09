@@ -10,14 +10,15 @@ services:
     build: .
     image: sitj/jura-crdppf-v2
     environment:
-    - PRINT_SERVICE_HOST=print
+    - PRINT_SERVICE_HOST=oereb-print
     - PRINT_SERVICE_PORT=8080
-    - PGHOST=${PGHOST:-172.17.0.1}
+    - PGHOST=172.17.0.1
     - PGDATABASE=${PGDB:-pyramid_oereb}
     - PGPORT=${PGPORT:-5432}
     - PGUSER=${PGUSER:-www-data}
     - PGPASSWORD=${PGPASSWORD:-www-data}
     - OEREB_SERVER_ROUTE_PREFIX
+    - BASE_HOST
     ports:
     - ${EXTERNAL_PORT}:8080
     volumes:
@@ -27,7 +28,7 @@ services:
 
   oereb-print:
     mem_limit: 2G
-    image: camptocamp/mapfish_print:3.28.1
+    image: sitj/jura-crdppf-print-v2:latest
     networks:
      - default
     environment:
