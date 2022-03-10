@@ -1,13 +1,12 @@
 from pyramid.config import Configurator
 import os
-import yaml
+from pyaml_env import parse_config
 
 def main(_, **settings):
     """ This function returns a Pyramid WSGI application.
     """
 
-    with open('config/oereb_client.yml') as f:
-        yml = yaml.safe_load(f.read())
+    yml = parse_config('config/oereb_client.yml')
     settings.update(yml)
     config = Configurator(settings=settings)
 

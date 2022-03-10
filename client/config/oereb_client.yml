@@ -45,25 +45,19 @@ oereb_client:
 
   # Availability layer
   availability:
-    url: https://geo-test.jura.ch/mapserv_proxy?ogcserver=Main_PNG
-    # TODO: replace by a templating mechanism
-    # url: {AVAILABILITY_URL}
+    url: !ENV ${AVAILABILITY_URL}
     params:
       LAYERS: oereb_published_municipalities
       FORMAT: image/png
 
-  service_url: https://geo-test.jura.ch/wkaltz_oereb_server
-  # TODO: replace by a templating mechanism
-  # service_url: {OEREB_SERVICE_URL}
+  service_url: !ENV ${OEREB_SERVICE_URL}
 
   # Search configuration
   search:
     - title:
         - Language: fr
           Text: E-GRID
-      url: https://geo-test.jura.ch/search?query={prefix}+{term}&limit={limit}
-      # TODO: replace by a templating mechanism
-      # url: {SEARCH_URL}
+      url: !ENV ${SEARCH_URL}
       params:
         limit: 5
         prefix: egr
