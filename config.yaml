@@ -58,8 +58,7 @@ vars:
       # The map size (in millimeters) used to calculate the size of the requested map (for pdf export only).
       pdf_map_size_millimeters: [174, 99]
       # Base URL with application of the print server
-      #base_url: http://{PRINT_SERVICE_HOST}:{PRINT_SERVICE_PORT}/print/oereb
-      base_url: http://oereb-print:8080/print/oereb
+      base_url: "http://{PRINT_SERVICE_HOST}:{PRINT_SERVICE_PORT}/print/oereb"
       # Name of the print template to use
       template_name: A4 portrait
       # The headers sent to the print
@@ -84,8 +83,8 @@ vars:
       # Specify any additional URL parameters that the print shall use for WMS calls
       wms_url_params:
         TRANSPARENT: 'true'
-        ogcserver: 'Main PNG'
-  
+        ogcserver: 'Main_PNG'
+
       # If you want the print to keep some custom URL parameters directly from the reference_wms you have defined,
       # then use the configuration option wms_url_keep_params.
       # In wms_url_keep_params, you can list which URL parameter values should be read from the reference_wms
@@ -181,17 +180,17 @@ vars:
       plan_for_land_register:
         # WMS URL to query the plan for land register used for all themes pages
         reference_wms:
-          fr: https://geo.jura.ch/mapserv_proxy?ogcserver=Main%20PNG&SERVICE=WMS&REQUEST=GetMap&VERSION=1.3.0&STYLES=default&CRS=EPSG:2056&BBOX=2475000,1065000,2850000,1300000&WIDTH=493&HEIGHT=280&FORMAT=image/png&LAYERS=plan_cadastral_crdppf_pyramid_oereb_page_garde
+          fr: "{BASE_HOST}/mapserv_proxy?ogcserver=Main_PNG&SERVICE=WMS&REQUEST=GetMap&VERSION=1.3.0&STYLES=default&CRS=EPSG:2056&BBOX=2475000,1065000,2850000,1300000&WIDTH=493&HEIGHT=280&FORMAT=image/png&LAYERS=plan_cadastral_crdppf_pyramid_oereb_page_garde"
         layer_index: 0
         layer_opacity: 1.0
       plan_for_land_register_main_page:
         # WMS URL to query the plan for land register specially for static extracts overview page
         reference_wms:
-          fr: https://geo.jura.ch/mapserv_proxy?ogcserver=Main%20PNG&SERVICE=WMS&REQUEST=GetMap&VERSION=1.3.0&STYLES=default&CRS=EPSG:2056&BBOX=2475000,1065000,2850000,1300000&WIDTH=493&HEIGHT=280&FORMAT=image/png&LAYERS=plan_cadastral_crdppf_pyramid_oereb
+          fr: "{BASE_HOST}/mapserv_proxy?ogcserver=Main_PNG&SERVICE=WMS&REQUEST=GetMap&VERSION=1.3.0&STYLES=default&CRS=EPSG:2056&BBOX=2475000,1065000,2850000,1300000&WIDTH=493&HEIGHT=280&FORMAT=image/png&LAYERS=plan_cadastral_crdppf_pyramid_oereb"
         layer_index: 0
         layer_opacity: 1.0
       visualisation:
-        method: pyramid_oereb.contrib.data_sources.standard.hook_methods.produce_sld_content
+        method: pyramid_oereb.core.hook_methods.produce_sld_content
         # Note: these parameters must fit to the attributes provided by the RealEstateRecord!!!!
         url_params:
           - egrid
@@ -502,10 +501,10 @@ vars:
       # Information about the official survey (last update and provider) used as a base map in the extract
       base_data:
         methods:
-          date: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_surveying_data_update_date
-          provider:  pyramid_oereb.contrib.data_sources.standard.hook_methods.get_surveying_data_provider
+          date: pyramid_oereb.core.hook_methods.get_surveying_data_update_date
+          provider:  pyramid_oereb.core.hook_methods.get_surveying_data_provider
 
-      sort_within_themes_method: pyramid_oereb.contrib.data_sources.standard.hook_methods.plr_sort_within_themes
+      sort_within_themes_method: pyramid_oereb.core.hook_methods.plr_sort_within_themes
       # Example of a specific sorting method:
       # sort_within_themes_method: pyramid_oereb.contrib.plr_sort_within_themes_by_type_code
       # Redirect configuration for type URL. You can use any attribute of the real estate RealEstateRecord
@@ -543,7 +542,7 @@ vars:
           schema_name: reserved_areas
       hooks:
         get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
-        get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
+        get_symbol_ref: pyramid_oereb.core.hook_methods.get_symbol_ref
       law_status_lookup:
         - data_code: inKraft
           extract_code: inForce
@@ -595,7 +594,7 @@ vars:
           schema_name: land_use_plans
       hooks:
         get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
-        get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
+        get_symbol_ref: pyramid_oereb.core.hook_methods.get_symbol_ref
       law_status_lookup:
         - data_code: inKraft
           extract_code: inForce
@@ -646,7 +645,7 @@ vars:
           schema_name: land_use_plans
       hooks:
         get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
-        get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
+        get_symbol_ref: pyramid_oereb.core.hook_methods.get_symbol_ref
       law_status_lookup:
         - data_code: inKraft
           extract_code: inForce
@@ -697,7 +696,7 @@ vars:
           schema_name: land_use_plans
       hooks:
         get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
-        get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
+        get_symbol_ref: pyramid_oereb.core.hook_methods.get_symbol_ref
       law_status_lookup:
         - data_code: inKraft
           extract_code: inForce
@@ -746,7 +745,7 @@ vars:
           schema_name: motorways_project_planing_zones
       hooks:
         get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
-        get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
+        get_symbol_ref: pyramid_oereb.core.hook_methods.get_symbol_ref
       law_status_lookup:
         - data_code: inKraft
           extract_code: inForce
@@ -795,7 +794,7 @@ vars:
           schema_name: noise_sensitivity_levels
       hooks:
         get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
-        get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
+        get_symbol_ref: pyramid_oereb.core.hook_methods.get_symbol_ref
       law_status_lookup:
         - data_code: inKraft
           extract_code: inForce
@@ -844,7 +843,7 @@ vars:
           schema_name: motorways_building_lines
       hooks:
         get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
-        get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
+        get_symbol_ref: pyramid_oereb.core.hook_methods.get_symbol_ref
       law_status_lookup:
         - data_code: inKraft
           extract_code: inForce
@@ -893,7 +892,7 @@ vars:
           schema_name: railways_project_planning_zones
       hooks:
         get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
-        get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
+        get_symbol_ref: pyramid_oereb.core.hook_methods.get_symbol_ref
       law_status_lookup:
         - data_code: inKraft
           extract_code: inForce
@@ -942,7 +941,7 @@ vars:
           schema_name: railways_building_lines
       hooks:
         get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
-        get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
+        get_symbol_ref: pyramid_oereb.core.hook_methods.get_symbol_ref
       law_status_lookup:
         - data_code: inKraft
           extract_code: inForce
@@ -991,7 +990,7 @@ vars:
           schema_name: airports_project_planning_zones
       hooks:
         get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
-        get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
+        get_symbol_ref: pyramid_oereb.core.hook_methods.get_symbol_ref
       law_status_lookup:
         - data_code: inKraft
           extract_code: inForce
@@ -1040,7 +1039,7 @@ vars:
           schema_name: airports_building_lines
       hooks:
         get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
-        get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
+        get_symbol_ref: pyramid_oereb.core.hook_methods.get_symbol_ref
       law_status_lookup:
         - data_code: inKraft
           extract_code: inForce
@@ -1089,7 +1088,7 @@ vars:
           schema_name: airports_security_zone_plans
       hooks:
         get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
-        get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
+        get_symbol_ref: pyramid_oereb.core.hook_methods.get_symbol_ref
       law_status_lookup:
         - data_code: inKraft
           extract_code: inForce
@@ -1139,7 +1138,7 @@ vars:
           schema_name: contaminated_sites
       hooks:
         get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
-        get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
+        get_symbol_ref: pyramid_oereb.core.hook_methods.get_symbol_ref
       law_status_lookup:
         - data_code: inKraft
           extract_code: inForce
@@ -1188,7 +1187,7 @@ vars:
           schema_name: contaminated_military_sites
       hooks:
         get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
-        get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
+        get_symbol_ref: pyramid_oereb.core.hook_methods.get_symbol_ref
       law_status_lookup:
         - data_code: inKraft
           extract_code: inForce
@@ -1237,7 +1236,7 @@ vars:
           schema_name: contaminated_civil_aviation_sites
       hooks:
         get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
-        get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
+        get_symbol_ref: pyramid_oereb.core.hook_methods.get_symbol_ref
       law_status_lookup:
         - data_code: inKraft
           extract_code: inForce
@@ -1286,7 +1285,7 @@ vars:
           schema_name: contaminated_public_transport_sites
       hooks:
         get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
-        get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
+        get_symbol_ref: pyramid_oereb.core.hook_methods.get_symbol_ref
       law_status_lookup:
         - data_code: inKraft
           extract_code: inForce
@@ -1335,7 +1334,7 @@ vars:
           schema_name: groundwater_protection_zones
       hooks:
         get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
-        get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
+        get_symbol_ref: pyramid_oereb.core.hook_methods.get_symbol_ref
       law_status_lookup:
         - data_code: inKraft
           extract_code: inForce
@@ -1384,7 +1383,7 @@ vars:
           schema_name: groundwater_protection_sites
       hooks:
         get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
-        get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
+        get_symbol_ref: pyramid_oereb.core.hook_methods.get_symbol_ref
       law_status_lookup:
         - data_code: inKraft
           extract_code: inForce
@@ -1433,7 +1432,7 @@ vars:
           schema_name: forest_perimeters
       hooks:
         get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
-        get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
+        get_symbol_ref: pyramid_oereb.core.hook_methods.get_symbol_ref
       law_status_lookup:
         # wkaltz: changed to fit current extract
         - data_code: inKraft
@@ -1484,7 +1483,7 @@ vars:
           schema_name: forest_distance_lines
       hooks:
         get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
-        get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
+        get_symbol_ref: pyramid_oereb.core.hook_methods.get_symbol_ref
       law_status_lookup:
         - data_code: inKraft
           extract_code: inForce
@@ -1533,7 +1532,7 @@ vars:
           schema_name: nominal_high_voltage_reserved_zones
       hooks:
         get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
-        get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
+        get_symbol_ref: pyramid_oereb.core.hook_methods.get_symbol_ref
       law_status_lookup:
         - data_code: inKraft
           extract_code: inForce
@@ -1582,7 +1581,7 @@ vars:
           schema_name: high_voltage_installations_building_lines
       hooks:
         get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
-        get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
+        get_symbol_ref: pyramid_oereb.core.hook_methods.get_symbol_ref
       law_status_lookup:
         - data_code: inKraft
           extract_code: inForce
@@ -1631,7 +1630,7 @@ vars:
           schema_name: ch_ju_inventories_archaelogical_paleontological_sites
       hooks:
         get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
-        get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
+        get_symbol_ref: pyramid_oereb.core.hook_methods.get_symbol_ref
       law_status_lookup:
         - data_code: inKraft
           extract_code: inForce
@@ -1653,15 +1652,18 @@ vars:
           extract_code: Hint
           transfer_code: Hinweis
 
-  # The error message returned if an error occurs when requesting a static extract
-  # The content of the message is defined in the specification (document "Inhalt und Darstellung des statischen Auszugs")
-  static_error_message:
-    de: "Ein oder mehrere ÖREB-Themen stehen momentan nicht zur Verfügung. Daher kann kein Auszug erstellt werden. Versuchen Sie es zu einem späteren Zeitpunkt erneut. Wir entschuldigen uns für die Unannehmlichkeiten."
-    fr: "Un ou plusieurs thèmes RDPPF sont momentanément indisponibles. L’extrait ne peut donc pas être établi. Veuillez réessayer plus tard. Nous vous prions de nous excuser pour ce désagrément."
-    it: "Uno o più temi relativi alle RDPP non sono attualmente disponibili. Non è pertanto possibile allestire alcun estratto. Vi preghiamo di riprovare più tardi. Ci scusiamo per l’inconveniente."
+    # The error message returned if an error occurs when requesting a static extract
+    # The content of the message is defined in the specification (document "Inhalt und Darstellung des statischen Auszugs")
+    static_error_message:
+      de: "Ein oder mehrere ÖREB-Themen stehen momentan nicht zur Verfügung. Daher kann kein Auszug erstellt werden. Versuchen Sie es zu einem späteren Zeitpunkt erneut. Wir entschuldigen uns für die Unannehmlichkeiten."
+      fr: "Un ou plusieurs thèmes RDPPF sont momentanément indisponibles. L’extrait ne peut donc pas être établi. Veuillez réessayer plus tard. Nous vous prions de nous excuser pour ce désagrément."
+      it: "Uno o più temi relativi alle RDPP non sono attualmente disponibili. Non è pertanto possibile allestire alcun estratto. Vi preghiamo di riprovare più tardi. Ci scusiamo per l’inconveniente."
 
 environment:
+- pyramid_oereb.print.base_url
 - pyramid_oereb.app_schema.db_connection
+- pyramid_oereb.real_estate.plan_for_land_register.reference_wms.fr
+- pyramid_oereb.real_estate.plan_for_land_register_main_page.reference_wms.fr
 - pyramid_oereb.real_estate.source.params.db_connection
 - pyramid_oereb.address.source.params.db_connection
 - pyramid_oereb.municipality.source.params.db_connection
