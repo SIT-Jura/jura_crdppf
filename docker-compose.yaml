@@ -19,12 +19,11 @@ services:
     - PGPASSWORD=${PGPASSWORD:-www-data}
     - OEREB_SERVER_ROUTE_PREFIX
     - BASE_HOST
-    - DOCKER_PDF_ARCHIVE_PATH
+    - PDF_ARCHIVE_PATH
     ports:
     - ${EXTERNAL_PORT}:8080
     volumes:
-    - /archive:/archive:rw
-    - /var/sig/sitj/_crdppf_pdf_prov:/var/sig/sitj/_crdppf_pdf_prov:rw
+    - ${PDF_ARCHIVE_PATH}:${PDF_ARCHIVE_PATH}:rw
     - /var/www/vhosts/sitj/logs:/var/log/host_apache_logs
     - /etc/localtime:/etc/localtime:ro
 
