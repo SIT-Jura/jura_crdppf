@@ -74,11 +74,11 @@ oereb_client:
       verify_certificate: False
     - title:
         - Language: fr
-          Text: parcelle
+          Text: Parcelles
       url: !ENV ${SEARCH_URL}
       params:
         limit: 5
-        prefix: gs
+        prefix: parcel
       hook_method: jura_crdppf_client.views.search.hook_real_estate
       verify_certificate: False
 
