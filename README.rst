@@ -27,6 +27,11 @@ Then edit the ``.env`` file. It will be automatically used by docker-compose.
 
 **This file is not commited**. Be sure you have one well configured.
 
+Or copy env_xxx.env to .env
+
+This is the file .env with user's parameters
+
+
 Then run:
 
 .. code::
@@ -41,6 +46,27 @@ ProxyPass like that: ``ProxyPass "ProxyPass <route_prefix>" "http://localhost:<e
 
 Where ``route_prefix`` and the ``external_port`` are the ones defined in
 your ``.env`` file.
+
+.. code::
+
+   ##crdppf
+   # pyramid_oereb
+   ProxyPass "/crdppf_server" "http://localhost:9000/crdppf_server"
+   ProxyPassReverse "/crdppf_server" "http://localhost:9000/crdppf_server"
+   ProxyPreserveHost Off
+   RequestHeader set X-Forwarded-Proto "https"
+   RequestHeader set X-Forwarded-Port "443"
+   ProxyRequests Off
+
+   # oereb_client
+   ProxyPass "/crdppf" "http://localhost:9001/crdppf"
+   ProxyPassReverse "/crdppf" "http://localhost:9001/crdppf"
+   #ProxyPreserveHost Off
+   RequestHeader set X-Forwarded-Proto "https"
+   RequestHeader set X-Forwarded-Port "443"
+   ProxyRequests On
+
+Adapt crdppf_server, crdppf, 9000 and 9001 with your parmeter
 
 Then run:
 
