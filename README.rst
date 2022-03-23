@@ -81,4 +81,4 @@ Debug mode
 
 .. code::
 
-  docker-compose logs -f
+  .venv/bin/docker-compose logs -f
