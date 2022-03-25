@@ -63,30 +63,24 @@ oereb_client:
         prefix: egr
       hook_method: jura_crdppf_client.views.search.hook_egrid
       verify_certificate: False
-#    - title:
-#        - Language: fr
-#          Text: Parcelle
-#      url: https://geo-test.jura.ch/search?query={prefix}+{term}&limit={limit}
-#      params:
-#        limit: 5
-#        prefix: 
-#      hook_method: samples.search.hook_real_estate
- #   - title:
- #       - Language: en
- #         Text: Address
- #     url: https://geoview.bl.ch/main/wsgi/bl_fulltextsearch?query={prefix}+{term}&limit={limit}
- #     params:
- #       limit: 5
- #       prefix: adr
- #     hook_method: samples.search.hook_address
- #   - title:
- #       - Language: en
- #         Text: Real estate
- #     url: https://geoview.bl.ch/main/wsgi/bl_fulltextsearch?query={prefix}+{term}&limit={limit}
- #     params:
- #       limit: 5
- #       prefix: gs
- #     hook_method: samples.search.hook_real_estate
+    - title:
+        - Language: fr
+          Text: Adresse
+      url: !ENV ${SEARCH_URL}
+      params:
+        limit: 5
+        prefix: adr
+      hook_method: jura_crdppf_client.views.search.hook_address
+      verify_certificate: False
+    - title:
+        - Language: fr
+          Text: Parcelles
+      url: !ENV ${SEARCH_URL}
+      params:
+        limit: 5
+        prefix: parcel
+      hook_method: jura_crdppf_client.views.search.hook_real_estate
+      verify_certificate: False
 
   # Link to external viewer/portal
   external_viewer:
