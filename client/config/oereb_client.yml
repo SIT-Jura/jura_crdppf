@@ -114,7 +114,7 @@ oereb_client:
     phone: +41 32 420 53 10
 
   # Custom CSS file
-  #custom_css_url: views/static/custom.css
+  custom_css_url: views/static/custom.css
 
   # Enable Google Analytics by specifying account key
   # google_analytics:

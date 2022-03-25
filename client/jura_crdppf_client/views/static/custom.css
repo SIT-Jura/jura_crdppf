@@ -1,0 +1,15 @@
+/* Reduce maximum logo width for desktop layout */
+@media (min-width: 1200px) {
+    /*Taille logo CH*/
+    .oereb-client-federal-logo{
+        max-width: 300px;
+    }
+    /*Taille logo JU*/
+    .oereb-client-authority-logo{
+        max-width: 200px;
+    }
+    /*Taille logo commune*/
+    .oereb-client-municipality-logo{
+        max-width: 75px;
+    }
+}
