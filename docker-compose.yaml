@@ -38,7 +38,7 @@ services:
       CATALINA_OPTS: >-
         -Xmx512M
     volumes:
-      - ./print-apps:/usr/local/tomcat/webapps/ROOT/print-apps:ro
+      - ./print/print-apps:/usr/local/tomcat/webapps/ROOT/print-apps:ro
 
   oereb-client:
     build:
