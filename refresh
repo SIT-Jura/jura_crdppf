@@ -1,0 +1,20 @@
+#!/bin/bash
+date
+echo "--------------------------------------------------------------------"
+
+#stop and down docket instance
+echo "docker-compose down"
+docker-compose down
+echo ""
+
+#build
+echo make serve
+make serve
+echo ""
+
+echo ""
+echo "Suppressions des pdf provisoire"
+rm -rf /var/sig/sitj/_crdppf_pdf_prov/*.pdf
+
+
+date
