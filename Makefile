@@ -23,7 +23,7 @@ build: .venv/install-timestamp build-print-image
 	$(VENV_BIN)/docker-compose build
 
 build-print-image:
-	cd print/docker ; docker build -t jura-crdppf-print-v2 . ; cd ../..
+	cd print/docker ; docker build -t sitj/jura-crdppf-print-v2  . ; cd ../..
 
 .venv/timestamp:
 	python3 -m virtualenv --python=$(PYTHON_VERSION) .venv
