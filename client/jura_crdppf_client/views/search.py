@@ -36,7 +36,7 @@ def hook_address(config, response, lang, default_lang):
         result_label = result_properties.get('label')
         log.info("hook_address reading feature with layername {}, label {}".format(result_properties.get('layer_name'), result_label))
         results.append({
-            'label': result_label[0:-10],
+            'label': result_label[0:],
             'coordinates': result.get('geometry').get('coordinates')
         })
 
