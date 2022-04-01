@@ -54,15 +54,15 @@ oereb_client:
 
   # Search configuration
   search:
-    - title:
-        - Language: fr
-          Text: E-GRID
-      url: !ENV ${SEARCH_URL}
-      params:
-        limit: 5
-        prefix: egr
-      hook_method: jura_crdppf_client.views.search.hook_egrid
-      verify_certificate: False
+##    - title:
+##        - Language: fr
+##          Text: E-GRID
+##      url: !ENV ${SEARCH_URL}
+##      params:
+##        limit: 5
+##        prefix: egr
+##      hook_method: jura_crdppf_client.views.search.hook_egrid
+##      verify_certificate: False
     - title:
         - Language: fr
           Text: Adresse
@@ -74,7 +74,7 @@ oereb_client:
       verify_certificate: False
     - title:
         - Language: fr
-          Text: Parcelles
+          Text: Parcelle / EGRID
       url: !ENV ${SEARCH_URL}
       params:
         limit: 5

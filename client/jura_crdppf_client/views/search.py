@@ -5,24 +5,24 @@ import logging
 log = logging.getLogger(__name__)
 
 
-def hook_egrid(config, response, lang, default_lang):
-    if len(response.get('features')) < 1:
-        return None
-
-    results = []
-
-    for result in response.get('features'):
-        result_properties = result.get('properties')
-        result_label = result_properties.get('label')
-        log.info("hook_egrid reading feature with layername {}, label {}".format(result_properties.get('layer_name'), result_label))
-
-        egrid = result_label[8:]
-        results.append({
-            'label': egrid,
-            'egrid': egrid
-        })
-
-    return results
+##def hook_egrid(config, response, lang, default_lang):
+##    if len(response.get('features')) < 1:
+##        return None
+##
+##    results = []
+##
+##    for result in response.get('features'):
+##        result_properties = result.get('properties')
+##        result_label = result_properties.get('label')
+##        log.info("hook_egrid reading feature with layername {}, label {}".format(result_properties.get('layer_name'), result_label))
+##
+##        egrid = result_label[8:]
+##        results.append({
+##            'label': egrid,
+##            'egrid': egrid
+##        })
+##
+##    return results
 
 
 def hook_address(config, response, lang, default_lang):
