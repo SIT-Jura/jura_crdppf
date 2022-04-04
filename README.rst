@@ -19,7 +19,7 @@ Répertoire instance principale
 
 .. code::
 
-   git clone git@github.com:camptocamp/jura_crdppf.git
+   git clone git@github.com:SIT-Jura/jura_crdppf.git
 
    cd jura_crdppf
 
