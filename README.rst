@@ -1,14 +1,21 @@
-[![CI](https://github.com/camptocamp/jura_crdppf/workflows/CI/badge.svg?branch=main)](https://github.com/camptocamp/jura_crdppf/actions)
-
-Welcome to the jura_crdppf project.
+Welcome to the jura_crdppf project
+============
 
 jura_crdppf is a container web application for
 `pyramid_oereb <https://github.com/camptocamp/pyramid_oereb>`__,
-configured and customized to be run in Janton Jura's environment.
-See the project `Wiki <https://github.com/camptocamp/jura_crdppf/wiki>`__ for more information.
+configured and customized to be run in Canton Jura's environment.
+See the project `Wiki <https://github.com/SIT-Jura/jura_crdppf/wiki>`__ for more information.
 
-Checkout
+Installation
 --------
+
+Repértoire privé
+
+    cd
+
+Répertoire instance principale
+    
+    cd /var/www/vhosts/sitj/private
 
 .. code::
 
@@ -37,6 +44,18 @@ Then run:
 .. code::
 
   make serve
+
+Automatic Build and serve
+---------------
+
+La commande ``./refresh`` permet de faire un build automatiquement.
+
+Elle va effectuer les commande suivantes:
+
+- ``docker-compose down``
+- ``make serve``
+- Suppression de pdf provisoire dans ``/var/sig/sitj/_crdppf_pdf_prov/``
+
 
 Make it accessible
 ------------------
