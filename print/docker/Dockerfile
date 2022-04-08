@@ -1,4 +1,4 @@
-FROM camptocamp/mapfish_print:3.28.1
+FROM camptocamp/mapfish_print:3.28
 
 COPY root /
 RUN update-ca-certificates
