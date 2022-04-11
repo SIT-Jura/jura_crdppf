@@ -113,6 +113,8 @@ oereb_client:
     email: scg.sdt@jura.ch
     phone: +41 32 420 53 10
 
+  user_guide: https://geo.jura.ch/doc/Aide/Aide_CRDPPF.pdf
+
   # Custom CSS file
   custom_css_url: views/static/custom.css
 
