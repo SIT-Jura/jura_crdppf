@@ -92,7 +92,7 @@ oereb_client:
       - "wfs_layer=cadastre_bienfond"
       - "wfs_egris_egrid={egrid}"
       - "no_redirect="
-#       - "theme=CRDPPF"
+      - "theme=Cadastre RDPPF"
 #      - "tree_groups=CRDPPF"
 #      - "tree_groups=Bau- und Strassenlinien,Kataster belasteter Standorte,Lärm,Nutzungsplan"
 #      - "tree_group_layers_Bau- und Strassenlinien=statische_waldgrenzen,baulinien_kommunal_waldabstandslinien,baulinien_kommunal,baulinien_kantonal"
