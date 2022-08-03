@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 requires = [
-    'pyramid_oereb[recommend]==2.0.1'
+    'pyramid_oereb[recommend]==2.1.1'
 ]
 
 setup(
