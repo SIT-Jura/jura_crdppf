@@ -64,12 +64,13 @@ templates:
                 default: None
             RealEstate_Type_Text: !string {}
             RealEstate_Canton: !string {}
+            PrintMunicipalityName: !boolean {}
             RealEstate_MunicipalityName: !string {}
             RealEstate_SubunitOfLandRegister: *optStr
             Display_RealEstate_SubunitOfLandRegister: !boolean
                 default: true
             Display_Certification: !boolean
-                default: true
+                default: false
             Display_QRCode: !boolean
                 default: true
             RealEstate_MunicipalityCode: !string {}
