@@ -169,7 +169,7 @@ vars:
       # An online link to web presentation of your office. For instance: https://www.geo.bl.ch/
       office_at_web: http://www.jura.ch/scg
       # The street name of the address of your office. For instance: Mühlemattstrasse
-      street: Rue des Moulins
+      street: Rue du 24-Septembre
       # The street number of the address of your office. For instance: 36
       number: 2
       # The ZIP code of the address of your office. For instance: 4410
