@@ -108,7 +108,7 @@ oereb_client:
     office2:
       - Language: fr
         Text: Section du cadastre et de la geoinformation
-    street: Rue des Moulins 2
+    street: Rue du 24-Septembre
     city: 2800 Delémont
     email: scg.sdt@jura.ch
     phone: +41 32 420 53 10
