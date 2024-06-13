@@ -110,7 +110,7 @@ oereb_client:
         Text: Section du cadastre et de la geoinformation
     street: Rue du 24-Septembre
     city: 2800 Delémont
-    email: scg.sdt@jura.ch
+    email: sit@jura.ch
     phone: +41 32 420 53 10
 
   user_guide: https://geo.jura.ch/doc/Aide/Aide_CRDPPF.pdf
