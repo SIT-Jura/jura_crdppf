@@ -1772,7 +1772,11 @@ vars:
           extract_code: Hint
           transfer_code: Hinweis
 
-    # The error message returned if an error occurs when requesting a static extract
+  # Option to check certificate for external WMS calls in standard and oereblex themes.
+    # Default and recommended setting: True
+    verify_certificate_wms: False   
+
+   # The error message returned if an error occurs when requesting a static extract
     # The content of the message is defined in the specification (document "Inhalt und Darstellung des statischen Auszugs")
     static_error_message:
       de: "Ein oder mehrere ÖREB-Themen stehen momentan nicht zur Verfügung. Daher kann kein Auszug erstellt werden. Versuchen Sie es zu einem späteren Zeitpunkt erneut. Wir entschuldigen uns für die Unannehmlichkeiten."
