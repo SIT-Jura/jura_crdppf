@@ -1,8 +1,8 @@
-PYTHON_VERSION ?= python3.7
+PYTHON_VERSION ?= python3.11
 VENV_BIN ?= .venv/bin/
 PIP_UPDATE = $(VENV_BIN)pip3 install --upgrade pip
 #PIP_OPTIONS ?= --trusted-host pypi.org --trusted-host files.pythonhosted.org --extra-index-url https://test.pypi.org/simple
-PIP_CMD ?= $(VENV_BIN)pip3 install ${PIP_OPTIONS} docker-compose flake8
+PIP_CMD ?= $(VENV_BIN)pip3 install ${PIP_OPTIONS} flake8
 
 PACKAGE ?= jura_crdppf
 
@@ -20,7 +20,7 @@ help:
 
 .PHONY: build
 build: .venv/install-timestamp build-print-image
-	$(VENV_BIN)/docker-compose build
+	docker compose build
 
 build-print-image:
 	cd print/docker ; docker build -t sitj/jura-crdppf-print-v2  . ; cd ../..
@@ -36,11 +36,11 @@ build-print-image:
 
 .PHONY: serve
 serve: build 
-	$(VENV_BIN)/docker-compose up --remove-orphans -d
+	docker compose up --remove-orphans -d
 
 .PHONY: stop
 stop:
-	$(VENV_BIN)/docker-compose down --remove-orphans
+	docker compose down --remove-orphans
 
 .PHONY: lint
 lint: .venv/install-timestamp
