@@ -37,7 +37,7 @@ oereb_client:
   base_layer:
     type: wmts
     url: https://geo.jura.ch/tiles/1.0.0/WMTSCapabilities.xml
-    layer: plan_cadastral
+    layer: sdt_01_03_mensuration_officielle
     matrixSet: swissgrid
     projection: "EPSG:2056"
     style: default
