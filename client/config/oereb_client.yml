@@ -89,7 +89,7 @@ oereb_client:
         Text: Aller sur le géoportail cantonal
     url: https://geo.jura.ch
     params:
-      - "wfs_layer=cadastre_bienfond"
+      - "wfs_layer=sdt_01_04_md_sit_bf_interrogation"
       - "wfs_egris_egrid={egrid}"
       - "no_redirect="
       - "theme=Cadastre RDPPF"
