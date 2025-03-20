@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 requires = [
-    'oereb-client==2.1.3'
+    'oereb-client==2.2.0'
 ]
 
 setup(name='jura_crdppf_client',
