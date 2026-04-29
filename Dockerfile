@@ -1,4 +1,4 @@
-FROM python:3.9-slim
+FROM python:3.11
 LABEL maintainer "info@camptocamp.org"
 ARG PYTHON_DEV_PACKAGES="build-essential"
 ARG DEV_PACKAGES="libgeos-c1v5 libpq-dev libgeos-dev"
